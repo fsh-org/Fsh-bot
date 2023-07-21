@@ -1,0 +1,4 @@
+```ansi
+[2;47m[2;33mYou just got lemoned by {a}
+use fsh!lemon <user> to totally lemon them [0m[0m
+```

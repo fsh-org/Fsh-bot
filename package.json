@@ -1,0 +1,71 @@
+{
+  "name": "Fsh-Bot",
+  "version": "0.4.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "stert": "node index.js",
+    "start": "printf \"\\033c\" && echo \"\n\\033[1;32m[replit] Type 'rs' in the console to restart repl\ninstead of the stop button\\033[0m\n\" && nodemon -x 'node index.js || touch index.js' --ignore /",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "fsh",
+    "bot",
+    "discord",
+    "ai",
+    "moderation",
+    "music",
+    "fun",
+    "lemon",
+    "fish",
+    "api",
+    "grey",
+    "that one fishy bot"
+  ],
+  "author": [
+    {
+      "name": "frostzzone",
+      "country": "Western United States"
+    },
+    {
+      "name": "inventionpro",
+      "country": "Northern Spain"
+    }
+  ],
+  "license": "CC-BY-NC-4.0",
+  "dependencies": {
+    "@haileybot/captcha-generator": "^1.7.0",
+    "@replit/node-fetch": "^3.1.0",
+    "@types/node": "^18.0.6",
+    "@vitalets/google-translate-api": "^9.1.0",
+    "axios": "^1.3.5",
+    "body-parser": "^1.20.2",
+    "cheerio": "^1.0.0-rc.12",
+    "cors": "^2.8.5",
+    "craiyon": "^1.0.0",
+    "discord-censor": "^1.0.9",
+    "discord-gamecord": "^4.4.0",
+    "discord-image-generation": "^1.4.25",
+    "discord-logs": "^2.0.0",
+    "discord.js": "^14.11.0",
+    "easy-json-database": "^1.5.0",
+    "ejs": "^3.1.9",
+    "express": "^4.18.2",
+    "http-proxy-agent": "^5.0.0",
+    "https-proxy-agent": "^5.0.1",
+    "jimp": "^0.22.7",
+    "js-beautify": "^1.14.7",
+    "moment": "^2.29.4",
+    "ms": "^2.1.3",
+    "musakui": "^1.0.0",
+    "node-fetch": "^3.2.6",
+    "os-utils": "^0.0.14",
+    "path": "^0.12.7",
+    "snakecord": "^1.0.9",
+    "socket.io": "^4.7.1",
+    "write": "^2.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  }
+}

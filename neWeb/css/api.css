@@ -1,0 +1,192 @@
+:root {
+  /* vars */
+  --BORDER: rgba(250, 250, 250, 0.075);
+  --BORDERHOVER: rgba(250, 250, 250, 0.175);
+  --BG: #332a41;
+  --FG: rgba(250, 250, 250, 0.075);
+  --FONT: "Space Mono", monospace;
+  --FONT-COLOR: #fff;
+}
+a {
+  text-decoration: none;
+}
+.content {
+  --margin: 30px;
+  margin-left: var(--margin);
+  margin-top: var(--margin);
+  margin-right: var(--margin);
+  margin-bottom: var(--margin);
+  padding: var(--margin);
+  font-family: var(--FONT);
+  background-color: var(--FG);
+  border-color: var(--BORDER);
+  border-width: 2px;
+  border-style: solid;
+  border-radius: var(--margin);
+  backdrop-filter: blur(15px);
+}
+.content #full {
+  min-height: 91.2vh !important;
+}
+.content p {
+  color: var(--FONT-COLOR);
+  font-size: 125%;
+}
+.content h1 {
+  color: var(--FONT-COLOR);
+  font-size: 175%;
+  font-weight: 550;
+}
+.content h2 {
+  color: var(--FONT-COLOR);
+  font-size: 155%;
+  font-weight: 535;
+}
+.content h3 {
+  color: var(--FONT-COLOR);
+  font-size: 155%;
+  font-weight: 535;
+}
+.content a {
+  color: rgb(0, 174, 255);
+}
+html {
+  background: url(https://c4.wallpaperflare.com/wallpaper/531/951/621/digital-digital-art-artwork-illustration-minimalism-hd-wallpaper-preview.jpg);
+  background-size: cover;
+  backdrop-filter: brightness(25%);
+  margin: 0 0 0 0 !important;
+}
+body {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+ul {
+  color: var(--FONT-COLOR);
+}
+/* game gallery */
+div.gallery {
+  border: 2px solid var(--BORDER);
+  border-radius: 7.5px;
+  float: left;
+  height: 35vh; /*360px*/
+  width: 100%;
+  transition: border-color 0.5s;
+}
+div.gallery img {
+  height: 75%;
+  object-fit: cover;
+  width: 100%;
+  border-radius: 6.5px 6.5px 0px 0px;
+}
+div.gallery:hover {
+  border-color: var(--BORDERHOVER);
+}
+.gamesa {
+  text-align: center;
+}
+.desc {
+  text-align: center;
+  color: var(--FONT-COLOR);
+  position: relative;
+  top: calc(25% - (4em));
+}
+.row {
+  padding: 15px 0px 15px 0px;
+}
+.row {
+  display: -webkit-flex;
+  display: flex;
+}
+.column {
+  margin: 0 15px 0 15px;
+}
+.column.side {
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+}
+
+/*topnav*/
+.topnav {
+  --margin: 20px;
+  padding-left: var(--margin);
+  padding-top: var(--margin);
+  padding-right: var(--margin);
+  padding-bottom: var(--margin);
+  background-color: rgba(0, 0, 0, 0.4);
+}
+.spacer {
+  flex: 1 auto;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.topnav h2 {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.topnav a img {
+  size: 3px;
+}
+.topnav {
+  position: sticky;
+  bottom: 00px;
+}
+.logo {
+  position: absolute;
+  top: 36%;
+  text-decoration: none;
+  color: #f0f0f0;
+  font-size: 200%;
+  font-family: monospace;
+  font-weight: 600;
+}
+.link {
+  position: sticky;
+  top: -1.7vh;
+  text-decoration: none;
+  font-size: 150%;
+  color: #f0f0f0;
+}
+.topnav {
+  position: sticky;
+  height: 5vh;
+}
+.topnav img {
+  transition: filter 0.25s;
+  filter: brightness(0.635);
+  margin: 3px 3px 3px 3px;
+  height: 45px;
+}
+.topnav img:hover {
+  filter: brightness(1);
+}
+.topnav .logo {
+  transition: color 0.25s;
+  text-decoration: none;
+}
+.topnav .logo:hover {
+  color: rgb(156, 224, 255);
+}
+header {
+  position: sticky;
+}
+/*scrollbar*/
+body {
+  --sc-width: 15px;
+  --sc-radius: 5px;
+  --sc-color: rgb(112, 112, 112);
+  --sc-bg: rgb(63, 63, 63);
+}
+::-webkit-scrollbar {
+  width: var(--sc-width);
+}
+::-webkit-scrollbar-track {
+  /*border-radius:var(--sc-radius);*/
+  background: var(--sc-bg);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--sc-color);
+  border-radius: var(--sc-radius);
+}

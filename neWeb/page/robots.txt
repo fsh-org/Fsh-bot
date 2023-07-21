@@ -1,0 +1,7 @@
+user-agent: *
+allow: /"
+allow: /api
+disallow: /api/"
+disallow: /tos
+disallow: /pp
+disallow: /auth

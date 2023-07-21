@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Main page for the discord bot Fsh
+    Invite at https://fsh-bot.frostzzone.repl.co/invite"
+    />
+    <meta
+      property="og:image"
+      content="https://fsh-bot.frostzzone.repl.co/asset?media=logo.png"
+    />
+    <meta name="theme-color" content="#a89c9b" />
+    <!--<meta http-equiv="Content-Security-Policy" content="script-src https://fsh-bot.frostzzone.repl.co">-->
+    <link
+      rel="stylesheet"
+      href="https://fsh-bot.frostzzone.repl.co/css?css=api.css"
+    />
+    <link rel="icon" href="../assets/logo.png" type="image/png" />
+    <title>Fsh - Main page</title>
+    <style>
+      @font-face {
+        font-family: "Ubuntu", sans-serif;
+        src: url("https://fonts.googleapis.com/css2?family=Ubuntu:wght@500&display=swap");
+      }
+
+      html {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        background-image: url("https://c4.wallpaperflare.com/wallpaper/535/845/69/digital-art-artwork-fantasy-art-planet-sun-hd-wallpaper-preview.jpg");
+        background-repeat: no-repeat;
+        background-size: cover;
+      }
+
+      body {
+        margin: 0;
+        background-color: rgba(0, 0, 0, 0.5);
+        width: 100%;
+        height: 100%;
+      }
+
+      /* Styles for the tilt block */
+      .tilt {
+        backdrop-filter: none;
+        padding: 5px;
+        border-radius: 10px;
+        float: left;
+        height: 210px;
+        width: 310px;
+        background-color: grey;
+        margin: 50px 50px 50px 50px;
+        transition: box-shadow 0.1s, transform 0.1s;
+        background-size: 105%;
+        background-repeat: no-repeat;
+        color: white;
+        font-family: "Ubuntu", sans-serif;
+      }
+
+      .tilt:hover {
+        box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.6);
+        cursor: pointer;
+      }
+
+      .tilt .content {
+        backdrop-filter: none;
+        background-color: rgba(0, 0, 0, 0.356);
+        border-radius: 10px;
+        height: calc(100% + 4px);
+        width: calc(100%);
+        font-size: small;
+        padding: 3px;
+        padding-inline: 5px;
+        position: relative;
+        margin: 0;
+        top: -5px;
+        left: -5px;
+        border: none;
+      }
+
+      h2 {
+        margin-top: 0;
+      }
+
+      .content {
+        float: initial;
+      }
+      #main {
+        font-family: "Ubuntu" !important;
+      }
+      .content {
+        height: calc(100vh - 120px);
+      }
+    </style>
+    <!-- gogol ads shoc -->
+  </head>
+  <body id="main">
+    <div class="content" id="full">
+      <h1 align="center">Fsh</h1>
+
+      <a
+        class="tilt"
+        style="
+          background-image: url(https://fsh-bot.frostzzone.repl.co/asset?media=logo.png);
+        "
+        href="api"
+      >
+        <div class="content">
+          <p></p>
+          <h2> API Docs</h2>
+          <p> Documentation for Fsh api</p>
+        </div>
+      </a>
+      <a
+        class="tilt"
+        style="
+          background-image: url(https://fsh-bot.frostzzone.repl.co/asset?media=logo.png);
+        "
+        href="https://statuspage.freshping.io/66178-Fsh/"
+      >
+        <div class="content">
+          <p></p>
+          <h2> Status</h2>
+          <p> Bot, Website and API status</p>
+        </div>
+      </a>
+    </div>
+  </body>
+  <script>
+    /* Store the elements with class "tilt" in elements */
+    let elements = Array.from(document.getElementsByClassName("tilt"));
+
+    /* For each 'item' in the "elements" array... */
+    elements.forEach((item) => {
+      /* Assign each 'item' in the "elements" array to a variable called "el" */
+      let el = item;
+
+      /*
+       * Add a listener for mousemove event
+       * Which will trigger function 'handleMove'
+       * On mousemove
+       */
+      el.addEventListener("mousemove", handleMove);
+
+      /* Get the height and width of the element */
+      const height = el.clientHeight;
+      const width = el.clientWidth;
+
+      /* Define function a */
+      function handleMove(e) {
+        /*
+         * Get position of mouse cursor
+         * With respect to the element
+         * On mouseover
+         */
+        /* Store the x position */
+        const xVal = e.layerX;
+        /* Store the y position */
+        const yVal = e.layerY;
+
+        /*
+         * Calculate rotation valuee along the Y-axis
+         * Here the multiplier 20 is to
+         * Control the rotation
+         * You can change the value and see the results
+         */
+        const yRotation = 20 * ((xVal - width / 2) / width);
+
+        /* Calculate the rotation along the X-axis */
+        const xRotation = -20 * ((yVal - height / 2) / height);
+
+        /* Generate string for CSS transform property */
+        const string =
+          "perspective(500px) scale(1.1) rotateX(" +
+          xRotation +
+          "deg) rotateY(" +
+          yRotation +
+          "deg)";
+
+        /* Apply the calculated transformation */
+        el.style.transform = string;
+      }
+
+      /* Add listener for mouseout event, remove the rotation */
+      el.addEventListener("mouseout", function () {
+        el.style.transform =
+          "perspective(500px) scale(1) rotateX(0) rotateY(0)";
+      });
+
+      /* Add listener for mousedown event, to simulate click */
+      el.addEventListener("mousedown", function () {
+        el.style.transform =
+          "perspective(500px) scale(0.9) rotateX(0) rotateY(0)";
+      });
+
+      /* Add listener for mouseup, simulate release of mouse click */
+      el.addEventListener("mouseup", function () {
+        el.style.transform =
+          "perspective(500px) scale(1.1) rotateX(0) rotateY(0)";
+      });
+    });
+  </script>
+</html>
