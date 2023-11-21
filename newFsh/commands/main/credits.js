@@ -12,21 +12,13 @@ module.exports = {
         return fsh.client.users.cache.get(id).username;
       }
     }
-    var credits = new Discord.EmbedBuilder();
-    credits.setTitle("Credits");
-    credits.setFooter({
-      text: String("V" + String(fsh.version)),
-    });
-    credits.setTimestamp(new Date());
-    credits.setColor("#999999");
-    credits.setDescription(
-      String(
-        `Created and maintained by ${userin("712342308565024818")} and ${userin(
-          "816691475844694047"
-        )}\n(note: field below iclude devs)`
-      )
-    );
-    credits.addFields(
+    var credits = new Discord.EmbedBuilder()
+    .setTitle("Credits")
+    .setFooter({ text: `V${fsh.version}` })
+    .setTimestamp(new Date())
+    .setColor("#999999")
+    .setDescription(`Created and maintained by ${userin("712342308565024818")} and ${userin("816691475844694047")}\n(note: field below icludes devs even if not shown)`)
+    .addFields(
       {
         name: String("Code / Features"),
         value: String(`> ${userin("439788095483936768")} [${
@@ -54,13 +46,12 @@ module.exports = {
         name: String("Bot partners"),
         value:
           String(`Commands or features that are only available when certain bots are on the server
-            > :snake: Python Bot [:link:](https://discord.com/api/oauth2/authorize?client_id=912745278187126795&permissions=1239836650583&scope=applications.commands%20bot)
+            > :snake: Python Bot [${fsh.emojis.link}](https://discord.com/api/oauth2/authorize?client_id=912745278187126795&permissions=1239836650583&scope=applications.commands%20bot)
             > :cat: s4d utilities
             > :game_die: s4d economy`),
         inline: false,
       }
     );
-
     message.channel.send({
       embeds: [credits],
     });

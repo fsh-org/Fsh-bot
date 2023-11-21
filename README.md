@@ -1,10 +1,3 @@
-<!--
-hallo
-hallo
-[Deleted image very reel]
-alot of packages
--->
-
 # Fsh bot
 
 Fsh a bot for your members with a little bit of everything
@@ -37,15 +30,10 @@ Fsh a bot for your members with a little bit of everything
   - Translation
   - Image editing
 
-### API [(LINK)](https://fsh-bot.frostzzone.repl.co/api)
-
-- HTML content of page
-- Censoring text
-- Ai images
-- Animal images
-
 ### Soon to come
 
 - Music
 - Admin / modding commands
-  by: Frostzzone & Inventionpro
+
+
+by: Frostzzone & Inventionpro

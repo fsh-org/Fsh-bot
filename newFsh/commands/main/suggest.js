@@ -1,34 +1,38 @@
+const Discord = require("discord.js")
+
 module.exports = {
   name: "suggest",
-  params: ["item", true],
-  info: "Suggest features or report bugs",
+  params: ["thing", true],
+  info: "Suggest features to be added",
   category: "main",
   async execute(message, arguments2, fsh) {
-    if (!arguments.length)
-      return message.channel.send({
-        content: String("Please actually suggest somthing to send"),
+    if (!arguments.length) {
+      message.channel.send({
+        content: "Please actually suggest something to send"
       });
-    let content = `${message.author.username} (<@${message.author.id}>/${
-      message.author.id
-    }) **suggested:**\n${arguments2.join(" ")}`;
-    // not send to channel while censor api no workie
-    if (false) {
-      fsh.client.channels.cache
-        .get("1117473022878687392")
-        .send({
-          content,
-        })
-        .then((suggested) => {
-          suggested.react("👍");
-          suggested.react("👎");
-        });
-    } else {
-      fsh.client.users.cache.get("816691475844694047").send({
-        content,
-      });
+      return;
     }
+    let text = await fetch(`https://api.fsh.plus/filter?text=${arguments2.join(" ").replaceAll(" ","%20")}`);
+    text = await text.json();
+    text = text.censor.replaceAll("%20"," ")
+    let embed = new Discord.EmbedBuilder()
+      .setTitle(`${fsh.emojis.envelope} Suggestion`)
+      .setDescription(text)
+      .setTimestamp()
+      .setFooter({ text: `V${fsh.version}` })
+      .setAuthor({
+        name: `${message.member.user.username} (${message.author.id})`,
+        iconURL: message.member.user.displayAvatarURL({ format: "png" }),
+      })
+      .setColor("#888888");
+    fsh.client.channels.cache.get("1117473022878687392").send({
+      embeds: [embed]
+    }).then((suggested) => {
+      suggested.react(fsh.emojis.thumbsup);
+      suggested.react(fsh.emojis.thumbsdown);
+    });
     message.channel.send({
-      content: String("suggestion sent"),
+      content: "suggestion sent",
     });
   },
 };

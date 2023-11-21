@@ -1,72 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta
-      name="description"
-      content="API page for the discord bot Fsh
-    Invite at https://fsh-bot.frostzzone.repl.co/invite"
-    />
-    <meta
-      property="og:image"
-      content="https://fsh-bot.frostzzone.repl.co/asset?media=logo.png"
-    />
-    <meta name="theme-color" content="#a89c9b" />
-    <link
-      rel="stylesheet"
-      href="https://fsh-bot.frostzzone.repl.co/css?css=api.css"
-    />
-    <link
-      rel="icon"
-      href="https://fsh-bot.frostzzone.repl.co/asset?media=logo.png"
-      type="image/png"
-    />
-    <title>Fsh - API docs</title>
-    <style>
-      #main-doc p {
-        font-size: 90%;
-      }
-    </style>
+    <title>Api - Fsh bot</title>
+    <!-- Boiler plate------ -->
+    <link rel="icon" href="https://fsh.plus/fsh.png" type="image/png">
+    <meta name="description" content="Invite Fsh bot, a bot for your members with a little bit of everything">
+    <!-- ------- -->
+    <link rel="stylesheet" href="https.plus/style.css">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og:image" content=.plus/fsh.png"/>
+    <meta name="theme-color" content="#a89c9b">
+    <!-- ------------------ -->
   </head>
   <body>
-    <div class="content" id="full">
-      <h1>Api documentation</h1>
-      <p>
-        Add ?plain=1 at the end of urls to get non json responses<br />
-        <span style="font-size: small"
-          >{} is the request type needed<br />
-          [] for parameters (?thing=thang)</span
-        >
-      </p>
-      <hr />
-      <span id="main-doc">
-        <h2>Fsh bot api</h2>
-        <p>/ping {get} - Responds with bot ping</p>
-        <p>/info {get} - Responds with bot info</p>
-        <h2>Text api</h2>
-        <p>
-          /filter {get} [text] - Responds with true if text doesn't have bad
-          works else false
-        </p>
-        <p>
-          /censor {get} [text] - Responds with inputed text but bad words are
-          censored
-        </p>
-        <p>/page {get} [url] - Get page contents of an url</p>
-        <h2>Image api</h2>
-        <p>
-          /animal {get} [animal] - Responds with random animal (leave animal
-          empty for animal list)
-        </p>
-        <p>
-          /imagine {get} [text] - Responds with ai image from text (may take up
-          to 2 minutes)
-        </p>
-        <h2>Deprecated</h2>
-        <p>/fish {get} - get random fish image</p>
-      </span>
-    </div>
+    <h1>Fsh bot Api documentation</h1>
+    <p>{} is the request type needed<br>[] for parameters (?thing=thang)</p>
+    <p>Depracated: Add ?plain=1 at the end of urls to get non json responses (Do not longer use, it will no longer be supported)</p>
+    <hr>
+    <h2>Data api</h2>
+    <p>/ping {get} - Responds with bot ping</p>
+    <p>/info {get} - Responds with bot info</p>
   </body>
 </html>

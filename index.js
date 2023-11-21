@@ -2,57 +2,28 @@
     - By Frostzzone 🧊 & Inventionpro 🐱 -
 */
 
-/* -- App Settings -- */
-// note to anyone that is going to use this: mantinence and old fsh are depracated and will not be upfated
-const mantinence = false; // requires d.js v13.6.0 (active or not)
-const newfsh = true; // requires d.js v14.11.0 (if mantinence not active)
-
 /* -- Start code -- */
 const fs = require("fs");
 console.clear();
 console.log(fs.readFileSync("text/start.txt", "utf8"));
 console.log(`[1;34mDiscord.js[0m: ${require("discord.js").version}`);
 
-if (mantinence) {
-  console.log("[1;30mRunning in mantinence mode[0m");
-  if (
-    !require("./package.json").dependencies["discord.js"].startsWith("^13.16")
-  ) {
-    throw new Error("[1;31mMantinence mode requires d.js@13.16.0[0m");
-  } else {
-    require("./code/mantinence.js");
-  }
-} else {
-  if (newfsh) {
-    if (
-      !require("./package.json").dependencies["discord.js"].startsWith("^14.11")
-    ) {
-      throw new Error("[1;31mNew mode requires d.js@14.11.0[0m");
-    } else {
-      require("./newFsh/index.js");
-    }
-  } else {
-    if (
-      !require("./package.json").dependencies["discord.js"].startsWith("^13.16")
-    ) {
-      throw new Error("[1;31mOld mode requires d.js@13.16.0[0m");
-    } else {
-      require("./code/index.js");
-    }
-  }
-} /*
+if (!require("./package.json").dependencies["discord.js"].startsWith("^14"))
+  return new Error("␛[1;31mBot requires d.js@14.13.0␛[0m");
+require("./newFsh/index.js");
 
-/* -- Cursor rest area -- */ /*
+/*
+          -- Cursor rest area --
 
     | Cafe ☕ |          |animal thing|
   __|__ 5$ ___|__       _|____________|_
-  | [☕]  [☕]  |      |            [🐈|
+  | [☕]  [☕]  |      |__|         [🐈|
   | [☕]  [🍵]  |      |            [🐕|
   | [🍵]  [🍵]  |      |            [🐟|
   |            🚪      🚪           [🐢|
   ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾       ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
 
-*/ /* -- Cursor Park -- */ /*
+                  -- Cursor Park --
 
 🌳🌳🌳🌳🌳🌳🌳🌳🌳🌳🌳🌳🌳🌳🌳🌳🌳🌳🌳🌳🌳🌳🌳🌳🌳🌳🌳🌳
 🌳                                                      🌳
@@ -64,7 +35,7 @@ if (mantinence) {
 🌳                                                      🌳
 🌳🌳🌳🌳🌳🌳🌳🌳🌳🌳🌳🌳🌳🌳🌳🌳🌳🌳🌳🌳🌳🌳🌳🌳🌳🌳🌳🌳
 
-*/ /* -- Chat Box (very reel) -- */ /*
+          -- Chat Box (very reel) --
 
  Froz
  - 👍👍
@@ -75,17 +46,33 @@ if (mantinence) {
  - its funni
  - imagine this is an easter egg :trol:
  Inv
- - well now that code is public only thoose who look thought it will see so yes easter egg
- - how you do emojis??
+ - well now that code is public only thoose who look throught it will see so yes easter egg
  Froz
- - windows key + period
- Inv -
- .......,ehhh no worki
- Froz
- - really?
+ - do we actually need all these packages
  Inv
- - yes, is it like windows 10+?
+ - not all of them
  Froz
- - idk, maybe
- 
+ - do i `prune` them
+ Inv
+ - what that do
+ Froz
+ - remove unused packages
+ Inv
+ - well yes
+ Froz
+ - all current packages are used by some files
+ Inv
+ - oh , unused packages are used in old s4d file
+ Froz
+ - ye
+ Inv
+ - do we make old file a txt so it doesn't count?
+ Froz
+ - that or i can do a thing
+ Inv
+ - what thing
+ Froz
+ - ye sure make it .txt
+ Inv
+ - Done
 */

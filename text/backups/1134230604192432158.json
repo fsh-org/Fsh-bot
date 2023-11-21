@@ -1,0 +1,200 @@
+{
+  "Channels": [
+    {
+      "name": "Category 1",
+      "id": "1134230604632825867",
+      "position": "0",
+      "parent": "null",
+      "type": "4"
+    },
+    {
+      "name": "channel-1",
+      "id": "1134230605069045901",
+      "position": "0",
+      "parent": "<#1134230604632825867>",
+      "topic": "",
+      "nsfw": "false",
+      "type": "0"
+    },
+    {
+      "name": "channel-2",
+      "id": "1134231556928581703",
+      "position": "1",
+      "parent": "<#1134230604632825867>",
+      "topic": "null",
+      "nsfw": "false",
+      "type": "0"
+    },
+    {
+      "name": "channel-3",
+      "id": "1134231578978025555",
+      "position": "2",
+      "parent": "<#1134230604632825867>",
+      "topic": "null",
+      "nsfw": "false",
+      "type": "0"
+    },
+    {
+      "name": "Category 2",
+      "id": "1134231632182779964",
+      "position": "1",
+      "parent": "null",
+      "type": "4"
+    },
+    {
+      "name": "text-1",
+      "id": "1134231672624271490",
+      "position": "3",
+      "parent": "<#1134231632182779964>",
+      "topic": "null",
+      "nsfw": "false",
+      "type": "0"
+    },
+    {
+      "name": "voice-6",
+      "id": "1134231698607968416",
+      "position": "1",
+      "parent": "<#1134231632182779964>",
+      "topic": "undefined",
+      "nsfw": "false",
+      "type": "2"
+    },
+    {
+      "name": "rules-2",
+      "id": "1134235498739671040",
+      "position": "4",
+      "parent": "<#1134231632182779964>",
+      "topic": "null",
+      "nsfw": "false",
+      "type": "0"
+    },
+    {
+      "name": "moderator-only",
+      "id": "1134235498739671041",
+      "position": "0",
+      "parent": "null",
+      "topic": "null",
+      "nsfw": "false",
+      "type": "0"
+    },
+    {
+      "name": "forum-3",
+      "id": "1134235679606460567",
+      "position": "5",
+      "parent": "<#1134231632182779964>",
+      "topic": "null",
+      "nsfw": "false",
+      "type": "15"
+    },
+    {
+      "name": "announcement-4",
+      "id": "1134235720547045486",
+      "position": "6",
+      "parent": "<#1134231632182779964>",
+      "topic": "null",
+      "nsfw": "false",
+      "type": "5"
+    },
+    {
+      "name": "stage-5",
+      "id": "1134235775060422766",
+      "position": "0",
+      "parent": "<#1134231632182779964>",
+      "topic": "null",
+      "nsfw": "false",
+      "type": "13"
+    }
+  ],
+  "Roles": [
+    {
+      "name": "@everyone"
+      "id": "1134230604192432158"
+      "icon": "null"
+      "color": "0"
+      "hoist": "false"
+      "position": "0"
+      "managed": "false"
+      "mentionable": "false"
+    },
+    {
+      "name": "1"
+      "id": "1134234727130341479"
+      "icon": "null"
+      "color": "15158332"
+      "hoist": "false"
+      "position": "8"
+      "managed": "true"
+      "mentionable": "false"
+    },
+    {
+      "name": "2"
+      "id": "1134236009190654104"
+      "icon": "null"
+      "color": "15105570"
+      "hoist": "false"
+      "position": "7"
+      "managed": "false"
+      "mentionable": "false"
+    },
+    {
+      "name": "3"
+      "id": "1134236041335799828"
+      "icon": "null"
+      "color": "15844367"
+      "hoist": "false"
+      "position": "6"
+      "managed": "false"
+      "mentionable": "false"
+    },
+    {
+      "name": "4"
+      "id": "1134236058876379217"
+      "icon": "null"
+      "color": "15277667"
+      "hoist": "false"
+      "position": "5"
+      "managed": "false"
+      "mentionable": "false"
+    },
+    {
+      "name": "5"
+      "id": "1134236073422225509"
+      "icon": "null"
+      "color": "10181046"
+      "hoist": "false"
+      "position": "4"
+      "managed": "false"
+      "mentionable": "false"
+    },
+    {
+      "name": "6"
+      "id": "1134236085589901362"
+      "icon": "null"
+      "color": "3447003"
+      "hoist": "false"
+      "position": "3"
+      "managed": "false"
+      "mentionable": "false"
+    },
+    {
+      "name": "7"
+      "id": "1134236101486334012"
+      "icon": "null"
+      "color": "3066993"
+      "hoist": "false"
+      "position": "2"
+      "managed": "false"
+      "mentionable": "false"
+    },
+    {
+      "name": "8"
+      "id": "1134236115365265508"
+      "icon": "null"
+      "color": "1752220"
+      "hoist": "false"
+      "position": "1"
+      "managed": "false"
+      "mentionable": "false"
+    }
+  ]
+}

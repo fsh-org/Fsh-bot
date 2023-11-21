@@ -29,12 +29,12 @@ function mptourl(u, activity) {
 }
 
 module.exports = {
-  name: "activitys",
+  name: "activities",
   params: ["userid/ping", false],
-  info: "Get user activitys",
-  category: "hidden",
+  info: "Get user activities",
+  category: "utility",
   async execute(message, arguments2, fsh) {
-    if (!fsh.devIds.includes(message.author.id)) return;
+    //if (!fsh.devIds.includes(message.author.id)) return;
     /*
 		Playing	0
 		Streaming	1
@@ -65,6 +65,10 @@ module.exports = {
     if (!targetUser.presence) {
       // code
       message.channel.send("not online presence");
+      return;
+    }
+    if(!targetUser.presence.activities){
+      message.channel.send("no activities :<");
       return;
     }
 
@@ -188,7 +192,8 @@ module.exports = {
     });
 
     if (!embeds.length) {
-      message.channel.send("err");
+      message.channel.send("Error: no activities found");
+      console.log(embeds)
     } else {
       message.channel.send({ embeds });
     }

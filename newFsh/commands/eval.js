@@ -1,7 +1,11 @@
+// so many modules god
 const Discord = require("discord.js");
 const os = require("os-utils");
 const https = require("https");
 const axios = require("axios");
+const CRYPTOJS = require("crypto-js");
+const write = require("write");
+const fs = require("fs");
 
 // evel these vars for funnis
 const your_mom = "very large";
@@ -13,8 +17,22 @@ const ddos = function (g) {
   return "ddosing " + g;
 };
 
+const add = function (a, b){
+	if(a==9){
+		if(b==10){
+			return 21
+		}
+	}
+	return Number([a, b].join(''))
+}
+
 function calcmentalageof(person) {
   return person + "is -1 years old in mental age";
+}
+
+function mayo(c) {
+  let time = c*9
+  return `${Math.floor(time / 604800)} weeks ${Math.floor(time / 86400) % 7} days ${Math.floor(time / 3600) % 24} hours ${Math.floor(time / 60) % 60} minutes ${time % 60} seconds`
 }
 
 function nuke(message) {
@@ -48,15 +66,29 @@ module.exports = {
       return;
     }
     try {
-      var evol = new Discord.EmbedBuilder();
-      evol.setTitle(`${fsh.emojis.console} Eval success`);
-      //evol.setURL(String());
-      evol.setColor("#33ff33");
-      evol.setDescription(`Response:\n${await eval(args.join(" "))}`);
+      let time = new Date()/1
+      let res = await eval(args.join(" "))
+      time = (new Date()/1) - time
+      var evol = new Discord.EmbedBuilder()
+      .setTitle(`${fsh.emojis.console} Eval success`)
+      .setColor("#33ff33")
+      .setDescription(`Response:
+\`\`\`js
+${res}
+\`\`\``)
+      .addFields({
+        name: `Type`,
+        value: `\`${typeof(res)}\``,
+        inline: true
+      })
+      .addFields({
+        name: `Time`,
+        value: `\`${time/1000}s\``,
+        inline: true
+      });
     } catch (err) {
       var evol = new Discord.EmbedBuilder();
       evol.setTitle(`${fsh.emojis.console} Eval error`);
-      //evol.setURL(String());
       evol.setColor("#ff0000");
       evol.setDescription(`Response:\n${err}`);
     }

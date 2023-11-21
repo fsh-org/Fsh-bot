@@ -9,10 +9,10 @@ module.exports = {
       // Do stuff
       return;
     }
+    let userId = 0;
     /* -- Is menu -- */
     if (interaction.isStringSelectMenu()) {
       let interId = interaction.customId;
-      let userId = 0;
 
       if (/\%(.*?)\%/g.test(interId)) {
         userId = interId.match(/\%(.*?)\%/g)[0].replace(/%/g, "") || 0;
@@ -26,15 +26,23 @@ module.exports = {
     }
     /* -- Is button -- */
     if (interaction.isButton()) {
-      // Do stuff
+      let interId = interaction.customId;
+
+      if (/\%(.*?)\%/g.test(interId)) {
+        userId = interId.match(/\%(.*?)\%/g)[0].replace(/%/g, "") || 0;
+        interId = interId.replace(/\%(.*?)\%/g, "");
+      }
+      if (!fsh.client.interactions.has(`${interId}-button`)) return;
+      fsh.client.interactions
+        .get(`${interId}-button`)
+        .execute(fsh.client, interaction, userId, fsh);
       return;
     }
     /* -- Is context menus -- */
     if (interaction.isUserContextMenuCommand()) {
-      if (!fsh.client.contextmenu.has(`${interaction.customId}`)) return;
       fsh.client.contextmenu
-        .get(`${interaction.customId}`)
-        .execute(fsh.client, interaction, userId, fsh);
+        .get(interaction.commandName)
+        .execute(fsh, interaction);
       return;
     }
     /* -- Is modal/form -- */

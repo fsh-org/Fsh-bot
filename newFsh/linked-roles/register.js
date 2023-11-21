@@ -9,5 +9,38 @@ const config = {
   COOKIE_SECRET: process.env["cookie"],
 };
 
-//https://github.com/discord/linked-roles-sample/blob/main/src/discord.js
-//https://discord.com/developers/docs/tutorials/configuring-app-metadata-for-linked-roles
+/*
+ * Register the metadata to be stored by Discord. This should be a one time action.
+*/
+const url = `https://discord.com/api/v10/applications/${config.DISCORD_CLIENT_ID}/role-connections/metadata`;
+// supported types: number_lt=1, number_gt=2, number_eq=3 number_neq=4, datetime_lt=5, datetime_gt=6, boolean_eq=7, boolean_neq=8
+const body = [
+  {
+    key: 'fshwallet',
+    name: 'Net fsh',
+    description: 'Has more fsh in net than',
+    type: 2,
+  },
+  {
+    key: 'fshbank',
+    name: 'Tank fsh',
+    description: 'Has more fsh in tank than',
+    type: 2,
+  }
+];
+
+const response = await fetch(url, {
+  method: 'PUT',
+  body: JSON.stringify(body),
+  headers: {
+    'Content-Type': 'application/json',
+    Authorization: `Bot ${config.DISCORD_TOKEN}`,
+  },
+});
+if (response.ok) {
+  const data = await response.json();
+  console.log("Registered role connections");
+} else {
+  const data = await response.text();
+  console.log("Possible error");
+}

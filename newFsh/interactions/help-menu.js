@@ -25,6 +25,7 @@ function helpGen(collection, category, prefix, interaction, context, fsh) {
       help.push(`**${menu.name}** {${menu.usage}} - ${menu.info}`);
     });
   } else {
+    doblcomd = [];
     collection.forEach((command) => {
       let commandName = command.name;
       if (Array.isArray(commandName)) {
@@ -54,15 +55,24 @@ function helpGen(collection, category, prefix, interaction, context, fsh) {
     });
   }
   help = help.sort();
+  let desc;
+  let titl;
+  interaction.message.components[0].components[0].data.options.forEach(
+    (element) => {
+      if (element.value == interaction.values[0]) {
+        titl = element.label;
+        desc = element.description;
+      }
+    }
+  );
   let embed = new Discord.EmbedBuilder()
-    .setTitle(
-      `${fsh.emojis[category]} Help Menu - ${textToTitleCase(category)}`
-    )
+    .setTitle(`${fsh.emojis[category]} Help Menu - ${textToTitleCase(titl)}`)
     .setDescription(
-      `<required>, (not required)
-	 >>> ${help.join("\n") || "**Sorry, no commands for this category yet**"}`
+      `${desc}${category == "context" ? "" : "\n(optional) - <required>"}
+>>> ${help.join("\n") || "**Sorry, no commands for this category yet**"}`
     )
     .setColor(color);
+
   return embed;
 }
 

@@ -1,5 +1,5 @@
 entrypoint = "index.js"
-run = "yarn start"
+run = "npm run start"
 
 hidden = [".config", "package-lock.json", ".prettierignore"]
 

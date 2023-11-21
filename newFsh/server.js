@@ -1,11 +1,3 @@
-/* -- chat -- */ /*
-This file should be cleaned up
-just copied s4d code
-i need to change some things
-
-
-*/ /* -------- */
-
 /* -- New Server -- */
 
 const express = require("express");
@@ -59,15 +51,19 @@ function listsGetSortCompare(type, direction) {
 }
 
 const app = express();
-const server = require('http').createServer(app);
-const io = require('socket.io')(server, {path: '/socket'});
+const server = require("http").createServer(app);
+const io = require("socket.io")(server, {
+  path: "/socket",
+  cors: {
+    origin: "*",
+    methods: ["GET", "POST"],
+  },
+});
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 app.use(cors());
-// oh S4D_WEBSITECREATION_EXPRESS_app.listen(S4D_APP_WEBSITE_HOSTING_PORT); that? idk strange; line 133; not even api endpoinst work, none .get work;
-//we do, it says "server online"
 module.exports = {
   testexecute(fsh) {
     const app = express();
@@ -82,32 +78,6 @@ module.exports = {
     });
   },
   async execute(fsh) {
-    /* -- Get css and assets -- */
-    app.get("/media", async function (req, res) {
-      if (req.query["media"] != null) {
-        if (
-          req.query["media"].includes("..") ||
-          req.query["media"].includes(".js")
-        ) {
-          res.status(Number(400));
-          res.send("err");
-        } else {
-          try {
-            res.status(Number(200));
-            res.sendFile(
-              path.join(
-                __dirname,
-                String("../neWeb/media/" + req.query["media"])
-              )
-            );
-          } catch (err) {}
-        }
-      } else {
-        res.status(Number(400));
-        res.send("err");
-      }
-    });
-
     /* -- Api endpoints -- */
     app.get("/api/:type", async function (req, res) {
       res.status(Number(200));
@@ -117,18 +87,8 @@ module.exports = {
         res.header("Content-Type", "application/json");
       }
       switch (req.params["type"]) {
-        case "thing":
-          res.send("test");
-          break;
         case "ping":
-          res.send(
-            String(
-              req.query[String("plain")] == "1"
-                ? fsh.client.ws.ping
-                : ['{"ping":"', fsh.client.ws.ping, '"}'].join("")
-            )
-          );
-          //res.send(String(fsh.client.ws.ping))
+          res.send(req.query[String("plain")] == "1" ? fsh.client.ws.ping : `{"ping":"${fsh.client.ws.ping}"}`);
           break;
         case "info":
           let Fshdata = fsh.user_fsh.all();
@@ -161,26 +121,38 @@ module.exports = {
             )
           );
           break;
-        case "other":
+        case 'user-check':
+          try {
+            let que = req.query
+            let mem = que["id"];
+            let members = {};
+            members[mem] = 0;
+            let susers = {};
+            susers[mem] = fsh.client.guilds.cache.get(que["server"]).members.cache.get(mem);
+
+            require('./commands/admin/scan.js')
+              .UserCheck(mem,members,susers);
+
+            res.status(200)
+            res.send(`{"rating": ${members[mem]}, "username": "${susers[mem].user.username}"}`)
+          } catch (err) {
+            res.status(500);
+            res.send(`{"rating": null, "username": "None"}`)
+          }
           break;
         default:
           // no option :<
-          res.send(
-            "Fsh Bot - Discord v14 - Bot is currently being reworked which means that some of the api doesn't work"
-          );
+          res.send("Fsh - Api endpoint not specified | if you are getting this from s4d, the api blocks are broken");
       }
     });
 
     /* -- Weird page register -- */
     let paths = [
+      ["index.html", "/"],
       ["api.html", "/api"],
       ["invite.html", "/invite"],
-      ["robots.txt"],
-      ["tos.html", "/tos"],
-      ["main.html", "/"],
-      //['pp.html', '/pp'], // privacy policy not done
+      ["robots.txt"]
     ];
-    // do we update bodyParser?; i guess its "built in" now, just gotta figure out how; npm i?, ima try, done; no no no; what?; im fixin, it just uses a function now; fixed; ok;
 
     for (let index = 0; index < paths.length; index++) {
       let directory = paths[index][0];
@@ -189,9 +161,7 @@ module.exports = {
         //it no got :<; it's only executing once?; hmm
         try {
           res.status(Number(200));
-          res.sendFile(
-            path.join(__dirname, String("../neWeb/page/" + directory))
-          );
+          res.sendFile(path.join(__dirname, "../neWeb/page/" + directory));
         } catch (err) {
           res.status(Number(500));
           res.send("err");
@@ -199,20 +169,42 @@ module.exports = {
       });
     }
 
-    app.get("/t", async (req, res) => {
-      console.log("der");
-    });
+    app.use(function(req, res) {
+      res.sendFile(path.join(__dirname, '../neWeb/page/error.html'))
+    })
 
-    fsh.io = io
+    fsh.io = io;
     /* -- Socket.io stuff -- */
-    io.on('connection', (socket) => {
-      if(socket.handshake.auth.token != process.env['sockauth']){
-        socket.emit('chat', `Invalid token`)
+    io.on("connection", async(socket) => {
+      if (socket.handshake.auth.token != process.env["sockauth"] || "") {
+        socket.emit("chat", `Invalid token`);
         socket.disconnect();
       }
-      socket.emit('chat', `User with id: "${socket.id}" has connected`)
-      socket.on('chat', message => {
-        io.emit('chat', message)
+      socket.emit("chat", `User with id "${socket.id}" has connected`);
+      socket.on("chat", async(message) => {
+        if (message.channel) {
+          if (message.message) {
+            try {
+              fsh.client.channels.cache
+                .get(message.channel)
+                .send(message.message);
+              socket.emit(
+                "chat",
+                `Server: Sent (${message.message}) to channel (${message.channel})`
+              );
+            } catch (err) {
+              socket.emit("chat", `Server: ERR\n\n  ${err}`);
+            }
+            return;
+          }
+          return socket.emit("chat", "Server: No message");
+        }
+        return socket.emit("chat", "Server: No channel");
+        //io.emit("chat", `${socket.id}: ${message}`);
+      });
+
+      socket.on("api", async(data) => {
+        await fsh.ws_api(fsh, socket, data)
       })
     });
 
@@ -336,7 +328,7 @@ S4D_WEBSITECREATION_EXPRESS_app.all("/auth", async function (req, res) {
               )
             : `<hr>
         <p>Failed to Auth/Invite Fsh</p>
-        <p><a href="https://fsh-bot.frostzzone.repl.co/invite">click here to try again</a></p>`
+        <p><a href="https://bot.fsh.plus/invite">click here to try again</a></p>`
         )
       )
     )
@@ -1011,14 +1003,14 @@ S4D_WEBSITECREATION_EXPRESS_app.get("/api/:type", async function (req, res) {
         String(
           req.query[String("plain")] == "1"
             ? [
-                "https://fsh-bot.frostzzone.repl.co/asset?media=api/",
+                "https://bot.fsh.plus/asset?media=api/",
                 d,
                 ".png",
               ].join("")
             : [
                 '{"image":"',
                 [
-                  "https://fsh-bot.frostzzone.repl.co/asset?media=api/",
+                  "https://bot.fsh.plus/asset?media=api/",
                   d,
                   ".png",
                 ].join(""),

@@ -7,21 +7,32 @@ function colourRandom() {
 
 module.exports = {
   name: "help",
-  info: "This thing",
+  info: "List of all commands",
   category: "main",
   async execute(message, arguments2, fsh) {
+    /* -- User in server function -- */
+    function userin(id) {
+      if (message.guild.members.cache.has(id)) {
+        return `<@${id}>`;
+      } else {
+        return "`" + fsh.client.users.cache.get(id).username + "`";
+      }
+    }
     /* -- Buttons -- */
     const website = new Discord.ButtonBuilder()
-      .setLabel("Bot website")
-      .setURL("https://fsh-bot.frostzzone.repl.co")
+      .setLabel("Website")
+      .setURL("https://fsh.plus")
+      .setEmoji(fsh.emojis.website)
       .setStyle(Discord.ButtonStyle.Link);
     const invite = new Discord.ButtonBuilder()
       .setLabel("Invite")
-      .setURL("https://fsh-bot.frostzzone.repl.co/invite")
+      .setURL("https://bot.fsh.plus/invite")
+      .setEmoji(fsh.emojis.link)
       .setStyle(Discord.ButtonStyle.Link);
     const server = new Discord.ButtonBuilder()
       .setLabel("Server")
       .setURL("https://discord.gg/SXcXZN4tkM")
+      .setEmoji(fsh.emojis.discord)
       .setStyle(Discord.ButtonStyle.Link);
     const button_row = new Discord.ActionRowBuilder().addComponents(
       website,
@@ -32,53 +43,53 @@ module.exports = {
     let menu = new Discord.ActionRowBuilder().addComponents(
       new Discord.StringSelectMenuBuilder()
         .setCustomId(`help%${message.author.id}%`)
-        .setPlaceholder("Select Category")
+        .setPlaceholder("Select a category")
         .addOptions(
           {
             label: "Search commands",
-            description: "Search commands",
+            description: "Search for a command",
             value: "search",
             emoji: `${fsh.emojis.search}`,
           },
           {
             label: "Main",
-            description: "Main commands",
+            description: "Main commands of fsh",
             value: "main",
             emoji: `${fsh.emojis.main}`,
           },
           {
-            label: "Economy",
-            description: "Economy commands",
-            value: "economy",
-            emoji: `${fsh.emojis.economy}`,
-          },
-          {
             label: "Fun",
-            description: "Fun commands",
+            description: "Fun and random commands",
             value: "fun",
             emoji: `${fsh.emojis.fun}`,
           },
           {
-            label: "Music",
-            description: "Music commands",
-            value: "music",
-            emoji: `${fsh.emojis.music}`,
-          },
-          {
             label: "Utility",
-            description: "Utility commands",
+            description: "Useful commands",
             value: "utility",
             emoji: `${fsh.emojis.utility}`,
           },
           {
-            label: "Admin only",
+            label: "Economy",
+            description: "Commands for Fsh economy",
+            value: "economy",
+            emoji: `${fsh.emojis.economy}`,
+          },
+          {
+            label: "Music",
+            description: "VC music controls",
+            value: "music",
+            emoji: `${fsh.emojis.music}`,
+          },
+          {
+            label: "Moderation",
             description: "Admin only commands",
             value: "admin",
             emoji: `${fsh.emojis.admin}`,
           },
           {
             label: "Context menus",
-            description: "Context menus",
+            description: "Context menu commands (right-click)",
             value: "context",
             emoji: `${fsh.emojis.context}`,
           }
@@ -86,12 +97,10 @@ module.exports = {
     );
     let embed = new Discord.EmbedBuilder()
       .setTitle(`${fsh.emojis.main} Bot help`)
-      .setDescription(
-        `Made by frostzzone#4486 and inventionpro#6814
-(optional) - <obligatory> - {type}`
-      )
+      .setDescription(`Search between commands, select a category.
+Made by ${userin("712342308565024818")} & ${userin("816691475844694047")}`)
       .setTimestamp()
-      .setFooter({ text: "V" + fsh.version })
+      .setFooter({ text: `V${fsh.version}` })
       .setColor(colourRandom());
     message.channel.send({
       embeds: [embed],

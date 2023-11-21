@@ -7,12 +7,10 @@ module.exports = {
   category: "fun",
 
   async execute(message, arguments2, fsh) {
+    let title = arguments2[0].replaceAll("https://","").split("?")[0]
     let embed = new Discord.EmbedBuilder()
-      .setTitle(
-        `${fsh.emojis.website} ScreenShot of ${
-          arguments2[0].includes("http") ? "" : "https://"
-        }${arguments2[0]}`
-      )
+      .setTitle(`${fsh.emojis.website} ScreenShot of https://${title}`)
+      .setURL((arguments2[0].includes("http") ? "" : "https://") + arguments2[0])
       .setDescription(`** **`)
       .setTimestamp()
       .setFooter({ text: `V${fsh.version}` })
@@ -22,7 +20,7 @@ module.exports = {
       })
       .setColor("#888888")
       .setImage(
-        `https://api.popcat.xyz/screenshot?url=${
+        `https://poopoo-api.vercel.app/api/image?url=${
           arguments2[0].includes("http") ? "" : "https://"
         }${arguments2[0]}`
       );

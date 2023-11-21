@@ -71,13 +71,13 @@ module.exports = {
 
     // o i forgor to make param getter
     let embed = new Discord.EmbedBuilder()
-      .setTitle(`${fsh.emojis.search} Help Menu - Results For (${term})`)
+      .setTitle(`${fsh.emojis.search} Help Menu - Results For "${term}"`)
       .setDescription(
         `<required>, (not required)
-      Name search
-	 > ${results.join("\n> ") || "**Sorry, no commands that have that name**"}
-      Info Search
-   > ${results2.join("\n> ") || "**Sorry, no commands with that in the info**"}`
+Name search
+> ${results.join("\n> ") || "**Sorry, no commands have that name**"}
+Info Search
+> ${results2.join("\n> ") || "**Sorry, no commands with that in their info**"}`
       )
       .setColor(color);
 

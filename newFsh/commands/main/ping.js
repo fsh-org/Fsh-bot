@@ -2,46 +2,13 @@ const { EmbedBuilder } = require("discord.js");
 const https = require("https");
 const axios = require("axios");
 
-const fetch = (...args) =>
-  import("node-fetch").then(({ default: fetch }) => fetch(...args));
-
-async function getPY(ping) {
-  try {
-    const response = await fetch("https://pbot-api.vercel.app/api/ping");
-    const data = await response.json();
-    return String(
-      `\`${Number(data.ping) - Number(ping)}ms\` less than Python Bot (\`${
-        data.ping
-      }ms\`)`
-    );
-  } catch (err) {
-    console.log(err);
-    return "`Python Bot` is not available";
-  }
-}
-
-/*async function getGB(ping) {
-  let type = "less"
-  try{
-  const response = await fetch('https://goodbot.parham125.repl.co/api/bot');
-  const data = await response.json();
-    return String(`\`${Number(data.Ping)-Number(ping)}ms\` less than Good Bot (\`${data.Ping}ms\`)`)
-  } catch(err) {
-    return "`Good Bot` is not available"
-  }
-}*/
+const fetch = (...args) => import("node-fetch").then(({ default: fetch }) => fetch(...args));
 
 async function getRB(ping) {
   try {
-    const response = await fetch(
-      "https://randomizer-bot.ddededodediamante.repl.co/info"
-    );
-    const data = await response.json();
-    return String(
-      `\`${Number(data.ping) - Number(ping)}ms\` less than Randomizer Bot (\`${
-        data.ping
-      }ms\`)`
-    );
+    const response = await fetch("https://newrandomizerbot.ddededodediamante.repl.co/ping");
+    const data = await response.text();
+    return `\`${Math.abs(Number(data) - Number(ping))}ms\` ${Number(data) < Number(ping) ? "more" : "less"} than Randomizer Bot (\`${data}ms\`)`;
   } catch (err) {
     return "`Randomizer Bot` is not available";
   }
@@ -49,14 +16,10 @@ async function getRB(ping) {
 
 async function getSU(ping) {
   try {
-    const response = await fetch(
-      "https://s4d-utility.hitbyathunder.repl.co/ping"
-    );
+    const response = await fetch(process.env["hit"]);
     const data = await response.json();
     return String(
-      `\`${Number(data.ping) - Number(ping)}ms\` less than S4D Utilities (\`${
-        data.ping
-      }ms\`)`
+      `\`${Math.abs(Number(data.ping) - Number(ping))}ms\` ${Number(data.ping) < Number(ping) ? "more" : "less"} than S4D Utilities (\`${data.ping}ms\`)`
     );
   } catch (err) {
     return "`S4D Utilities` is not available";
@@ -82,20 +45,15 @@ module.exports = {
       .then(async (msg) => {
         let savedping = fsh.client.ws.ping;
         ping.setDescription(
-          `${fsh.emojis.ping} Ping: \`${fsh.client.ws.ping}ms\`\n${
-            fsh.emojis.lat
-          } Latency: \`${msg.createdTimestamp - message.createdTimestamp}ms\``
+          `${fsh.emojis.ping} Ping: \`${savedping}ms\`
+${fsh.emojis.lat} Latency: \`${msg.createdTimestamp - message.createdTimestamp}ms\``
         );
         ping.addFields({
           name: "Other bots",
-          value: String(
-            [
-              await getPY(savedping),
-              /*await getGB(savedping), // no ping cause security */
-              await getRB(savedping),
-              await getSU(savedping),
-            ].join("\n")
-          ),
+          value: `
+${await getRB(savedping)}
+${await getSU(savedping)}
+`,
           inline: true,
         });
         msg.edit({

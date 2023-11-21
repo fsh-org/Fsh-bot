@@ -2,27 +2,15 @@ const version = "0.5.0";
 
 /* -- Imports -- */
 const Discord = require("discord.js");
-const fs = require("fs");
-const path = require("path");
+const logs = require("discord-logs");
 
+const Database = require("easy-json-database");
+const fs = require("fs");
+
+const path = require("path");
 const events = require("events");
 const { exec } = require("child_process");
-const logs = require("discord-logs");
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
-const Database = require("easy-json-database");
-
-const ms = require("ms");
-const Captcha = require("@haileybot/captcha-generator");
-const jimp = require("jimp");
-const S4D_APP_PKG_axios = require("axios");
-const S4D_APP_REDDIT_musakui = require("musakui");
-let moment = require("moment");
-let URL = require("url");
-let DIG = require("discord-image-generation");
-let https = require("https");
-
-const SnakeGame = require("snakecord");
-const { TicTacToe } = require("discord-gamecord");
 
 /* -- On poopoo display error -- */
 let process = require("process");
@@ -38,6 +26,10 @@ process.on("uncaughtException", function (err) {
   }
 });
 
+process.on('unhandledRejection', error => {
+	console.error('Unhandled promise rejection:', error);
+});
+
 /*   -- THE MAGIC FUNCTION --
   ~~ Re-aquire function *require* ~~
 */
@@ -50,7 +42,11 @@ function reaquire(module) {
 let fsh = {
   Discord,
   version,
+  reaquire
 };
+
+const MusicLogic = require('./music-logic.js');
+fsh.music = new MusicLogic(fsh);
 
 /* -- Make client -- */
 fsh.client = new Discord.Client({
@@ -60,6 +56,7 @@ fsh.client = new Discord.Client({
     Discord.GatewayIntentBits.MessageContent,
     Discord.GatewayIntentBits.GuildMembers,
     Discord.GatewayIntentBits.GuildPresences,
+    Discord.GatewayIntentBits.GuildVoiceStates
   ],
   partials: [
     Discord.Partials.Message,
@@ -70,26 +67,28 @@ fsh.client = new Discord.Client({
 
 /* -- Dev ids */
 fsh.devIds = [
-  "816691475844694047",
-  "712342308565024818",
-  "1098211925495664751",
+  "1068572316986003466", // Fsh
+  "816691475844694047", // Inv
+  "712342308565024818", // Frost
+  "1098211925495664751", // Inv alt
 ];
 
 /* -- Save dbs on fsh -- */
+// User data
 fsh.user_fsh = new Database("./databases/user_fsh.json");
 fsh.user_inventory = new Database("./databases/user_inventory.json");
 fsh.user_badges = new Database("./databases/user_badges.json");
 fsh.bank_fsh = new Database("./databases/bank_fsh.json");
+fsh.bank_limit = new Database("./databases/bank_limit.json");
+// Server data
 fsh.server_config = new Database("./databases/server_config.json");
 fsh.server_polls = new Database("./databases/server_polls.json");
+// Other
 fsh.cooldown = new Database("./databases/cooldown.json");
 fsh.emojis = new Database("./databases/emojis.json").data;
-/* -- Depracated dbs -- */
-fsh.fsh_count = new Database("./databases/fsh_count.json");
 
 /* -- Make function to get all .js files in a directory -- */
 const getAllJsFiles = function (dirPath, arrayOfFiles) {
-  //console.log(dirPath)
   files = fs.readdirSync(dirPath);
 
   arrayOfFiles = arrayOfFiles || [];
@@ -98,50 +97,23 @@ const getAllJsFiles = function (dirPath, arrayOfFiles) {
     if (fs.statSync(dirPath + "/" + file).isDirectory()) {
       arrayOfFiles = getAllJsFiles(dirPath + "/" + file, arrayOfFiles);
     } else {
-      if (file.endsWith(".js"))
+      if (file.endsWith(".js")) {
         arrayOfFiles.push(path.join(dirPath, "/", file));
+      }
     }
   });
-
   return arrayOfFiles;
 };
 
-/* -- Get text comamnds -- */
-/*function refreshText() {
-  fsh.client.textcommands = new Collection();
-  const commandsPath = path.join('commands');
-	const commandFiles = getAllJsFiles(commandsPath)
-
-	for (const file of commandFiles) {
-		const command = reaquire(file);
-		if ('execute' in command) {
-			fsh.client.textcommands.set(command.name, command);
-		} else {
-			console.log(`[WARNING] The command at ${file} is missing a required "execute" property.`);
-		}
-	}
-}
-
-function refreshInteractions() {
-  fsh.client.interactions = new Collection();
-  const commandsPath = path.join('interactions');
-	const commandFiles = getAllJsFiles(commandsPath)
-
-	for (const file of commandFiles) {
-		const command = reaquire(file);
-		if ('execute' in command) {
-			fsh.client.interactions.set(command.name, command);
-		} else {
-			console.log(`[WARNING] The command at ${file} is missing a required "execute" property.`);
-		}
-	}
-}*/
-
 function refresh(directory, collection) {
+  fsh.ws_api = reaquire('./ws-api.js')
+  fsh.z_music = reaquire('./z-music')
+  fsh.playSong = reaquire('./z-music/playSong.js')
+  
   fsh.client[collection] = new Discord.Collection();
   const commandsPath = path.join(__dirname, directory);
   const commandFiles = getAllJsFiles(commandsPath);
-
+  
   for (const file of commandFiles) {
     const command = reaquire(file);
     if ("execute" in command) {
@@ -153,9 +125,7 @@ function refresh(directory, collection) {
         fsh.client[collection].set(command.name, command);
       }
     } else {
-      console.log(
-        `[WARNING] The command at ${file} is missing a required "execute" property.`
-      );
+      console.log(`[WARNING] The command at ${file} is missing a required "execute" property.`);
     }
   }
 }
@@ -164,8 +134,8 @@ function refresh(directory, collection) {
 let resFunc = { res: refresh };
 resFunc.res("commands", "textcommands");
 resFunc.res("interactions", "interactions");
-
 resFunc.res("context", "contextmenu");
+fsh.TxtCmdsFiles = getAllJsFiles(path.join(__dirname, "commands"), []);
 
 /* -- Event manager -- */
 /* ~ Get events ~ */
@@ -193,23 +163,33 @@ for (const file of eventFiles) {
 /* -- Login -- */
 fsh.client.login(process.env["token"]);
 
-/* 
-❌✅
+fsh.qplay = function(message, filelocal){
+	const {
+			createAudioPlayer,
+			createAudioResource,
+			StreamType,
+			demuxProbe,
+			joinVoiceChannel,
+			NoSubscriberBehavior,
+			AudioPlayerStatus,
+			VoiceConnectionStatus,
+			getVoiceConnection
+	} = require('@discordjs/voice');
+	let player = createAudioPlayer()
 
- - intents -
-✅ Guilds
-Guildmessages
-Channels
-✅ Roles
-✅ MessageContent
-✅ GuildPresences
-✅ GuildMembers
+	let connection = joinVoiceChannel({
+	 channelId: message.member.voice.channel.id,
+			guildId: message.guild.id,
+									adapterCreator: message.guild.voiceAdapterCreator,
+									selfDeaf: true
+	})
 
- - Partials -
-User
-✅ Message
-✅ Channel
-✅ Reaction
-GuildScheduledEvent
-ThreadMember
-*/
+	 connection.subscribe(player)
+
+	let resource = createAudioResource(`./${filelocal}.mp3`)
+	player.play(resource)
+
+	player.on(AudioPlayerStatus.Idle, async () => {
+	connection.destroy()
+	})
+}
