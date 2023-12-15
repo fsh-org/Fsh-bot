@@ -12,6 +12,6 @@ module.exports = {
     } else {
       a = "Tails"
     }
-    message.reply(`Flipped a coin, got ${a}`)
+    message.reply(`Flipped a coin :coin:, got ${a}`)
   }
 };

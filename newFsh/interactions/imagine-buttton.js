@@ -31,10 +31,24 @@ module.exports = {
       embeds: [tempEmbed], //set embed
       components: [] //delete rows
     });
-    
-    let image = await fetch(`https://api.fsh.plus/imagine?text=${params[0]}&negative=${params[1]}&model=${params[2]}`)
-    image = await image.json()
-    image = image.link
+
+    temptime = Math.floor(new Date()/1000)
+    let image;
+    try {
+      image = await fetch(`https://api.fsh.plus/imagine?text=${params[0]}&negative=${params[1]}&model=${params[2]}`)
+      image = await image.json()
+      if (image.err) throw new Error("failed generate");
+      if (!image.link) throw new Error("failed generate");
+      //console.log(image)
+      image = image.link
+    } catch (err) {
+      await interaction.editReply({
+        content: 'could not generate',
+        embeds: [], //delete embed
+        components: [] //delete rows
+      });
+      return;
+    }
 
     newEmbed.setDescription(embed.description+`\n\nTime taken: \`${Math.floor(new Date()/1000)-temptime} seconds\``)
     newEmbed.setImage(image)

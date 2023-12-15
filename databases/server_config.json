@@ -35,5 +35,59 @@
   "1111659775168610306": "en,true",
   "1114341666191585442": "en,true",
   "1088054878871502870": "en,true",
-  "1115695925680148540": "en,true"
+  "1115695925680148540": "en,true",
+  "1162566958403833938": {
+    "rob": true,
+    "join_gate": {
+      "active": false,
+      "limit": 8,
+      "role": ""
+    },
+    "dj_role": "",
+    "command_channel": []
+  },
+  "1178259262078722129": {
+    "rob": true,
+    "join_gate": {
+      "active": false,
+      "limit": 8,
+      "role": ""
+    },
+    "dj_role": "",
+    "command_channel": []
+  },
+  "1180773422591135864": {
+    "rob": true,
+    "join_gate": {
+      "active": false,
+      "limit": 8,
+      "role": ""
+    },
+    "dj_role": "",
+    "command_channel": []
+  },
+  "952241139384209448": {
+    "rob": true,
+    "join_gate": {
+      "active": false,
+      "limit": 8,
+      "role": ""
+    },
+    "dj_role": "",
+    "command_channel": []
+  },
+  "1185221823831486485": {
+    "rob": true,
+    "join_gate": {
+      "active": false,
+      "limit": 8,
+      "role": ""
+    },
+    "dj_role": "",
+    "command_channel": [],
+    "leveling": {
+      "active": false,
+      "notifications": {}
+    }
+  }
 }

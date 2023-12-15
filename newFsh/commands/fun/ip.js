@@ -1,4 +1,5 @@
 const Discord = require("discord.js");
+const fs = require('fs');
 
 module.exports = {
   name: "ip",
@@ -33,7 +34,6 @@ module.exports = {
         name: message.member.user.username,
         iconURL: message.member.user.displayAvatarURL({ format: "png" })
       })
-      .setDescription(`Timezone: ${yj.timezone}`)
       .addFields({
         name: `Location`,
         value: `Continent: ${yj.continent} (${yj.continentCode})
@@ -42,7 +42,8 @@ Region: ${yj.regionName} (${yj.region})
 City: ${yj.city}
 Latitude: ${yj.lat}
 Longitude: ${yj.lon}
-Zip code: ${yj.zip}`,
+Zip code: ${yj.zip}
+Timezone: ${yj.timezone}`,
         inline: true,
       },
       {
@@ -53,7 +54,8 @@ Org: ${yj.org}
 As: ${yj.as} (${yj.asname})
 Mobile: ${yj.mobile ? ":white_check_mark:" : ":x:"}
 Proxy: ${yj.proxy ? ":white_check_mark:" : ":x:"}
-Hosting: ${yj.hosting ? ":white_check_mark:" : ":x:"}`,
+Hosting: ${yj.hosting ? ":white_check_mark:" : ":x:"}
+Tor: ${fs.readFileSync("text/tor.txt", 'utf8').indexOf(yj.query) < 0 ? ":x:" : ":white_check_mark:"}`,
         inline: true,
       });
 

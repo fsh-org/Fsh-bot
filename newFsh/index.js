@@ -85,6 +85,7 @@ fsh.server_config = new Database("./databases/server_config.json");
 fsh.server_polls = new Database("./databases/server_polls.json");
 // Other
 fsh.cooldown = new Database("./databases/cooldown.json");
+fsh.coupon = new Database("./databases/coupon.json");
 fsh.emojis = new Database("./databases/emojis.json").data;
 
 /* -- Make function to get all .js files in a directory -- */

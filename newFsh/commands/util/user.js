@@ -58,6 +58,14 @@ module.exports = {
     get_presences(member).forEach(e => {
       pres = pres + fsh.emojis[String(e)]
     })
+
+    let members = {};
+    members[user.id] = 0;
+    let susers = {};
+    susers[user.id] = member;
+
+    require('../admin/scan.js')
+      .UserCheck(user.id,members,susers);
     
     var embed = new Discord.EmbedBuilder()
       .setTitle(`${user.globalName || user.username}${user.discriminator == "0" ? "" : `#${user.discriminator}`}${member.nickname != null ? ` [${member.nickname}]`: ""} ${pres}`)
@@ -78,7 +86,8 @@ module.exports = {
 Username: ${user.username}${user.discriminator.length < 3 ? "" : `#${user.discriminator}`}
 Nickname: ${member.nickname || "None"}
 Id: ${user.id}
-Ping: <@${user.id}>`,
+Ping: <@${user.id}>
+Suspiciousness: ${members[user.id]}`,
         inline: true
       },
       {
@@ -87,7 +96,7 @@ Ping: <@${user.id}>`,
 System: ${user.system ? `True` : "False"}
 Administrator: ${member.permissions.has(Discord.PermissionsBitField.Flags.Administrator) ? `True` : "False"}
 Timed out: ${member.isCommunicationDisabled() ? "True" : "False"}
-${String(member.communicationDisabledUntilTimestamp) == 0 ? "" : `Ends: <t:${Math.floor(member.communicationDisabledUntilTimestamp/1000)}:R>`}`,
+${String(member.communicationDisabledUntilTimestamp/1000) == "0" ? "" : `Ends: <t:${Math.floor(member.communicationDisabledUntilTimestamp/1000)}:R>`}`,
         inline: true
       },
       {

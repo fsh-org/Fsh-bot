@@ -1,10 +1,30 @@
 const { Events, GatewayIntentBits, ActivityType } = require("discord.js");
-const discord = require("discord.js");
+const Discord = require("discord.js");
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 module.exports = {
-  name: Events.guildCreate,
-  async execute(fsh, client, guild) {
-    console.log("added to "+ guild.name)
+  name: Events.GuildCreate,
+  async execute(fsh, guild) {
+    fsh.server_config.set(guild.id, {
+      rob: true,
+      join_gate: {
+        active: false,
+        limit: 8,
+        role: ''
+      },
+			dj_role: '',
+			command_channel: [],
+      leveling: {
+        active: false,
+        notifications: {}
+      }
+    });
   }
 };
+
+/*
+what settings we gonna add?
+
+do we add join gate? like if >x sus it adds a rol
+
+*/

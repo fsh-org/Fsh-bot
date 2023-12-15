@@ -4,6 +4,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 var path = require("path");
+const crypto = require("crypto-js")
 
 function listsGetRandomItem(list, remove) {
   var x = Math.floor(Math.random() * list.length);
@@ -48,6 +49,16 @@ function listsGetSortCompare(type, direction) {
   return function (a, b) {
     return compare(a, b) * direction;
   };
+}
+
+function makeid(length) {
+  var result = '';
+  var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#';
+  var charactersLength = characters.length;
+  for (var i = 0; i < Number(length); i++) {
+    result += characters.charAt(Math.floor(Math.random() * charactersLength));
+  }
+  return result;
 }
 
 const app = express();
@@ -139,6 +150,22 @@ module.exports = {
             res.status(500);
             res.send(`{"rating": null, "username": "None"}`)
           }
+          break;
+        case 'coupon-create':
+          if (!req.query["key"]) {
+            res.send("no")
+            return;
+          }
+          if (req.query["key"] != process.env["apiKey"]) {
+            res.send("No :)")
+            return;
+          }
+          let code = makeid(10);
+          code = `${req.query["prefix"]}-${code}`
+          let sha = crypto.SHA512(code)
+          sha = String(sha)
+          fsh.coupon.set(sha, req.query["by"])
+          res.send(`{"coupon": "${code}"}`)
           break;
         default:
           // no option :<

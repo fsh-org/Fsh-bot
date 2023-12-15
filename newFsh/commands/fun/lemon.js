@@ -3,7 +3,7 @@ const fs = require("fs");
 module.exports = {
   name: "lemon",
   params: ["user", true],
-  info: "Info on command",
+  info: "Lemon a user",
   category: "fun",
   async execute(message, arguments2, fsh) {
     if (message.mentions.users != null && message.mentions.users.size > 0) {

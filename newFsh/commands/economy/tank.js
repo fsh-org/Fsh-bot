@@ -37,6 +37,7 @@ module.exports = {
       .setFooter({ text: `V${fsh.version}` })
       .setColor("#888888");
 
+    let money = fsh.user_fsh.get(message.author.id) || 0;
     let amount = fsh.bank_fsh.get(message.author.id) || 0;
     let max = fsh.bank_limit.get(message.author.id) || 1000;
 
@@ -56,7 +57,11 @@ ${group.join("")}
       
     } else if (arguments2[0] == "deposit") {
       if (Good(message, arguments2)) return;
-      embed.setDescription(`s`)
+      if (Number(arguments2[1])<=money) {
+        embed.setDescription(`s`)
+      } else {
+        embed.setDescription(`Not enough fsh`)
+      }
     } else if (arguments2[0] == "withdraw") {
       if (Good(message, arguments2)) return;
       embed.setDescription(`d`)

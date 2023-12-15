@@ -1,6 +1,5 @@
 const { EmbedBuilder } = require("discord.js");
 const https = require("https");
-const axios = require("axios");
 
 const fetch = (...args) => import("node-fetch").then(({ default: fetch }) => fetch(...args));
 
@@ -11,18 +10,6 @@ async function getRB(ping) {
     return `\`${Math.abs(Number(data) - Number(ping))}ms\` ${Number(data) < Number(ping) ? "more" : "less"} than Randomizer Bot (\`${data}ms\`)`;
   } catch (err) {
     return "`Randomizer Bot` is not available";
-  }
-}
-
-async function getSU(ping) {
-  try {
-    const response = await fetch(process.env["hit"]);
-    const data = await response.json();
-    return String(
-      `\`${Math.abs(Number(data.ping) - Number(ping))}ms\` ${Number(data.ping) < Number(ping) ? "more" : "less"} than S4D Utilities (\`${data.ping}ms\`)`
-    );
-  } catch (err) {
-    return "`S4D Utilities` is not available";
   }
 }
 
@@ -52,7 +39,6 @@ ${fsh.emojis.lat} Latency: \`${msg.createdTimestamp - message.createdTimestamp}m
           name: "Other bots",
           value: `
 ${await getRB(savedping)}
-${await getSU(savedping)}
 `,
           inline: true,
         });

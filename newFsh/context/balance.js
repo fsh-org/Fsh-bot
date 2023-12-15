@@ -30,5 +30,5 @@ ${fsh.emojis.fsh} \`${(fsh.user_fsh.get(user.id) || 0) + (fsh.bank_fsh.get(user.
     interaction.reply({
       embeds: [embed]
     });
-  },
+  }
 };

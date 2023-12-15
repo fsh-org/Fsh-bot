@@ -22,8 +22,12 @@ module.exports = {
     badge.forEach((badg) => {
       badges.push(`${fsh.emojis[badg.emoji]} ${badg.name}`);
     });
-    if (fsh.client.guilds.cache.get('866689038731313193').members.cache.get(user.id)._roles.includes("1167912910568296520")) {
-      badges.push(`*:gem: S4D VIP*`)
+    try {
+      if (fsh.client.guilds.cache.get('866689038731313193').members.cache.get(user.id)._roles.includes("1167912910568296520")) {
+        badges.push(`*:gem: S4D VIP*`)
+      }
+    } catch (err) {
+      // No err
     }
 
     let embed = new Discord.EmbedBuilder()

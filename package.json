@@ -52,7 +52,8 @@
     "qrcode": "^1.5.3",
     "socket.io": "^4.7.1",
     "write": "^2.0.0",
-    "yt-stream": "^1.4.8"
+    "yt-stream": "^1.4.10",
+    "ytdl-core": "^4.11.5"
   },
   "devDependencies": {
     "nodemon": "^3.0.1"

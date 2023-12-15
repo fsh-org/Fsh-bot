@@ -2,9 +2,9 @@
 const Discord = require("discord.js");
 const os = require("os-utils");
 const https = require("https");
-const axios = require("axios");
 const CRYPTOJS = require("crypto-js");
 const write = require("write");
+const ytstream = require('yt-stream');
 const fs = require("fs");
 
 // evel these vars for funnis
@@ -95,5 +95,5 @@ ${res}
     message.channel.send({
       embeds: [evol],
     });
-  },
+  }
 };
