@@ -126,7 +126,7 @@ function refresh(directory, collection) {
         fsh.client[collection].set(command.name, command);
       }
     } else {
-      console.log(`[WARNING] The command at ${file} is missing a required "execute" property.`);
+      console.log(`[2;33m[WARNING] The command at ${file} is missing a required "execute" property.[0m`);
     }
   }
 }

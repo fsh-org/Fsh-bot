@@ -31,11 +31,33 @@ module.exports = {
       .setThumbnail(user.displayAvatarURL({
         format: "png"
       }));
-    if (reviews.success) {
-      embed.setDescription(`User reviews powered by [ReviewDB](<https://reviewdb.mantikafasi.dev>)${reviews.reviewCount==0?"\nNo reviews":""}`)
+    if (reviews.reviewCount < 1) {
+      embed.setDescription(`No reviews`)
+    } else if (reviews.success) {
+      if (reviews.reviews[0].comment.includes("opted out")) {
+        embed.setDescription(`User has turned off reviews`)
+        message.channel.send({
+          embeds: [embed]
+        })
+        return;
+      }
 
       let fields = [];
-      reviews.reviews.slice(1,10).forEach(h => {
+      let rews = reviews.reviews;
+      if (arguments2[1] != "non" && arguments2[0] != "non") {
+      rews = rews
+        .filter(e => {return e.comment.length > 3})
+        .filter(e => {return e.comment.length < 100});
+      ["cool","craz","crazy","doodooballs","ass","cum","rule34","xxx","e621","sigma","smoooooth","Roblox Story","My name is Walter Hartwell White","they (put|locked) me in a ","cheese drill"," love men","person (above|below) me is"].forEach(e => {
+        let ff = new RegExp(e, "ig");
+        rews = rews.filter(ee => {return !ee.comment.match(ff)});
+      })
+      }
+      
+      embed.setDescription(`User reviews powered by [ReviewDB](<https://reviewdb.mantikafasi.dev>)${reviews.reviews.length > rews.length ? "\nSome reviews have been omitted, add non at the end to include.":""}`);
+      
+      rews = rews.slice(1,15);
+      rews.forEach(h => {
         fields.push({
           name: `${toTitle(h.sender.username)} <t:${h.timestamp}:R>`,
           value: h.comment

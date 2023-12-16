@@ -22,44 +22,7 @@ module.exports = {
     }
     /* -- No bots -- */
     if (["1126479544883355700",'1183446047666737162'].includes(message.author.id)) {
-      //console.log(message.mentions)
-      try {
-        if (!message.embeds[0]) return;
-        if (!message.embeds[0].data) return;
-        if (!message.embeds[0].data.title.match(/quiz/ig).length > 0) return;
-      } catch (err) {
-        return;
-      }
-      try {
-      //if (!fsh.devIds.includes(message.mentions.repliedUser.id)) return;
-      if (['899368692301836319','1045764183288987689'].includes(Array.from(message.mentions.users)[0])) return;
-      } catch (err) {
-        return;
-      }
-      if (message.embeds[0].data.description.includes("Quiz Solver:")) return;
-      let a = String(message.embeds[0].data.description || "").replaceAll(" ","").match(/[0-9]{1,3}(\+|-|\*)[0-9]{1,3}/g)[0]
-      //let a = String(message.embeds[0].data.description).match(/\*\*.{3,7}\*\*/g)[0].replaceAll("**","")
-      //let a = String(message.embeds[0].data.description).replaceAll("**", "").split("\n")[0];
-      if (a.includes("+")) {
-        a = a.split("+");
-        a = Number(a[0]) + Number(a[1]);
-      } else {
-        if (a.includes("-")) {
-          a = a.split("-");
-          a = Number(a[0]) - Number(a[1]);
-        } else {
-          if (a.includes("*")) {
-            a = a.split("*");
-            a = Number(a[0]) * Number(a[1]);
-          } else {
-            return;
-          }
-        }
-      }
-      message.channel.send(String(a) + "** **").then(async (msg) => {
-        await delay(5 * 1000);
-        msg.delete();
-      });
+      require('../interactions/quiz.js').execute(message)
     }
     if (message.author.bot) return;
     /* -- If "fsh" add fsh -- */
