@@ -17,7 +17,7 @@ ${arguments2.join("%20")}`);
     fil = await fil.json();
     //console.log(fil.censor)
     fil = fil.censor;
-    fil = fil.replaceAll(/(?<!<)@[0-9 &]{1,20}/g, function(match){return `<${match}>`})
+    fil = fil.replaceAll(/(?<!<)@[0-9&]{1,20}/g, function(match){return `<${match}>`})
     
     message.reply(`${fsh.emojis.ai}${fsh.emojis.alpha} Response:
 ${fil}`)

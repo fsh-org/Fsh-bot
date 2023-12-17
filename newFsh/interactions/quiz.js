@@ -1,3 +1,4 @@
+const Mexp = require("math-expression-evaluator");
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 module.exports = {
@@ -25,6 +26,9 @@ module.exports = {
     a = a[0]
 
     // Do math
+    if (a == "1+1") {
+      a = "1"
+    }
     if (a.includes("+")) {
       a = a.split("+");
       a = Number(a[0]) + Number(a[1]);
