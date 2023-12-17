@@ -89,5 +89,19 @@
       "active": false,
       "notifications": {}
     }
+  },
+  "1113790800497741894": {
+    "rob": true,
+    "join_gate": {
+      "active": false,
+      "limit": 8,
+      "role": ""
+    },
+    "dj_role": "",
+    "command_channel": [],
+    "leveling": {
+      "active": false,
+      "notifications": {}
+    }
   }
 }

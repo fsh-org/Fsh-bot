@@ -58,7 +58,12 @@ ${group.join("")}
     } else if (arguments2[0] == "deposit") {
       if (Good(message, arguments2)) return;
       if (Number(arguments2[1])<=money) {
-        embed.setDescription(`s`)
+        if (Number(arguments2[1])+amount<=max) {
+          fsh.bank_fsh.add(message.author.id, Number(arguments2[1]))
+          embed.setDescription(`Deposited ${arguments2[1]}`)
+        } else {
+          embed.setDescription(`Not enough space`)
+        }
       } else {
         embed.setDescription(`Not enough fsh`)
       }
