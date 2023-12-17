@@ -54,11 +54,15 @@ html {
   background: url(https://c4.wallpaperflare.com/wallpaper/531/951/621/digital-digital-art-artwork-illustration-minimalism-hd-wallpaper-preview.jpg);
   background-size: cover;
   backdrop-filter: brightness(25%);
-  margin: 0 0 0 0 !important;
+  margin: 0 !important;
 }
 body {
   margin: 0 !important;
   padding: 0 !important;
+  --sc-width: 15px;
+  --sc-radius: 5px;
+  --sc-color: rgb(112, 112, 112);
+  --sc-bg: rgb(63, 63, 63);
 }
 ul {
   color: var(--FONT-COLOR);
@@ -91,14 +95,12 @@ div.gallery:hover {
   top: calc(25% - (4em));
 }
 .row {
-  padding: 15px 0px 15px 0px;
-}
-.row {
+  padding: 15px 0px;
   display: -webkit-flex;
   display: flex;
 }
 .column {
-  margin: 0 15px 0 15px;
+  margin: 0 15px;
 }
 .column.side {
   -webkit-flex: 1;
@@ -114,6 +116,9 @@ div.gallery:hover {
   padding-right: var(--margin);
   padding-bottom: var(--margin);
   background-color: rgba(0, 0, 0, 0.4);
+  position: sticky;
+  height: 5vh;
+  bottom: 00px;
 }
 .spacer {
   flex: 1 auto;
@@ -128,10 +133,6 @@ div.gallery:hover {
 }
 .topnav a img {
   size: 3px;
-}
-.topnav {
-  position: sticky;
-  bottom: 00px;
 }
 .logo {
   position: absolute;
@@ -149,14 +150,10 @@ div.gallery:hover {
   font-size: 150%;
   color: #f0f0f0;
 }
-.topnav {
-  position: sticky;
-  height: 5vh;
-}
 .topnav img {
   transition: filter 0.25s;
   filter: brightness(0.635);
-  margin: 3px 3px 3px 3px;
+  margin: 3px;
   height: 45px;
 }
 .topnav img:hover {
@@ -173,12 +170,6 @@ header {
   position: sticky;
 }
 /*scrollbar*/
-body {
-  --sc-width: 15px;
-  --sc-radius: 5px;
-  --sc-color: rgb(112, 112, 112);
-  --sc-bg: rgb(63, 63, 63);
-}
 ::-webkit-scrollbar {
   width: var(--sc-width);
 }
