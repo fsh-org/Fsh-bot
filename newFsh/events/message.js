@@ -25,6 +25,28 @@ module.exports = {
       require('../interactions/quiz.js').execute(message)
     }
     if (message.author.bot) return;
+    /* -- Check if token -- */
+    if ((fsh.server_config.get(message.guild.id)||{}).token_warn || false) {
+      const files = Array.from(message.attachments);
+      files.map(e=>{return (e[1].contentType=="text/plain"?e[1]:'')}).filter(e=>{return e.length});
+      if (files.length) {
+        files.forEach(async file=>{
+          try {
+            const response = await fetch(file[1].url);
+            if (response.ok) {
+              const text = await response.text();
+              if (text) {
+                if (text.match(/([a-zA-Z0-9\-_]{24,26})\.([a-zA-Z0-9\-_]{6})\.([a-zA-Z0-9\-_]{38})/g)) {
+                  message.reply(':warning: '+file[1].name+' contains a user/bot token')
+                }
+              }
+            }
+          } catch (error) {
+            // Ignore
+          }
+        })
+      }
+    }
     /* -- If "fsh" add fsh -- */
     if (
       message.content.toLowerCase().includes("fsh") &&

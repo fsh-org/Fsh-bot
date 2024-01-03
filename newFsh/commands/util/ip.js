@@ -5,7 +5,7 @@ module.exports = {
   name: "ip",
   params: ["ip/domain", true],
   info: "Get info of a ip or domain",
-  category: "fun",
+  category: "utility",
 
   async execute(message, arguments2, fsh) {
     if (!arguments2[0]) {
@@ -21,7 +21,7 @@ module.exports = {
     let yj = await fetch(`http://ip-api.com/json/${thong}?fields=status,message,continent,continentCode,country,countryCode,region,regionName,city,zip,lat,lon,timezone,isp,org,as,asname,mobile,proxy,hosting,query`);
     yj = await yj.json();
     if (yj.status == "fail") {
-      message.reply(`Error: ${yj.message}`)
+      message.reply(`error: ${yj.message}`)
       return;
     }
 

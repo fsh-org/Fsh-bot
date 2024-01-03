@@ -17,7 +17,7 @@ module.exports = {
   name: "tosdr",
   params: ['query', true],
   info: "Brief resolution on a websites ToS & PP",
-  category: "hidden",
+  category: "utility",
 
   async execute(message, arguments2, fsh) {
     let res = await fetch(`https://api.tosdr.org/search/v4/?query=${arguments2.join("%20")}`);
@@ -86,10 +86,10 @@ ${res.documents.map(e => `${e.name}: ${e.url}`).join("\n")}`)
         i--;
       }
     }*///104=>64
-    console.log(points.length)
+    //console.log(points.length)
     
     points.forEach(e => {
-      if (count<25) {
+      if (count<24) {
         embed.addFields({
           name: `${fsh.emojis[e.case.classification] || fsh.emojis["neutral"]} ${e.title}`,
           value: fermet(e.analysis) || "No extra data given"
@@ -103,7 +103,7 @@ ${res.documents.map(e => `${e.name}: ${e.url}`).join("\n")}`)
         embeds: [embed]
       })
     } catch (err) {
-      message.channel.send("Err: could not send (500)")
+      message.channel.send("err: could not send (500)")
     }
   }
 };

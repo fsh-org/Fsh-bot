@@ -37,7 +37,10 @@ module.exports = {
     user = fsh.client.users.cache.get(user) || message.author;
     let member = message.guild.members.cache.get(user.id);
 
-    let response = await fetch(`https://discord.com/api/v8/users/${user.id}`, {
+    let usrbg = {};
+    let response;
+    if (!user.bot){
+    response = await fetch(`https://discord.com/api/v8/users/${user.id}`, {
       method: 'GET',
       headers: {
         Authorization: `Bot ${fsh.client.token}`
@@ -45,7 +48,6 @@ module.exports = {
     })
     response = await response.json();
 
-    let usrbg = {};
     if (!fsh.usrgbg) {
       usrbg = await fetch("https://raw.githubusercontent.com/AutumnVN/usrbg/main/usrbg.json")
       usrbg = await usrbg.json();
@@ -53,7 +55,9 @@ module.exports = {
     } else {
       usrbg = fsh.usrbg
     }
-
+    } else {
+      response = {}
+    }
     let pres = "";
     get_presences(member).forEach(e => {
       pres = pres + fsh.emojis[String(e)]
@@ -114,12 +118,10 @@ User url: https://discord.com/users/${user.id}`
     
     let roles = [];
     let list = "";
-    member.roles.cache.forEach(async (role) => {
-      roles.push(role.rawPosition);
-    });
-    roles = roles.sort((a,b)=>{return -(Number(a)-Number(b))});
+    console.log(Array.from(member.roles.cache))
+    roles = Array.from(member.roles.cache).sort((a,b)=>{return -(Number(a[0].rawPosition)-Number(b[0].rawPosition))});
     roles.slice(0,35).forEach(rol => {
-      list = list + `<@&${message.guild.roles.cache.find(role => role.position === rol).id}> `;
+      list = list + `<@&${rol[0]}> `;
     })
     if (roles.length != roles.slice(0,35).length) {
       list = list + `[${roles.length - roles.slice(0,35).length} more]`

@@ -126,7 +126,7 @@ function refresh(directory, collection) {
         fsh.client[collection].set(command.name, command);
       }
     } else {
-      console.log(`[2;33m[WARNING] The command at ${file} is missing a required "execute" property.[0m`);
+      console.log(`[1;33m[WARNING] The command at ${file} is missing a required "execute" property.[0m`);
     }
   }
 }
@@ -180,9 +180,9 @@ fsh.qplay = function(message, filelocal){
 
 	let connection = joinVoiceChannel({
 	 channelId: message.member.voice.channel.id,
-			guildId: message.guild.id,
-									adapterCreator: message.guild.voiceAdapterCreator,
-									selfDeaf: true
+		guildId: message.guild.id,
+		adapterCreator: message.guild.voiceAdapterCreator,
+		selfDeaf: true
 	})
 
 	 connection.subscribe(player)

@@ -35,18 +35,8 @@ module.exports = {
 	category: "fun",
 
 	async execute(message, arguments2, fsh) {
-		message.channel.send("you can look at me in https://scratch.mit.edu/projects/793043905/fullscreen/");
-
-    let data;
-    try {
-      data = await fetch('https://clouddata.scratch.mit.edu/logs?projectid=793043905&limit=1&offset=0');
-      data = await data.json();
-    } catch (err) {
-      message.channel.send("Scratch cloud servers did not respond");
-      return;
-    }
-
-    message.channel.send(`record holder is ${decode(data[0].value)[0]} with a time of ${time_gud(decode(data[0].value)[1])}`)
+		message.channel.send(`you can look at me in https://scratch.mit.edu/projects/793043905/fullscreen
+Scratch cloud servers can no longer be accessed`);
     /*
 		https
 			.get(

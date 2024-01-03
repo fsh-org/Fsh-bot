@@ -1,6 +1,24 @@
 {
   "712405952745439302": "en,true",
-  "866689038731313193": "en,true",
+  "866689038731313193": {
+    "rob": true,
+    "join_gate": {
+      "active": false,
+      "limit": 8,
+      "role": ""
+    },
+    "dj_role": "",
+    "command_channel": [],
+    "leveling": {
+      "active": false,
+      "notifications": {
+        "active": false,
+        "channel": ""
+      }
+    },
+    "token_warn": true,
+    "version": 1.2
+  },
   "994915816954925117": "es,true",
   "1060497448902086726": "en,true",
   "1060939730583302194": "en,true",
@@ -103,5 +121,62 @@
       "active": false,
       "notifications": {}
     }
+  },
+  "1189072366773477386": {
+    "rob": true,
+    "join_gate": {
+      "active": false,
+      "limit": 8,
+      "role": ""
+    },
+    "dj_role": "",
+    "command_channel": [],
+    "leveling": {
+      "active": false,
+      "notifications": {
+        "active": false,
+        "channel": ""
+      }
+    },
+    "token_warn": true,
+    "version": 1.2
+  },
+  "1189218003536056412": {
+    "rob": true,
+    "join_gate": {
+      "active": false,
+      "limit": 8,
+      "role": ""
+    },
+    "dj_role": "",
+    "command_channel": [],
+    "leveling": {
+      "active": false,
+      "notifications": {
+        "active": false,
+        "channel": ""
+      }
+    },
+    "token_warn": true,
+    "version": 1.2
+  },
+  "1189462579135914074": {
+    "rob": true,
+    "join_gate": {
+      "active": false,
+      "limit": 8,
+      "role": ""
+    },
+    "dj_role": "",
+    "command_channel": [],
+    "leveling": {
+      "active": false,
+      "notifications": {
+        "active": false,
+        "channel": ""
+      }
+    },
+    "token_warn": true,
+    "version": 1.2
   }
 }

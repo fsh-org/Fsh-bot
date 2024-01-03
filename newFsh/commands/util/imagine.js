@@ -87,19 +87,19 @@ Model: SG161222/Realistic_Vision_V1.4`)
           value: "Yntec/Photosphere",
         },
         {
-          label: "Rainbow Dreams",
-          description: "Yntec/RainbowDreams",
-          value: "Yntec/RainbowDreams",
-        },
-        {
           label: "Furry mix (ddede)",
           description: "stablediffusionapi/bb95-furry-mix",
           value: "stablediffusionapi/bb95-furry-mix",
         } //furby, xd
       );
-    t = ["767102460673916958","439788095483936768"]
+    /*t = ["767102460673916958","439788095483936768"]
     if (fsh.devIds.includes(message.member.id) || t.includes(message.member.id)) {
       meun.addOptions(
+        {
+          label: "Rainbow Dreams (nsfw)",
+          description: "Yntec/RainbowDreams",
+          value: "Yntec/RainbowDreams",
+        },
         {
           label: "Photoreal 2.0 (may be nsfw)",
           description: "dreamlike-art/dreamlike-photoreal-2.0",
@@ -116,7 +116,7 @@ Model: SG161222/Realistic_Vision_V1.4`)
           value: "Yntec/sexyToons"
         }
       )
-    }
+    }*/
     let menu = new Discord.ActionRowBuilder().addComponents(meun);
     let button_row = new Discord.ActionRowBuilder().addComponents(
       new Discord.ButtonBuilder()

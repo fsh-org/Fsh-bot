@@ -10,7 +10,7 @@ module.exports = {
   name: ['review','reviews'],
   params: ['member', false],
   info: 'Shows reviews of a user (from reviewDB)',
-  category: "utility",
+  category: "fun",
 
   async execute(message, arguments2, fsh) {
 

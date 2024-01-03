@@ -10,6 +10,10 @@ module.exports = {
     let data = await fetch(`https://hercai.onrender.com/v3-beta/hercai?question=
 [my name=${message.member.displayName}, my id=${message.author.id}, you are=Fsh, to mention="@user-id"]
 ${arguments2.join("%20")}`);
+    if (!String(data.status).startsWith("2")) {
+      message.reply("Ai not available")
+      return;
+    }
     data = await data.json();
 
     //console.log(data.reply)

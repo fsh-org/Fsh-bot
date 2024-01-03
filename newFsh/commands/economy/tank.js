@@ -23,16 +23,16 @@ function Good(message, arguments2) {
 module.exports = {
   name: 'tank',
   params: ["action", false, "amount", false],
-  info: "Amount of fsh that someone has",
-
-  category: "hidden",
+  info: "Tank actions",
+  category: "economy",
+  
   async execute(message, arguments2, fsh) {
     // temp dev only //
-    if (!fsh.devIds.includes(message.author.id)) return;
+    //if (!fsh.devIds.includes(message.author.id)) return;
     // ------------- //
 
     let embed = new Discord.EmbedBuilder()
-      .setTitle(`${fsh.emojis.economy} Tank`)
+      .setTitle(`${fsh.emojis.tank} Tank`)
       .setTimestamp()
       .setFooter({ text: `V${fsh.version}` })
       .setColor("#888888");
@@ -43,23 +43,29 @@ module.exports = {
 
     if (!arguments2[0]) {
       // Check tank
-      let scale = Math.floor(amount/max*10);
+      let scale = Math.floor(amount/max*Math.round(10+(max/10000)));
       let group = [];
       for (var i = 0; i < (scale); i++) {
-        group[i] = fsh.emojis.fsh
+        let em = '🐟,🐠,🐡,🐙,🦑,🪼,🦐'.split(',')
+        group[i] = Math.random()*100<1?'<a:smugdance:1136293973279912007>':em[Math.floor(Math.random()*em.length)]
       };
-      for (var i = scale; i < 10; i++) {
+      for (var i = scale; i < Math.round(10+(max/10000)); i++) {
         group[i] = "⬛"
       };
       embed.setDescription(`Your tank: ${amount}/${max}
 ${group.join("")}
-`)
+
+**Actions**
+- Deposit - Insert fsh into the tank
+- Withdraw - Take back fsh from the tank
+- Expand/Upgrade - Make your tank bigger (1:1 ratio, 100 fsh tax)`)
       
     } else if (arguments2[0] == "deposit") {
       if (Good(message, arguments2)) return;
       if (Number(arguments2[1])<=money) {
         if (Number(arguments2[1])+amount<=max) {
           fsh.bank_fsh.add(message.author.id, Number(arguments2[1]))
+          fsh.user_fsh.subtract(message.author.id, Number(arguments2[1]))
           embed.setDescription(`Deposited ${arguments2[1]}`)
         } else {
           embed.setDescription(`Not enough space`)
@@ -69,7 +75,22 @@ ${group.join("")}
       }
     } else if (arguments2[0] == "withdraw") {
       if (Good(message, arguments2)) return;
-      embed.setDescription(`d`)
+      if (Number(arguments2[1])<=amount) {
+        fsh.bank_fsh.subtract(message.author.id, Number(arguments2[1]))
+        fsh.user_fsh.add(message.author.id, Number(arguments2[1]))
+        embed.setDescription(`Withdrawn ${arguments2[1]}`)
+      } else {
+        embed.setDescription(`Not enough fsh in tank`)
+      }
+    } else if (arguments2[0] == "expand" || arguments2[0] == "upgrade") {
+      if (Good(message, arguments2)) return;
+      if (money>=Number(arguments2[1])+100) {
+        fsh.bank_limit.add(message.author.id, Number(arguments2[1]));
+        fsh.user_fsh.subtract(message.author.id, Number(arguments2[1])+100);
+        embed.setDescription('Expanded tank')
+      } else {
+        embed.setDescription('Not enough money')
+      }
     } else {
       embed.setDescription(`Action not found`)
     }

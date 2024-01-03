@@ -16,8 +16,13 @@ module.exports = {
 			command_channel: [],
       leveling: {
         active: false,
-        notifications: {}
-      }
+        notifications: {
+          active: false,
+          channel: ''
+        }
+      },
+      token_warn: true,
+      version: 1.2
     });
   }
 };
