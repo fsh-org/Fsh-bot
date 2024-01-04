@@ -82,7 +82,6 @@ fsh.bank_fsh = new Database("./databases/bank_fsh.json");
 fsh.bank_limit = new Database("./databases/bank_limit.json");
 // Server data
 fsh.server_config = new Database("./databases/server_config.json");
-fsh.server_polls = new Database("./databases/server_polls.json");
 // Other
 fsh.cooldown = new Database("./databases/cooldown.json");
 fsh.coupon = new Database("./databases/coupon.json");

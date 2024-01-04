@@ -31,8 +31,16 @@ module.exports = {
 
     let data;
     if (res != 'invalid expression') {
-      data = await fetch("https://api.fsh.plus/unit?number="+res);
-      data = await data.json();
+      try {
+        data = await fetch("https://api.fsh.plus/unit?number="+res);
+        data = await data.json();
+      } catch (err) {
+        data = {
+          number: 'No',
+          short: ' short',
+          long: ' `:(` '
+        }
+      }
     }
 
     message.reply(`**Math result:**
