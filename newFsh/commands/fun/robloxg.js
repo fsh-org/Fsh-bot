@@ -2,8 +2,8 @@ const Discord = require("discord.js");
 
 module.exports = {
   name: "robloxg",
-  params: ['query', true],
-  info: "Info of a roblox game",
+  params: ['id', true],
+  info: "Info of a roblox group",
   category: "hidden",
 
   async execute(message, arguments2, fsh) {

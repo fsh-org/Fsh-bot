@@ -14,17 +14,17 @@ module.exports = {
     if (arguments2[0] in search_cache) {
       data = search_cache[arguments2[0]]
     } else {
-      console.log(`https://users.roblox.com/v1/users/search?keyword=${arguments2[0]}&limit=10`)
+      //console.log(`https://users.roblox.com/v1/users/search?keyword=${arguments2[0]}&limit=10`)
       let resp = await fetch(`https://users.roblox.com/v1/users/search?keyword=${arguments2[0]}&limit=10`);
       data = await resp.json();
-      console.log("sav?")
+     // console.log("sav?")
       if (!data.errors) {
-        console.log("saved")
+        //console.log("saved")
         search_cache[arguments2[0]] = data
       }
     }
 			//console.log(data)
-      console.log(search_cache)
+      //console.log(search_cache)
     if (!data.data[0]) {
       message.reply("no matches");
       return;
@@ -60,6 +60,7 @@ module.exports = {
 
     let embed = new Discord.EmbedBuilder()
       .setTitle(`${data.displayName} ${data.displayName == data.name ? "" : `(${data.name})`} ${data.hasVerifiedBadge ? fsh.emojis.good : ""}`)
+      .setURL(`https://www.roblox.com/users/${data.id}/profile`)
       .setTimestamp()
       .setFooter({ text: `V${fsh.version}` })
       .setColor("#888888") 
@@ -84,25 +85,6 @@ Win rate: ${e.statistics.winRatePercentage}% | Total: ${e.statistics.awardedCoun
 Updated: <t:${Math.floor(new Date(e.updated).getTime()/1000)}:R> | Created: <t:${Math.floor(new Date(e.created).getTime()/1000)}:R>${e.description ? "\n"+e.description : ""}`
           }).join("\n").slice(0,1024) || "None"
       });
-      /* "id": 2124485633,
-      "name": "A Shared Victory",
-      "description": "Finish a game of Arsenal on the winning team.",
-      "displayName": "A Shared Victory",
-      "displayDescription": "Finish a game of Arsenal on the winning team.",
-      "enabled": true,
-      "iconImageId": 3934904804,
-      "displayIconImageId": 3934904804,
-      "awarder": {
-        "id": 286090429,
-        "type": "Place"
-      },
-      "statistics": {
-        "pastDayAwardedCount": 41016,
-        "awardedCount": 128251216,
-        "winRatePercentage": 0.146
-      },
-      "created": "2019-09-13T16:35:26.91Z",
-      "updated": "2019-09-28T04:12:48.097Z" */
 
     message.channel.send({
       embeds: [embed]
