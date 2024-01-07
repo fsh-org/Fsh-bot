@@ -1,7 +1,7 @@
 const Discord = require("discord.js");
 
 module.exports = {
-  name: ['hex','hexadecimal'],
+  name: ['hex','hexadecimal', '16'],
   params: ['type (encode/decode)', true, 'text', true],
   info: "Encode & Decode hexadecimal",
   category: "fun",

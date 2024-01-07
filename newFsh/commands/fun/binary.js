@@ -1,7 +1,7 @@
 const Discord = require("discord.js");
 
 module.exports = {
-  name: ['binary','bin'],
+  name: ['binary','bin', '2'],
   params: ['type (encode/decode)', true, 'text', true],
   info: "Encode & Decode binary",
   category: "fun",
