@@ -118,7 +118,6 @@ User url: https://discord.com/users/${user.id}`
     
     let roles = [];
     let list = "";
-    console.log(Array.from(member.roles.cache))
     roles = Array.from(member.roles.cache).sort((a,b)=>{return -(Number(a[0].rawPosition)-Number(b[0].rawPosition))});
     roles.slice(0,35).forEach(rol => {
       list = list + `<@&${rol[0]}> `;

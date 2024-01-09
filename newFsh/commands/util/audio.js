@@ -3,7 +3,7 @@ const ytdl = require('ytdl-core');
 const fs = require('fs');
 
 module.exports = {
-  name: ['video','mp4'],
+  name: ['audio','mp3'],
   params: ['id/url', true],
   info: "Info on command",
   category: "hidden",
@@ -17,9 +17,9 @@ module.exports = {
     let id = message.content.split(' ')[1];
     id = id.split('v=').slice(-1)[0].split('/').slice(-1)[0].split('?')[0].split('&')[0];
 
-    let data = await fetch(`https://api.fsh.plus/video?id=${id}`);
+    let data = await fetch(`https://api.fsh.plus/audio?id=${id}`);
     data = await data.json();
-    
-    message.channel.send({files: [{ name: `${id}.mp4`, attachment: data.video }]});
+
+    message.channel.send({files: [{ name: `${id}.mp3`, attachment: data.audio }]});
   }
 };
