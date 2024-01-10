@@ -5,8 +5,8 @@ const fs = require('fs');
 module.exports = {
   name: ['audio','mp3'],
   params: ['id/url', true],
-  info: "Info on command",
-  category: "hidden",
+  info: "Download a youtube video as mp3",
+  category: "utility",
 
   async execute(message, arguments2, fsh) {
     if (!arguments2[0]) {
@@ -19,6 +19,12 @@ module.exports = {
 
     let data = await fetch(`https://api.fsh.plus/audio?id=${id}`);
     data = await data.json();
+
+    if (data.err) {
+      message.reply(`error:
+${data.msg}`);
+      return;
+    }
 
     message.channel.send({files: [{ name: `${id}.mp3`, attachment: data.audio }]});
   }
