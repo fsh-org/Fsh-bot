@@ -1,6 +1,6 @@
 user-agent: *
 allow: /"
-allow: /api
+disallow: /api
 allow: /invite
 disallow: /api/"
 disallow: /auth
