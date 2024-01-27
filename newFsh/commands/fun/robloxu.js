@@ -3,7 +3,7 @@ const Discord = require("discord.js");
 let search_cache = {};
 
 module.exports = {
-  name: "robloxu",
+  name: ['robloxu','robloxuser'],
   params: ['query', true],
   info: "Info of a roblox user",
   category: "fun",
@@ -14,17 +14,12 @@ module.exports = {
     if (arguments2[0] in search_cache) {
       data = search_cache[arguments2[0]]
     } else {
-      //console.log(`https://users.roblox.com/v1/users/search?keyword=${arguments2[0]}&limit=10`)
       let resp = await fetch(`https://users.roblox.com/v1/users/search?keyword=${arguments2[0]}&limit=10`);
       data = await resp.json();
-     // console.log("sav?")
       if (!data.errors) {
-        //console.log("saved")
         search_cache[arguments2[0]] = data
       }
     }
-			//console.log(data)
-      //console.log(search_cache)
     if (!data.data[0]) {
       message.reply("no matches");
       return;
@@ -74,8 +69,8 @@ ${String(users.description) != "undefined" ? "**About**\n"+users.description : "
         name: "Created games",
         value: `${games.slice(0,8).map(e => {
 return `- **${e.name}** (${e.id}):
-Visits: ${e.placeVisits} | Updated: <t:${Math.floor(new Date(e.updated).getTime()/1000)}:R> | Created: <t:${Math.floor(new Date(e.created).getTime()/1000)}:R>${e.description ? "\n"+e.description : ""}`
-        }).join("\n").slice(0,2048) || "None"}`
+Visits: ${e.placeVisits} | Updated: <t:${Math.floor(new Date(e.updated).getTime()/1000)}:R> | Created: <t:${Math.floor(new Date(e.created).getTime()/1000)}:R>${e.description ? "\n"+e.description.slice(0,100)+"..." : ""}`
+        }).join("\n").slice(0,1024) || "None"}`
       },
       {
         name: "Badges",

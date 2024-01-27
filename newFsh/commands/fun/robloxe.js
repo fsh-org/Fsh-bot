@@ -1,7 +1,7 @@
 const Discord = require("discord.js");
 
 module.exports = {
-  name: "robloxe",
+  name: ['robloxe','robloxexperience','robloxgame'],
   params: ['id', true],
   info: "Info of a roblox experience (universe)",
   category: "fun",

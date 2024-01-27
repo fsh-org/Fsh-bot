@@ -40,9 +40,9 @@ module.exports = {
         return fsh.client.users.cache.get(id).username;
       }
     }
-    let CM = fsh.client.textcommands.filter(e => {return "main, economy, fun, music, utility, admin".includes((e).category)});
+    let CM = fsh.TxtCmdsFiles.filter(e => {return "main, economy, fun, music, utility, admin".includes(require(e).category)});
     let lo = []
-    let CU = CM.filter(e=>{lo.push(Array.isArray(e.name) ? e.name[0] : e.name);return Array.isArray(e.name) ? !lo.includes(e.name[0]) : true})
+    let CU = CM.forEach(e => {Array.isArray(require(e).name) ? require(e).name.forEach(t=>lo.push('d')) : lo.push('d')})
     os.cpuUsage(async function (v) {
       var obj = v * 100;
       var info = new EmbedBuilder()
@@ -59,7 +59,7 @@ module.exports = {
 > Users: \`${Object.keys(fsh.user_fsh.all()).length}/${fsh.client.users.cache.size}\`
 > Channels: \`${fsh.client.channels.cache.size}\`
 > Servers: \`${fsh.client.guilds.cache.size}\`
-> Commands: \`${CU.size}\` (\`${CM.size}\`)`,
+> Commands: \`${CM.length}\` (\`${lo.length}\`)`,
           inline: true,
         },
         {
