@@ -12,7 +12,7 @@ function UserCheck(mem, members, susers) {
     members[mem] = 1000 + members[mem]
   }
   // Define when user account created
-  let cret = (Math.floor(new Date(susers[mem].createdAt) / 1000));
+  let cret = (Math.floor(new Date(susers[mem].user.createdAt) / 1000));
   // If created in less than 4 moths add 3 sus
   if (cret > (now - 10368000)) {
     members[mem] = 3 + members[mem]
@@ -101,14 +101,11 @@ function UserCheck(mem, members, susers) {
        members[mem] = 5 + members[mem]
     }
   })
-  // If crypto/currency +2 each (-2 if something cause includes eth)
-  let cry = ["bitcoin","eth","doge","monero","usd"];
+  // If crypto/currency +2 each
+  let cry = ["bitcoin"," eth","doge","monero","usd"];
   cry.forEach(e => {
     if (un.includes(e) || dn.includes(e) || nn.includes(e)) {
        members[mem] = 2 + members[mem]
-    }
-    if (un.includes("something") || dn.includes("something") || nn.includes("something")) {
-       members[mem] = members[mem] - 2
     }
   })
   // Bit, dot combined with more +2
