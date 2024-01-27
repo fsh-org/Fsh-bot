@@ -1,4 +1,4 @@
-const version = "0.5.0";
+const version = "1.0.0 beta";
 
 /* -- Imports -- */
 const Discord = require("discord.js");
