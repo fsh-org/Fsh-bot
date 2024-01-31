@@ -34,7 +34,7 @@ module.exports = {
       .setColor("#999999")
       .setThumbnail('http://s.ppy.sh/a/'+data.user_id)
       .setURL('https://osu.ppy.sh/users/'+data.user_id)
-      .setDescription(`Level: ${data.level || 0}
+      .setDescription(`Level: ${data.level || 1}
 Maps played: ${data.playcount || 0} | Time played: ${time_gud(data.total_seconds_played || 0)}
 
 Joined: <t:${Math.floor(new Date(data.join_date)/1000)}:R>`)
