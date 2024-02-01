@@ -14,12 +14,32 @@ function time_gud(time) {
 
 module.exports = {
   name: ['osuu','osu','osuser','osuuser'],
-  params: ['user/id', true],
+  params: ['user/id', true, 'mode', false],
   info: "Search for a osu account",
-  category: "hidden",
+  category: "fun",
   
   async execute(message, arguments2, fsh) {
-    let data = await fetch(`https://osu.ppy.sh/api/get_user?k=${process.env['osu']}&u=${arguments2[0]}`);
+    let ff = arguments2[1]
+    if (!ff) {
+      ff = "";
+    } else {
+      switch (ff) {
+        case 'taiko':
+          ff = '&m=1';
+          break;
+        case 'catch':
+          ff = '&m=2';
+          break;
+        case 'mania':
+          ff = '&m=3';
+          break;
+        default:
+          ff = '';
+          break;
+      }
+    }
+    
+    let data = await fetch(`https://osu.ppy.sh/api/get_user?k=${process.env['osu']}&u=${arguments2[0]}${ff}`);
     data = await data.json();
     data = data[0];
 

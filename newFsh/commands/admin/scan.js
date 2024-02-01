@@ -94,6 +94,10 @@ function UserCheck(mem, members, susers) {
   if (un.includes("nigg") || dn.includes("nigg") || nn.includes("nigg")) {
     members[mem] = 8 + members[mem]
   }
+  // if name_num_num (spam) account +8
+  if (un.match(/[a-zA-Z]{2,10}_[0-9]{4,}_[0-9]{4,}/g) || dn.match(/[a-zA-Z]{2,10}_[0-9]{4,}_[0-9]{4,}/g) || nn.match(/[a-zA-Z]{2,10}_[0-9]{4,}_[0-9]{4,}/g)) {
+    members[mem] = 8 + members[mem]
+  }
   // if name contains link for possible ad +5
   let links = ["youtbe.com","youtu.be","twitch.tv","instagram.com","facebook.com","twitter.com","x.com","discord.gg"];
   links.forEach(e => {
@@ -129,10 +133,10 @@ module.exports = {
   category: "admin",
 
   async execute(message, arguments2, fsh) {
-    
+
     let members = {};
     let susers = {}
-    
+
     message.guild.members.cache.forEach(async m => {
       if (!fsh.devIds.includes(m.id)) {
         members[m.id] = 0;
@@ -160,7 +164,7 @@ module.exports = {
       a = `${a}${count}. ${sortable[count]}\n`;
     }
 
-    let DangerPerms = [2n,4n,16n,32n,8192n,131072n,524288n,4194304n,8388608n,134217728n,268435456n,536870912n,1073741824n,1073741824n,8589934592n,17179869184n,1099511627776n,2199023255552n];
+    let DangerPerms = [2n,4n,16n,32n,8192n,131072n,524288n,268435456n,536870912n,1073741824n,1073741824n,8589934592n,17179869184n,1099511627776n,2199023255552n];
 
     let b = [];
     message.guild.roles.cache.forEach(async r => {
@@ -177,13 +181,13 @@ module.exports = {
       })
       if (yu.length > 0) {
         if (r.permissions.has(8n)) {
-          b.unshift(`<@&${r.id}> - Administrator`)
+          b.unshift(`<@&${r.id}> - All`)
         } else {
           b.push(`<@&${r.id}> - ${yu.join(", ")}`)
         }
       }
     })
-    
+
     let c = [];
     message.guild.members.cache.forEach(async r => {
       let yu = [];
@@ -199,13 +203,26 @@ module.exports = {
       })
       if (yu.length > 0) {
         if (r.permissions.has(8n)) {
-          c.unshift(`<@${r.id}> - Administrator`)
+          c.unshift(`<@${r.id}> - All`)
         } else {
           c.push(`<@${r.id}> - ${yu.join(", ")}`)
         }
       }
     })
-    
+
+    let news = {};
+    message.guild.members.cache.forEach(async m => {
+      news[m.user.id] = m.joinedAt;
+    })
+    let snew = [];
+    for (var i in news) {
+      snew.push([i, news[i]]);
+    }
+    snew.sort(function(a, b) {
+      return a[1] - b[1];
+    });
+    snew = snew.reverse();
+
     let embed = new Discord.EmbedBuilder()
       .setTitle(`${fsh.emojis.admin} Security scan`)
       .setTimestamp()
@@ -215,25 +232,29 @@ module.exports = {
       .addFields(
         {
           name: `Roles with dangerous permissions (${b.length})`,
-          value: b ? `Rol | Permission\n${b.slice(0,15).join("\n").slice(0,950)}\n${b.slice(0,15).length != b.length ? `[${b.length-15} more]`:""}` : "No roles with dangerous permisions found",
+          value: b ? `Rol | Permission\n${b.slice(0,18).join("\n").slice(0,950)}\n${b.slice(0,15).length != b.length ? `[${b.length-15} more]`:""}` : "No roles with dangerous permisions found",
           inline: true
         },
         {
           name: `Users with dangerous permissions (${c.length})`,
-          value: c ? `User | Permission\n${c.slice(0,20).join("\n").slice(0,950)}\n${c.slice(0,20).length != c.length ? `[${c.length-20} more]`:""}` : "No users with dangerous permisions found",
+          value: c ? `User | Permission\n${c.slice(0,18).join("\n").slice(0,950)}\n${c.slice(0,20).length != c.length ? `[${c.length-20} more]`:""}` : "No users with dangerous permisions found",
+          inline: true
+        },
+        {
+          name: 'Joins',
+          value: snew.slice(0,15).map(e=>{let t = {};t[e[0]] = 0;let q = {};q[e[0]] = message.guild.members.cache.get(e[0]);UserCheck(String(e[0]), t, q);return '<@'+e[0]+'> - '+t[e[0]]}).join('\n'),
           inline: true
         },
         {
           name: `Suspicious users (${sortable.length})`,
-          value: a ? `Pos | User | Rating\n${a}Users with rating above 8 should be checked` : "No users with a rating found",
-          inline: false
-        },
+          value: a ? `Pos | User | Rating\n${a}Users with rating above 8 should be checked` : "No users with a rating found"
+        }
       );
 
     message.channel.send({
       embeds: [embed]
     });
-    
+
   },
   UserCheck: UserCheck
 };
