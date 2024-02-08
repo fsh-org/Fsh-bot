@@ -19,6 +19,6 @@ module.exports = {
       return a[1] - b[1];
     });
 
-    message.reply({ content: 'Oldest member: <@'+snew[0][0]+'>', allowedMentions: { parse: [] }})
+    message.reply({ content: 'Oldest member: <@'+snew[0][0]+'>'+(message.guild.ownerId == snew[0][0] ? '' : '\nFun fact: If the owner gets banned, this user will own the server'), allowedMentions: { parse: [] }})
   }
 };
