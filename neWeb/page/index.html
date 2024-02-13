@@ -15,15 +15,25 @@
     <!-- ------------------ -->
     <script src="https://kit.fontawesome.com/50eb963274.js" crossorigin="anonymous"></script>
     <style>
-      body {
+      .title, h2, .desc {
         text-align: center;
-      }
-      table {
-        margin-left: auto;
-        margin-right: auto;
       }
       i+h2 {
         display: inline-block;
+      }
+      .elem {
+        margin-top: 10px;
+        padding: 6px;
+        width: fit-content;
+        border-radius: 0 0.75rem 0.75rem 0;
+        background-color: #66d;
+      }
+      .emid {
+        margin-left: auto;
+        margin-right: auto;
+        width: 60vw;
+        border-left: 10px #66d solid;
+        border-radius: 1rem 0 0 1rem;
       }
     </style>
   </head>
@@ -37,50 +47,40 @@
       </table>
     </a>
     <h2 style="margin-top:-20px">Bot</h2>
-    <p>Fsh a bot for your members with a little bit of everything</p>
+    <p class="desc">Fsh a bot for your members with a little bit of everything</p>
     <br>
-    <a href="/invite"><button>Invite</button></a>
-    <a href="https://discord.gg/SXcXZN4tkM" target="_blank"><button>Support server</button></a>
-    <br><br>
-    <table class="Tout" style="text-align: left;">
-      <tr>
-        <td>
-          <i class="fa-solid fa-gamepad"></i>
-          <h2>Fun</h2>
-          <p>Lots of fun commands for your members. Just say fsh!</p>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <i class="fa-solid fa-screwdriver-wrench"></i>
-          <h2>Utility</h2>
-          <p>Utility commands, get information of users, ips or other; resolve equations, generate qrs and more</p>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <i class="fa-solid fa-dollar-sign"></i>
-          <h2>Economy</h2>
-          <p>A global economy system thats easy to start and doesn't require you to use it every day.</p>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <i class="fa-solid fa-shield-halved"></i>
-          <h2>Moderation</h2>
-          <p>Scan your server for anomalous users (no messages), sanction misbehaving users and more.</p>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <i class="fa-solid fa-music"></i>
-          <h2>Music</h2>
-          <p>Listen music with your friends in a vc (pending).</p>
-        </td>
-      </tr>
-    </table>
+    <div style="display:flex;justify-content:center;gap:10px;">
+      <a href="/invite"><button>Invite <i class="fa-solid fa-user-plus"></i></button></a>
+      <a href="https://discord.gg/SXcXZN4tkM" target="_blank"><button>Support server <i class="fa-solid fa-arrow-up-right-from-square"></i></button></a>
+    </div>
+    <div class="emid">
+      <div class="elem">
+        <i class="fa-solid fa-gamepad"></i>
+        <h2>Fun</h2>
+        <p>Lots of fun commands for your members. Just say fsh!</p>
+      </div>
+      <div class="elem">
+        <i class="fa-solid fa-screwdriver-wrench"></i>
+        <h2>Utility</h2>
+        <p>Get information, resolve equations, generate qrs, view pages and more</p>
+      </div>
+      <div class="elem">
+        <i class="fa-solid fa-dollar-sign"></i>
+        <h2>Economy</h2>
+        <p>A global economy system thats easy to start and doesn't require intensive upkeep.</p>
+      </div>
+      <div class="elem">
+        <i class="fa-solid fa-shield-halved"></i>
+        <h2>Moderation</h2>
+        <p>Scan your server, sanction misbehaving users and more.</p>
+      </div>
+      <div class="elem">
+        <i class="fa-solid fa-music"></i>
+        <h2>Music (Pending)</h2>
+        <p>Listen music with your friends in a vc.</p>
+      </div>
+    </div>
     <br>
-    <p>The api is not supported, for good apis visit <a href="https://api.fsh.plus" target="_blank">Fsh api</a></p>
-    <a href="/api"><button>API Docs</button></a>
+    <p class="desc">The <a href="/api">bot api</a> is depracated, for good apis visit <a href="https://api.fsh.plus" target="_blank">Fsh api</a></p>
   </body>
 </html>
