@@ -4,7 +4,7 @@ module.exports = {
   name: "tts",
   params: ['lang', true, 'text', true],
   info: "Info on command",
-  category: "hidden",
+  category: "fun",
 
   async execute(message, arguments2, fsh) {
     let data = await fetch('https://api.fsh.plus/tts?lang='+(arguments2[0].length == 2 ? arguments2[0] : 'en')+'&text='+(arguments2[0].length == 2 ? arguments2.slice(1,arguments2.length).join(' ') : arguments2.join(' ')));
@@ -19,7 +19,7 @@ module.exports = {
     
     const attachment = new Discord.AttachmentBuilder(Buffer.from(byteArray), {name: 'tts.wav'});
 
-    message.channel.reply({
+    message.reply({
       files: [attachment]
     })
   }
