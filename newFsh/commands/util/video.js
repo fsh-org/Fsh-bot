@@ -4,7 +4,7 @@ const fs = require('fs');
 
 module.exports = {
   name: ['video','mp4'],
-  params: ['id/url', true],
+  params: ['id/url', true, 'name', false],
   info: "Download a youtube video as mp4",
   category: "utility",
 
@@ -26,6 +26,6 @@ ${data.msg}`);
       return;
     }
     
-    message.channel.send({files: [{ name: `${id}.mp4`, attachment: data.video }]});
+    message.channel.send({files: [{ name: `${arguments2[1] || id}.mp4`, attachment: data.video }]});
   }
 };

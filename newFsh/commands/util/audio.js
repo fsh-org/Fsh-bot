@@ -4,7 +4,7 @@ const fs = require('fs');
 
 module.exports = {
   name: ['audio','mp3'],
-  params: ['id/url', true],
+  params: ['id/url', true, 'name', false],
   info: "Download a youtube video as mp3",
   category: "utility",
 
@@ -26,6 +26,6 @@ ${data.msg}`);
       return;
     }
 
-    message.channel.send({files: [{ name: `${id}.mp3`, attachment: data.audio }]});
+    message.channel.send({files: [{ name: `${arguments2[1] || id}.mp3`, attachment: data.audio }]});
   }
 };

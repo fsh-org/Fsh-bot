@@ -2,16 +2,12 @@ const Discord = require("discord.js");
 
 module.exports = {
   name: "color",
-  params: ['hex', true],
-  info: "Info on command",
+  params: ['hex', false],
+  info: "Info on a color, empty for random",
   category: "fun",
 
   async execute(message, arguments2, fsh) {
-    if (!arguments2[0]) {
-      message.reply('include a hex color')
-      return;
-    }
-    let data = await fetch('https://api.fsh.plus/color?hex='+arguments2[0].replace('#',''));
+    let data = await fetch('https://api.fsh.plus/color?hex='+(arguments2[0]||'').replace('#',''));
     data = await data.json();
 
     if (data.err) {
