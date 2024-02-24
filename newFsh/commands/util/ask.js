@@ -7,23 +7,16 @@ module.exports = {
   category: "hidden",
 
   async execute(message, arguments2, fsh) {
-    let data = await fetch(`https://hercai.onrender.com/v3-beta/hercai?question=
-[my name=${message.member.displayName}, my id=${message.author.id}, you are=Fsh, to mention="@user-id"]
-${arguments2.join("%20")}`);
-    if (!String(data.status).startsWith("2")) {
-      message.reply("Ai not available")
-      return;
-    }
-    data = await data.json();
+    let data = await fetch(`https://api.fsh.plus/generate?text=<start_of_turn>user
+${arguments2.join("%20")}<end_of_turn>
+<start_of_turn>model`);
+        if (!String(data.status).startsWith("2")) {
+          message.reply("Ai not available")
+          return;
+        }
+        data = await data.json();
 
-    //console.log(data.reply)
-    let fil = await fetch(`https://api.fsh.plus/filter?text=${data.reply}`)
-    fil = await fil.json();
-    //console.log(fil.censor)
-    fil = fil.censor;
-    fil = fil.replaceAll(/(?<!<)@[0-9&]{1,20}/g, function(match){return `<${match}>`})
-    
-    message.reply(`${fsh.emojis.ai}${fsh.emojis.alpha} Response:
-${fil}`)
+        message.reply(`${fsh.emojis.ai} ${fsh.emojis.alpha} Response:
+${data.generated_text.split('<start_of_turn>model')[1]}`)
   }
 };
