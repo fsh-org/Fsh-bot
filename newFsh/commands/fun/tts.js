@@ -3,7 +3,7 @@ const Discord = require("discord.js");
 module.exports = {
   name: "tts",
   params: ['lang', true, 'text', true],
-  info: "Info on command",
+  info: "Make text to voice",
   category: "fun",
 
   async execute(message, arguments2, fsh) {

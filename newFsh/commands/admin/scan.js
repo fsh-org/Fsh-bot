@@ -98,6 +98,13 @@ function UserCheck(mem, members, susers) {
   if (un.match(/[a-zA-Z]{2,10}_[0-9]{4,}_[0-9]{4,}/g) || dn.match(/[a-zA-Z]{2,10}_[0-9]{4,}_[0-9]{4,}/g) || nn.match(/[a-zA-Z]{2,10}_[0-9]{4,}_[0-9]{4,}/g)) {
     members[mem] = 8 + members[mem]
   }
+  // Scam account +8
+  if (un.includes("𝐋𝐈𝐍𝐊 𝐈𝐍 𝐁𝐈𝟎") || dn.includes("𝐋𝐈𝐍𝐊 𝐈𝐍 𝐁𝐈𝟎") || nn.includes("𝐋𝐈𝐍𝐊 𝐈𝐍 𝐁𝐈𝟎")) {
+    members[mem] = 8 + members[mem]
+  }
+  if (un.includes("𝐀𝐈𝐑𝐃𝐑𝐎𝐏 𝐋𝐈𝐕𝐄") || dn.includes("𝐀𝐈𝐑𝐃𝐑𝐎𝐏 𝐋𝐈𝐕𝐄") || nn.includes("𝐀𝐈𝐑𝐃𝐑𝐎𝐏 𝐋𝐈𝐕𝐄")) {
+    members[mem] = 8 + members[mem]
+  }
   // if name contains link for possible ad +5
   let links = ["youtbe.com","youtu.be","twitch.tv","instagram.com","facebook.com","twitter.com","x.com","discord.gg"];
   links.forEach(e => {

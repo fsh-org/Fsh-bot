@@ -7,7 +7,7 @@ async function getRB(ping) {
   try {
     const response = await fetch("https://newrandomizerbot.ddededodediamante.repl.co/ping");
     const data = await response.text();
-    return `\`${Math.abs(Number(data) - Number(ping))}ms\` ${Number(data) < Number(ping) ? "more" : "less"} than Randomizer Bot (\`${data}ms\`)`;
+    return `\`${Math.abs(Number(data) - Number(ping))}ms\` ${Number(data) < Number(ping) ? "more" : "less"} than Randomizer Bot (\`${data.slice(0,5)}ms\`)`;
   } catch (err) {
     return "`Randomizer Bot` is not available";
   }
