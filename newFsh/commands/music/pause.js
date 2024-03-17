@@ -1,13 +1,17 @@
 const Discord = require("discord.js");
 
 module.exports = {
-  name: "skip",
+  name: "pause",
   params: [],
-  info: "Info on command",
+  info: "Pauses or unpauses the current song",
   category: "hidden",
 
   async execute(message, arguments2, fsh) {
     if (!message.member.voice?.channel) return message.channel.send('connect to a Voice Channel');
-    fsh.music.skip(message.guild.id)
+    if (fsh.music.paused.get(message.guild.id)) {
+      fsh.music.unpause(message.guild.id)
+    } else {
+      fsh.music.pause(message.guild.id)
+    }
   }
 }

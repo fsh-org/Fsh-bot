@@ -4,6 +4,26 @@ const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
 
+const fs = require("fs");
+let path = require('path');
+
+const getAllJsFiles = function (dirPath, arrayOfFiles) {
+  files = fs.readdirSync(dirPath);
+
+  arrayOfFiles = arrayOfFiles || [];
+
+  files.forEach(function (file) {
+    if (fs.statSync(dirPath + "/" + file).isDirectory()) {
+      arrayOfFiles = getAllJsFiles(dirPath + "/" + file, arrayOfFiles);
+    } else {
+      if (file.endsWith(".js")) {
+        arrayOfFiles.push(path.join(dirPath, "/", file));
+      }
+    }
+  });
+  return arrayOfFiles;
+};
+
 module.exports = {
   name: Events.MessageCreate,
   async execute(fsh, resFunc, message) {
@@ -125,6 +145,7 @@ module.exports = {
           resFunc.res("interactions", "interactions");
           /*resFunc.res('context', 'contextmenu')*/
           resh.setDescription(`Refreshed commands`);
+          fsh.TxtCmdsFiles = getAllJsFiles(path.join(__dirname, "../"), []);
         } catch (err) {
           console.log(err);
           resh.setDescription(

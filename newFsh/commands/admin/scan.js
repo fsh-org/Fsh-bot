@@ -3,6 +3,10 @@ const fs = require("fs");
 
 function UserCheck(mem, members, susers) {
   let now = (Math.floor(new Date().getTime() / 1000));
+  // get names
+  let un = String(susers[mem].user.username).toLowerCase();
+  let nn = String(susers[mem].nickname).toLowerCase();
+  let dn = String(susers[mem].user.globalName).toLowerCase();
   // If scemer or bad add 20 sus
   if (fs.readFileSync('text/bad.txt', 'utf8').split(",").includes(susers[mem].id)) {
     members[mem] = 20 + members[mem]
@@ -33,14 +37,16 @@ function UserCheck(mem, members, susers) {
       }
     }
   }
-  // if old system +1
+  // if discrim
   if (String(susers[mem].user.discriminator) != "0" && !susers[mem].user.bot) {
-    members[mem] = 1 + members[mem]
+    members[mem] = 2 + members[mem]
   }
-  // get names
-  let un = String(susers[mem].user.username).toLowerCase();
-  let nn = String(susers[mem].nickname).toLowerCase();
-  let dn = String(susers[mem].user.globalName).toLowerCase();
+  if ((un.match(/[^0-9][0-9]{4}$/m)||[''])[0].length) {
+    members[mem] = 4 + members[mem]
+  }
+  if ((un.match(/_[0-9]{5}$/m)||[''])[0].length) {
+    members[mem] = 2 + members[mem]
+  }
   // if "giveaway", "nitro", "free", "bio" (not bot) or "discord", "steam","google" (yes bot) in name +3 sus each
   if (!susers[mem].user.bot) {
     if (un.includes("giveaway") || dn.includes("giveaway") || nn.includes("giveaway")) {
@@ -254,7 +260,7 @@ module.exports = {
         },
         {
           name: `Suspicious users (${sortable.length})`,
-          value: a ? `Pos | User | Rating\n${a}Users with rating above 8 should be checked` : "No users with a rating found"
+          value: a ? `Pos | User | Rating\n${a}` : "No users with a rating found"
         }
       );
 

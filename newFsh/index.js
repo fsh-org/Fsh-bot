@@ -83,6 +83,7 @@ fsh.bank_limit = new Database("./databases/bank_limit.json");
 // Server data
 fsh.server_config = new Database("./databases/server_config.json");
 // Other
+fsh.items = new Database("./databases/items.json");
 fsh.cooldown = new Database("./databases/cooldown.json");
 fsh.coupon = new Database("./databases/coupon.json");
 fsh.emojis = new Database("./databases/emojis.json").data;

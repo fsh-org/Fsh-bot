@@ -1,13 +1,13 @@
 const Discord = require("discord.js");
 
 module.exports = {
-  name: "skip",
+  name: "queue",
   params: [],
-  info: "Info on command",
+  info: "Current music queue",
   category: "hidden",
 
   async execute(message, arguments2, fsh) {
     if (!message.member.voice?.channel) return message.channel.send('connect to a Voice Channel');
-    fsh.music.skip(message.guild.id)
+    message.channel.send(fsh.music.userQueue.get(message.guild.id).length ? '**queue:**\n1. '+fsh.music.userQueue.get(message.guild.id).join('\n1. ') : 'Nothing in queue')
   }
 }

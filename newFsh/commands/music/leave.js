@@ -1,17 +1,13 @@
 const Discord = require("discord.js");
 
 module.exports = {
-  name: "leave",
+  name: ["leave", "stop"],
   params: [],
-  info: "Info on command",
-  category: "hidden",
+  info: "Stop the music and make the bot leave",
+  category: "music",
 
   async execute(message, arguments2, fsh) {
-    // temp dev only //
-    if (!fsh.devIds.includes(message.author.id)) return;
-    // ------------- //
-    if (!message.member.voice?.channel) return message.channel.send('Connect to a Voice Channel');
-      fsh.music.leave(message.guild.id)
-    
+    if (!message.member.voice?.channel) return message.channel.send('connect to a Voice Channel');
+    fsh.music.leave(message.guild.id)
   }
-};
+}
