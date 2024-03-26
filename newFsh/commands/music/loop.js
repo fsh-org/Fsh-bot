@@ -1,13 +1,17 @@
 const Discord = require("discord.js");
 
 module.exports = {
-  name: "skip",
+  name: "loop",
   params: [],
-  info: "Skips the current song",
+  info: "Set the current song to loop or not",
   category: "music",
 
   async execute(message, arguments2, fsh) {
     if (!message.member.voice?.channel) return message.channel.send('connect to a Voice Channel');
-    fsh.music.skip(message.guild.id)
+    if (fsh.music.looped.get(message.guild.id)) {
+      fsh.music.unloop(message.guild.id)
+    } else {
+      fsh.music.loop(message.guild.id)
+    }
   }
 }

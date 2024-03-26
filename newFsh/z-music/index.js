@@ -29,10 +29,8 @@ module.exports = {
       that.userQueue.delete(guildId);
       that.players.delete(guildId);
       that.isPlaying.set(guildId, false);
-      if (!that.paused) {
-        that.paused = new Map()
-      }
       that.paused.set(guildId, false);
+      that.looped.set(guildId, false);
 
       that.commandChannel.get(guildId).text.send(`left`)
 
@@ -44,29 +42,43 @@ module.exports = {
   skip(that, guildId){
     that.fsh.playSong(that, guildId)
   },
-  unpause(that, guildId) {
+  pause(that, guildId){
     try{
-      if (!that.paused) {
-        that.paused = new Map()
-      }
-      that.players.get(guildId).unpause()
-      that.paused.set(guildId, false);
-      that.commandChannel.get(guildId).text.send(`video unpaused`)
+      that.players.get(guildId).pause()
+      that.paused.set(guildId, true);
+      that.commandChannel.get(guildId).text.send(`music paused`)
     } catch(err) {
       // eat
     }
   },
-  pause(that, guildId){
+  unpause(that, guildId) {
     try{
-      if (!that.paused) {
-        that.paused = new Map()
-      }
-      that.players.get(guildId).pause()
-      that.paused.set(guildId, true);
-      that.commandChannel.get(guildId).text.send(`video paused`)
+      that.players.get(guildId).unpause()
+      that.paused.set(guildId, false);
+      that.commandChannel.get(guildId).text.send(`music unpaused`)
     } catch(err) {
       // eat
     }
+  },
+  loop(that, guildId){
+    try{
+      that.looped.set(guildId, true);
+      that.commandChannel.get(guildId).text.send(`music looped`)
+    } catch(err) {
+      // eat
+    }
+  },
+  unloop(that, guildId) {
+    try{
+      that.looped.set(guildId, false);
+      that.commandChannel.get(guildId).text.send(`music unlooped`)
+    } catch(err) {
+      // eat
+    }
+  },
+  volume(that, guildId, volume) {
+    console.log(that.players.get(guildId)._state.resource.volume)
+    that.players.get(guildId)._state.resource.volume.setVolume(volume);
   },
   playSong
 }

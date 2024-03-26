@@ -178,6 +178,7 @@ module.exports = {
       ["index.html", "/"],
       ["api.html", "/api"],
       ["invite.html", "/invite"],
+      ["hub.html", "/hub"],
       ["robots.txt"]
     ];
 
@@ -196,6 +197,8 @@ module.exports = {
       });
     }
 
+    app.use('/hub', express.static('neWeb/page/hub'))
+    
     app.use(function(req, res) {
       res.sendFile(path.join(__dirname, '../neWeb/page/error.html'))
     })

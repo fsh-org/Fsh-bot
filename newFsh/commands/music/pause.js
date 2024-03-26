@@ -1,10 +1,10 @@
 const Discord = require("discord.js");
 
 module.exports = {
-  name: "pause",
+  name: ["pause", "unpause", "resume"],
   params: [],
   info: "Pauses or unpauses the current song",
-  category: "hidden",
+  category: "music",
 
   async execute(message, arguments2, fsh) {
     if (!message.member.voice?.channel) return message.channel.send('connect to a Voice Channel');

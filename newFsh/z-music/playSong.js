@@ -13,9 +13,6 @@ function time_gud(tim) {
 module.exports = async function(_this, guildId) {
   let fsh = _this.fsh;
   _this.isPlaying.set(guildId, true)
-  if (!_this.paused) {
-    _this.paused = new Map()
-  }
   _this.paused.set(guildId, false)
   try {
     let stream,
@@ -33,7 +30,6 @@ module.exports = async function(_this, guildId) {
         });
         results = await ytstream.getInfo(song)
       } else {
-        console.log('searching')
         results = await ytstream.search(song);
         stream = await ytstream.stream(results[0].url, {
           quality: 'high',
@@ -43,25 +39,23 @@ module.exports = async function(_this, guildId) {
         results = results[0];
       };
       try {
-        //console.log(`Views: ${results.views_text} Uploaded: ${results.uploaded} Duration: ${time_gud(results.duration)}`)
-      let embed = new Discord.EmbedBuilder()
-        .setTitle(`${_this.fsh.emojis.youtube} Currently playing: ${results.title}`)
-        .setDescription(`Views: ${results.views_text} Uploaded: ${results.uploaded} Duration: ${time_gud(results.duration)}`)
-        .setFooter({ text: `V${_this.fsh.version}` })
-        .setTimestamp(new Date())
-        .setColor("#999999")
-        .setURL(results.url)
-        .setImage(results.default_thumbnail.url)
-        .setAuthor({
-          name: results.author,
-          url: results.channel.url,
-          //iconURL: user.displayAvatarURL({ format: "png" }),
-        });
-      (_this.commandChannel.get(guildId)).text.send({
-        embeds: [embed]
-      })
+        let embed = new Discord.EmbedBuilder()
+          .setTitle(`${_this.fsh.emojis.youtube} Currently playing: ${results.title}`)
+          .setDescription(`Views: ${results.views_text} Uploaded: ${results.uploaded} Duration: ${time_gud(results.duration)}`)
+          .setFooter({ text: `V${_this.fsh.version}` })
+          .setTimestamp(new Date())
+          .setColor("#999999")
+          .setURL(results.url)
+          .setImage(results.default_thumbnail.url)
+          .setAuthor({
+            name: results.author,
+            url: results.channel.url
+          });
+        (_this.commandChannel.get(guildId)).text.send({
+          embeds: [embed]
+        })
       } catch (err) {
-        console.log(err)
+        // eat
       }
       let resource = createAudioResource(stream.stream, {
         inputType: stream.type
@@ -69,19 +63,14 @@ module.exports = async function(_this, guildId) {
       player.play(resource)
     } catch (err) {
       if (err.includes("age")) {
+        _this.commandChannel.get(guildId).text.send('source is age restricted, cannot play')
         if (!_this.queue.get(guildId).length){
-          //(_this.commandChannel.get(guildId)).text.send('Source is age restricted, nothing else to play')
           return _this.leave(guildId)
         }
         _this.skip(guildId)
       } else {
-        _this.skip(guildId)
-
         _this.commandChannel.get(guildId).text.send(`error occured while getting: \`${songName}\``)
-
-        // skip here
-        /*_this.isPlaying.set(guildId, false)
-        _this.commandChannel.get(guildId).send(`error get resource`)*/
+        _this.skip(guildId)
       }
     }
   } catch (err) {

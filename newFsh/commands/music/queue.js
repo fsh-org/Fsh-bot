@@ -4,7 +4,7 @@ module.exports = {
   name: "queue",
   params: [],
   info: "Current music queue",
-  category: "hidden",
+  category: "music",
 
   async execute(message, arguments2, fsh) {
     if (!message.member.voice?.channel) return message.channel.send('connect to a Voice Channel');

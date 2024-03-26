@@ -7,6 +7,7 @@ module.exports = {
   category: "hidden",
 
   async execute(message, arguments2, fsh) {
+    message.channel.sendTyping()
     let data = await fetch(`https://api.fsh.plus/generate?text=<start_of_turn>user
 ${arguments2.join("%20")}<end_of_turn>
 <start_of_turn>model`);

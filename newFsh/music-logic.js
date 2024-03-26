@@ -23,6 +23,7 @@ class MusicClient {
     this.commandChannel = new Map();
     this.isPlaying = new Map();
     this.paused = new Map();
+    this.looped = new Map();
 
     this.fsh = fsh;
 
@@ -39,13 +40,15 @@ class MusicClient {
       content: `your not in my music command channel <#${this.commandChannel.get(guildId).text.id}>`
     }
     try{
-    if (!(message.channel.id == (this.commandChannel.get(guildId)).text.id)) return message.reply(errMsg)
+      if (!(message.channel.id == (this.commandChannel.get(guildId)).text.id)) return message.reply(errMsg)
     }catch(err){
       // Eat
     }
     // If no queue exists for channel
     if (!this.queue.has(guildId)) {
       this.isPlaying.set(guildId, false)
+      this.paused.set(guildId, false)
+      this.looped.set(guildId, false)
       this.queue.set(guildId, [])
       this.userQueue.set(guildId, [])
     }
@@ -65,22 +68,29 @@ class MusicClient {
       let _this = this;
       // When player is done
       player.on(AudioPlayerStatus.Idle, async () => {
-        let queue = _this.queue.get(guildId);
-        try {
-          if (!queue.length) {
-            (_this.connections.get(guildId)).destroy();
-            _this.connections.delete(guildId);
-            _this.queue.delete(guildId);
-            _this.userQueue.delete(guildId);
-            _this.players.delete(guildId);
-            _this.isPlaying.set(guildId, false);
-            _this.commandChannel.get(guildId).text.send(`nothing left for me to play`);
-            _this.commandChannel.delete(guildId)
-          } else {
-            this.fsh.playSong(_this, guildId)
+        if (_this.looped.get(guildId)) {
+          console.log(_this.queue.get(guildId))
+          this.fsh.playSong(_this, guildId)
+        } else {
+          let queue = _this.queue.get(guildId);
+          try {
+            if (!queue.length) {
+              (_this.connections.get(guildId)).destroy();
+              _this.connections.delete(guildId);
+              _this.queue.delete(guildId);
+              _this.userQueue.delete(guildId);
+              _this.players.delete(guildId);
+              _this.isPlaying.set(guildId, false);
+              _this.paused.set(guildId, false);
+              _this.looped.set(guildId, false);
+              _this.commandChannel.get(guildId).text.send(`nothing left for me to play`);
+              _this.commandChannel.delete(guildId)
+            } else {
+              this.fsh.playSong(_this, guildId)
+            }
+          } catch (err) {
+            // eat err
           }
-        } catch (err) {
-          // eat err
         }
       });
       // Save player
@@ -106,8 +116,7 @@ class MusicClient {
     let queue = this.queue.get(guildId)
     let userQueue = this.userQueue.get(guildId)
     // Get video info
-    let title,
-      url;
+    let title, url;
     try {
       if (ytstream.validateURL(input)) {
         const results = await ytstream.getInfo(input)
@@ -122,11 +131,8 @@ class MusicClient {
       userQueue.push(title)
       queue.push(url);
       if (this.isPlaying.get(guildId)) message.reply(`added \`${title}\` to the queue at position \`${queue.length}\``)
-      /*this.queue.set(guildId, queue)
-    this.userQueue.set(guildId, userQueue)*/
     } catch (err) {
-      console.log(err)
-      message.channel.send(`error add queue`)
+      message.channel.send(`error when adding to queue`)
     }
   }
   getQueue(guildId) {
@@ -139,8 +145,11 @@ class MusicClient {
   }
   leave(guildId) { logic.leave(this, guildId) }
   skip(guildId) { logic.skip(this, guildId) }
-    pause(guildId){ logic.pause(this, guildId) }
-    unpause(guildId){ logic.unpause(this, guildId) }
+  pause(guildId){ logic.pause(this, guildId) }
+  unpause(guildId){ logic.unpause(this, guildId) }
+  loop(guildId){ logic.loop(this, guildId) }
+  unloop(guildId){ logic.unloop(this, guildId) }
+  volume(guildId, volume){ logic.volume(this, guildId, volume) }
 }
 
 module.exports = MusicClient;
