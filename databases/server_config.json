@@ -53,7 +53,25 @@
   "1111659775168610306": "en,true",
   "1114341666191585442": "en,true",
   "1088054878871502870": "en,true",
-  "1115695925680148540": "en,true",
+  "1115695925680148540": {
+    "rob": true,
+    "join_gate": {
+      "active": false,
+      "limit": 8,
+      "role": ""
+    },
+    "dj_role": "",
+    "command_channel": [],
+    "leveling": {
+      "active": false,
+      "notifications": {
+        "active": false,
+        "channel": ""
+      }
+    },
+    "token_warn": true,
+    "version": 1.2
+  },
   "1162566958403833938": {
     "rob": true,
     "join_gate": {
@@ -161,6 +179,25 @@
     "version": 1.2
   },
   "1189462579135914074": {
+    "rob": true,
+    "join_gate": {
+      "active": false,
+      "limit": 8,
+      "role": ""
+    },
+    "dj_role": "",
+    "command_channel": [],
+    "leveling": {
+      "active": false,
+      "notifications": {
+        "active": false,
+        "channel": ""
+      }
+    },
+    "token_warn": true,
+    "version": 1.2
+  },
+  "1147681325533372426": {
     "rob": true,
     "join_gate": {
       "active": false,
