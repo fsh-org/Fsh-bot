@@ -15,6 +15,10 @@ function UserCheck(mem, members, susers) {
   if (fs.readFileSync('text/vewybad.txt', 'utf8').split(",").includes((susers[mem].id))) {
     members[mem] = 1000 + members[mem]
   }
+  // is spammer add 8 sus
+  if (susers[mem].flags.has(1048576)) {
+    members[mem] = 8 + members[mem]
+  }
   // Define when user account created
   let cret = (Math.floor(new Date(susers[mem].user.createdAt) / 1000));
   // If created in less than 4 moths add 3 sus
