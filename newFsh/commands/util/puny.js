@@ -4,7 +4,7 @@ module.exports = {
   name: "puny",
   params: ['text', true],
   info: "Convert domain into punycode",
-  category: "fun",
+  category: "utility",
 
   async execute(message, arguments2, fsh) {
     let data = await fetch('https://api.fsh.plus/puny?domain='+arguments2.join(' '));
