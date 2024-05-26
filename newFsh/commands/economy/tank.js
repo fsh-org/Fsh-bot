@@ -27,10 +27,6 @@ module.exports = {
   category: "economy",
   
   async execute(message, arguments2, fsh) {
-    // temp dev only //
-    //if (!fsh.devIds.includes(message.author.id)) return;
-    // ------------- //
-
     let embed = new Discord.EmbedBuilder()
       .setTitle(`${fsh.emojis.tank} Tank`)
       .setTimestamp()

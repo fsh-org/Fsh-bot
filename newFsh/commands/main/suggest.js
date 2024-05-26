@@ -12,7 +12,7 @@ module.exports = {
       });
       return;
     }
-    let text = await fetch(`https://api.fsh.plus/filter?text=${arguments2.join(" ").replaceAll(" ","%20")}`);
+    let text = await fetch(`https://api.fsh.plus/filter?text=${message.content.split(' ').slice(0, message.content.split(' ').length-1).join(' ').replaceAll(" ","%20")}`);
     text = await text.json();
     text = text.censor.replaceAll("%20"," ")
     let embed = new Discord.EmbedBuilder()

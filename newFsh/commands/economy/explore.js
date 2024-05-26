@@ -1,15 +1,15 @@
 const Discord = require("discord.js");
 
 module.exports = {
-  name: ["inventory", "inv"],
-  params: ['user', false],
+  name: "explore",
+  params: ['location', false],
   info: "Info on command",
   category: "hidden",
 
   async execute(message, arguments2, fsh) {
-    let user = String(arguments2[0]).replace(/<@/g, "").replace(/>/g, "");
-    if (!typeof Number(user) == "Number") return;
-    user = fsh.client.users.cache.get(user) || message.author;
+    // temp dev only //
+    if (!fsh.devIds.includes(message.author.id)) return;
+    // ------------- //
 
     let inv = fsh.user_inventory.get(user.id) || {};
     

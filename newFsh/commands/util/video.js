@@ -17,7 +17,7 @@ module.exports = {
     let id = message.content.split(' ')[1];
     id = id.split('v=').slice(-1)[0].split('/').slice(-1)[0].split('?')[0].split('&')[0];
 
-    let data = await fetch(`https://api.fsh.plus/video?id=${id}`);
+    let data = await fetch(`https://api.fsh.plus/video?id=${id}&max=25000000`);
     data = await data.json();
 
     if (data.err) {
@@ -25,7 +25,17 @@ module.exports = {
 ${data.msg}`);
       return;
     }
-    
-    message.channel.send({files: [{ name: `${arguments2[1] || id}.mp4`, attachment: data.video }]});
+
+    let msg = {
+      files: [
+        { name: `${arguments2[1] || id}.mp4`, attachment: data.video }
+      ]
+    };
+
+    if (data.lower) {
+      msg.content = `video too big, viewing lower resolution, [higher resolution here](<${data.full}>)`;
+    }
+
+    message.channel.send(msg);
   }
 };

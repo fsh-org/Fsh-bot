@@ -10,6 +10,7 @@ const fs = require("fs");
 const path = require("path");
 const events = require("events");
 const { exec } = require("child_process");
+const usrbg = require('usrbg');
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 /* -- On poopoo display error -- */
@@ -45,8 +46,16 @@ let fsh = {
   reaquire
 };
 
+/* Music */
 const MusicLogic = require('./music-logic.js');
 fsh.music = new MusicLogic(fsh);
+
+/* USRBG */
+let USRBGinstance = new usrbg();
+(async()=>{
+  await USRBGinstance.load()
+  fsh.usrbg = USRBGinstance;
+})()
 
 /* -- Make client -- */
 fsh.client = new Discord.Client({

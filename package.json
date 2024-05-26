@@ -1,6 +1,6 @@
 {
   "name": "Fsh-Bot",
-  "version": "0.5.0",
+  "version": "1.0.0-beta",
   "description": "Fsh, a multipurpose bot",
   "main": "index.js",
   "scripts": {
@@ -23,14 +23,8 @@
     "that one fishy bot"
   ],
   "author": [
-    {
-      "name": "frostzzone",
-      "country": "Western United States"
-    },
-    {
-      "name": "inventionpro",
-      "country": "Northern Spain"
-    }
+    "frostzzone",
+    "inventionpro"
   ],
   "license": "CC-BY-NC-4.0",
   "dependencies": {
@@ -42,18 +36,17 @@
     "crypto-js": "^4.1.1",
     "discord-gamecord": "^4.4.1",
     "discord-logs": "^2.0.0",
-    "discord.js": "^14.14.1",
-    "dismusic": "^2.1.10",
+    "discord.js": "^14.15.2",
     "easy-json-database": "^1.5.0",
     "express": "^4.18.2",
     "ffmpeg-static": "^5.2.0",
-    "libsodium-wrappers": "^0.7.11",
     "math-expression-evaluator": "^2.0.4",
     "node": "^20.5.1",
     "node-fetch": "^3.2.6",
     "os-utils": "^0.0.14",
     "qrcode": "^1.5.3",
     "socket.io": "^4.7.1",
+    "usrbg": "^0.1.0",
     "uuid": "^9.0.1",
     "write": "^2.0.0",
     "yt-stream": "^1.4.12",

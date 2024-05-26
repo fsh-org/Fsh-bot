@@ -2,7 +2,6 @@ const red_uri = 'https://bot.fsh.plus/callback-linkedrole';
 const id = '694587798598058004'
 
 import crypto from 'crypto';
-import fetch from 'node-fetch';
 
 import * as storage from './storage.js';
 

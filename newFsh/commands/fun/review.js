@@ -46,9 +46,9 @@ module.exports = {
       let rews = reviews.reviews;
       if (arguments2[1] != "non" && arguments2[0] != "non") {
       rews = rews
-        .filter(e => {return e.comment.length > 3})
+        .filter(e => {return e.comment.length > 3 || e.comment == 'fsh'})
         .filter(e => {return e.comment.length < 100});
-      ["cool","craz","crazy","doodooballs","ass","cum","rule34","xxx","e621","sigma","smoooooth","Roblox Story","My name is Walter Hartwell White","they (put|locked) me in a ","cheese drill"," love men","person (above|below) me is"].forEach(e => {
+      ["craz","crazy","doodooballs","ass","cum","cock","sex","esex","rule34","xxx","e621","sigma","smoooooth","Roblox Story","My name is Walter Hartwell White","they (put|locked) me in a ","cheese drill"," love men","person (above|below) me is","fanum","poo","edged","btich","bitch","rizz","skibidi"].forEach(e => {
         let ff = new RegExp(e, "ig");
         rews = rews.filter(ee => {return !ee.comment.match(ff)});
       })

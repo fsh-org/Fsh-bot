@@ -10,8 +10,8 @@ module.exports = {
   name: "profile",
   params: ["member", false],
   info: "Shows the economy profile of someone",
-
   category: "economy",
+
   async execute(message, arguments2, fsh) {
     let user = String(arguments2[0]).replace(/<@/g, "").replace(/>/g, "");
     if (!typeof Number(user) == "Number") return;
