@@ -51,7 +51,7 @@ const MusicLogic = require('./music-logic.js');
 fsh.music = new MusicLogic(fsh);
 
 /* USRBG */
-let USRBGinstance = new usrbg();
+let USRBGinstance = new usrbg(2);
 (async()=>{
   await USRBGinstance.load()
   fsh.usrbg = USRBGinstance;

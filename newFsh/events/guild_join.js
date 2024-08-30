@@ -7,12 +7,12 @@ module.exports = {
   async execute(fsh, guild) {
     fsh.server_config.set(guild.id, {
       rob: true,
+      token_warn: true,
       join_gate: {
         active: false,
-        limit: 8,
+        limit: 10,
         role: ''
       },
-			dj_role: '',
 			command_channel: [],
       leveling: {
         active: false,
@@ -21,15 +21,7 @@ module.exports = {
           channel: ''
         }
       },
-      token_warn: true,
-      version: 1.2
+      version: 1
     });
   }
 };
-
-/*
-what settings we gonna add?
-
-do we add join gate? like if >x sus it adds a rol
-
-*/

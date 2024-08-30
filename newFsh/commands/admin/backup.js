@@ -1,85 +1,219 @@
 const Discord = require("discord.js");
 const { PermissionsBitField } = require("discord.js");
-const write = require("write");
 const fs = require("fs");
+
+function createBackup(message) {
+  const g = message.guild;
+  let backup = {
+    server: {},
+    channels: [],
+    roles: []
+  };
+
+  /* Needs saving
+  server icon
+  bans
+  automod
+  splash
+  banner
+  discovery splash
+  afk
+  widget
+  rules
+  public updates
+  safety alerts channel
+  emojis
+  stickers
+  */
+
+  backup.server = {
+    name: g.name,
+    description: g.description,
+    //icon: '993235a2a20911cd34821c47ce38077f',
+    //bans: GuildBanManager { guild: [Circular *1] },
+    //autoModerationRules: AutoModerationRuleManager { guild: [Circular *1] },
+    //splash: null,
+    //banner: null,
+    verificationLevel: g.verificationLevel,
+    //discoverySplash: null,
+    premiumProgressBarEnabled: g.premiumProgressBarEnabled,
+    afkTimeout: g.afkTimeout,
+    /*afkChannelId: null,
+    systemChannelId: '1134230605069045901',
+    widgetEnabled: null,
+    widgetChannelId: null,*/
+    explicitContentFilter: g.explicitContentFilter,
+    mfaLevel: g.mfaLevel,
+    defaultMessageNotifications: g.defaultMessageNotifications,
+    //rulesChannelId: '1134235498739671040',
+    //publicUpdatesChannelId: '1134235498739671041',
+    preferredLocale: g.preferredLocale
+    //safetyAlertsChannelId: null,
+    //emojis: GuildEmojiManager { guild: [Circular *1] },
+    //stickers: GuildStickerManager { guild: [Circular *1] }
+  }
+
+  let channels = [];
+  g.channels.cache.forEach(async (c) => {
+    /* need saveing
+    permisions
+    last messages?
+    */
+    let ch = {
+      type: c.type,
+      name: c.name,
+      position: c.rawPosition
+    };
+
+    if (c.type!==4) {
+      ch.parent = c.parent
+      ch.topic = c.topic
+      ch.nsfw = c.nsfw
+    }
+
+    if ([2, 13].includes(ch.type)) {
+      ch.bitrate = c.bitrate
+      ch.userLimit = c.userLimit
+    }
+
+    channels.push(ch)
+    /*
+      permissionOverwrites: PermissionOverwriteManager { channel: [Circular *2] },
+      messages: GuildMessageManager { channel: [Circular *2] }
+    */
+  })
+  backup.channels = channels;
+
+  let roles = [];
+  g.roles.cache.forEach(async (r) => {
+    /* needs savinger
+    icon
+    permision
+    */
+    roles.push({
+      name: r.name,
+      //icon: null,
+      unicodeEmoji: r.unicodeEmoji,
+      color: r.color,
+      hoist: r.hoist,
+      rawPosition: r.rawPosition,
+      //permissions: PermissionsBitField { bitfield: 1096185279794753n },
+      managed: r.managed,
+      mentionable: r.mentionable,
+      tags: r.tags // this saves things like bot author
+    });
+  });
+  backup.roles = roles;
+
+  fs.writeFileSync(`text/backups/${g.id}.json`, JSON.stringify(backup, null, 2));
+  message.reply(`created`)
+}
+function loadBackup(message, id, fsh) {
+  const g = fsh.client.guilds.cache.get(id);
+  if (!g) {
+    message.reply('fsh is not in this server, if it has been deleted contact us');
+    return;
+  }
+  let backup = JSON.parse(fs.readFileSync(`text/backups/${g.id}.json`, 'utf8'));
+
+  backup.server = {
+    name: g.name,
+    description: g.description,
+    verificationLevel: g.verificationLevel,
+    premiumProgressBarEnabled: g.premiumProgressBarEnabled,
+    afkTimeout: g.afkTimeout,
+    explicitContentFilter: g.explicitContentFilter,
+    mfaLevel: g.mfaLevel,
+    defaultMessageNotifications: g.defaultMessageNotifications,
+    preferredLocale: g.preferredLocale
+  }
+
+  let channels = [];
+  g.channels.cache.forEach(async (c) => {
+    let ch = {
+      type: c.type,
+      name: c.name,
+      position: c.rawPosition
+    };
+
+    if (c.type!==4) {
+      ch.parent = c.parent
+      ch.topic = c.topic
+      ch.nsfw = c.nsfw
+    }
+
+    if ([2, 13].includes(ch.type)) {
+      ch.bitrate = c.bitrate
+      ch.userLimit = c.userLimit
+    }
+
+    channels.push(ch)
+  })
+  backup.channels = channels;
+
+  let roles = [];
+  g.roles.cache.forEach(async (r) => {
+    roles.push({
+      name: r.name,
+      unicodeEmoji: r.unicodeEmoji,
+      color: r.color,
+      hoist: r.hoist,
+      rawPosition: r.rawPosition,
+      managed: r.managed,
+      mentionable: r.mentionable,
+      tags: r.tags // this saves things like bot author
+    });
+  });
+  backup.roles = roles;
+}
 
 module.exports = {
   name: "backup",
-  params: ["param1", false],
+  params: ["action", true],
   info: "Load/Save a copy of your server",
   category: "hidden",
 
   async execute(message, arguments2, fsh) {
     // temp dev only //
     if (!fsh.devIds.includes(message.author.id)) {
-      message.channel.send(
-        "Backsups are currently dev only as they may break your server"
-      );
+      message.channel.send("Backsups are currently dev only as they may break your server");
       return;
     }
     // ------------- //
 
-    // this basiclly abandoned
-		// e
-    if (
-      !message.member.permissions.has(
-        PermissionsBitField.Flags.Administrator
-      ) &&
-      !fsh.devIds.includes(message.author.id)
-    ) {
-      message.channel.send("You don't have administrator permissions");
+    if (!arguments2[0]) {
+      message.reply(`what do you want to do?
+- create - creates a backup of the server (channels, roles, basic settings)
+- load - loads a backup of the server (dangerous!!!)
+- loadother - loads another server (dangerous!!!, you need to be an admin on that server)`);
       return;
     }
-    let con;
 
-    let channels = [];
-    message.guild.channels.cache.forEach(async (c) => {
-      if (c.nsfw == "") {
-        let h = String(c.topic).replaceAll("\n", "\\n");
-        channels.push(`{
-      "name": "${c.name.replaceAll('"', '\\"')}",
-      "id": "${c.id}",
-      "position": "${c.rawPosition}",
-      "parent": "${c.parent}",
-      "topic": "${h}",
-      "nsfw": "${c.nsfw}",
-      "type": "${c.type}"
-    }`);
-      } else {
-        channels.push(`{
-      "name": "${c.name.replaceAll('"', '\\"')}",
-      "id": "${c.id}",
-      "position": "${c.rawPosition}",
-      "parent": "${c.parent}",
-      "type": "${c.type}"
-    }`);
-      }
-    });
-
-    let roles = [];
-    message.guild.roles.cache.forEach(async (r) => {
-      roles.push(`{
-      "name": "${r.name}"
-      "id": "${r.id}"
-      "icon": "${r.icon}"
-      "color": "${r.color}"
-      "hoist": "${r.hoist}"
-      "position": "${r.rawPosition}"
-      "managed": "${r.managed}"
-      "mentionable": "${r.mentionable}"
-    }`);
-    });
-
-    con = `{
-  "Channels": [
-    ${channels.join(",\n    ")}
-  ],
-  "Roles": [
-    ${roles.join(",\n    ")}
-  ]
-}`;
-    write.sync(`text/backups/${message.guild.id}.json`, con, {
-      overwrite: true,
-    });
-  },
+    switch (arguments2[0]) {
+      case 'create':
+        if (!message.member.permissions.has(PermissionsBitField.Flags.Administrator) && !fsh.devIds.includes(message.author.id)) {
+          message.channel.send("you don't have administrator permissions");
+          return;
+        }
+        createBackup(message)
+        break;
+      case 'load':
+        if (!message.member.permissions.has(PermissionsBitField.Flags.Administrator) && !fsh.devIds.includes(message.author.id)) {
+          message.channel.send("you don't have administrator permissions");
+          return;
+        }
+        loadBackup(message, message.guild.id, fsh)
+        break;
+      case 'loadother':
+        if (!message.member.permissions.has(PermissionsBitField.Flags.Administrator) && !fsh.devIds.includes(message.author.id)) {
+          message.channel.send("you don't have administrator permissions");
+          return;
+        }
+        loadBackup(message, arguments2[1], fsh)
+        break;
+      default:
+        message.reply('unknown action')
+        break;
+    }
+  }
 };

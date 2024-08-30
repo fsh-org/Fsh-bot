@@ -1,38 +1,23 @@
 // so many modules god
 const Discord = require("discord.js");
-const os = require("os-utils");
+const os = require("node:os");
 const https = require("https");
-const CRYPTOJS = require("crypto-js");
-const write = require("write");
+const crypto = require("crypto");
 const ytstream = require('yt-stream');
-const fs = require("fs");
+const fs = require("node:fs");
 
 // evel these vars for funnis
 const your_mom = "very large";
 const ddededodediamante = "<a:sprong_bob:1117887260793245816>";
-const maxy_dev = `[🐍](https://github.com/maxy-dev/pythonbot)`;
+const maxy_dev = `[🔗](https://github.com/maxy-devs/embedlink)`;
 const inv = "<:rating:1121479224155459634>";
 
 const ddos = function (g) {
   return "ddosing " + g;
 };
 
-const add = function (a, b){
-	if(a==9){
-		if(b==10){
-			return 21
-		}
-	}
-	return Number([a, b].join(''))
-}
-
 function calcmentalageof(person) {
-  return person + "is -1 years old in mental age";
-}
-
-function mayo(c) {
-  let time = c*9
-  return `${Math.floor(time / 604800)} weeks ${Math.floor(time / 86400) % 7} days ${Math.floor(time / 3600) % 24} hours ${Math.floor(time / 60) % 60} minutes ${time % 60} seconds`
+  return person + " is -1 years old in mental age";
 }
 
 function nuke(message) {
@@ -59,41 +44,59 @@ module.exports = {
     //*/
     if (!fsh.devIds.includes(message.author.id)) {
       if (message.content.includes("no")) {
-        message.channel.send("yes");
+        if (message.content.includes("yes")) {
+          message.channel.send("maybe");
+        } else {
+          message.channel.send("yes");
+        }
       } else {
         message.channel.send("no");
       }
       return;
     }
     try {
-      let time = new Date()/1
+      let time = new Date()/1;
       let res = await eval(args.join(" "))
-      time = (new Date()/1) - time
+      time = (new Date()/1) - time;
+      let len;
+      if (['string','number'].includes(typeof(res))) {
+        len = res.toString().length
+      } else {
+        len = res?.length;
+      }
+      if (!len) {
+        len = 'unknown';
+      }
       var evol = new Discord.EmbedBuilder()
-      .setTitle(`${fsh.emojis.console} Eval success`)
-      .setColor("#33ff33")
-      .setDescription(`Response:
+        .setTitle(`${fsh.emojis.console} Eval success`)
+        .setColor("#33ff33")
+        .setDescription(`Response:
 \`\`\`js
 ${res}
 \`\`\``)
-      .addFields({
-        name: `Type`,
-        value: `\`${typeof(res)}\``,
-        inline: true
-      })
-      .addFields({
-        name: `Time`,
-        value: `\`${time/1000}s\``,
-        inline: true
-      });
+        .addFields({
+          name: `Type`,
+          value: `\`${typeof(res)}\``,
+          inline: true
+        },
+        {
+          name: `Length`,
+          value: `\`${len}\``,
+          inline: true
+        },
+        {
+          name: `Time`,
+          value: `\`${time/1000}s\``,
+          inline: true
+        });
     } catch (err) {
-      var evol = new Discord.EmbedBuilder();
-      evol.setTitle(`${fsh.emojis.console} Eval error`);
-      evol.setColor("#ff0000");
-      evol.setDescription(`Response:\n${err}`);
+      var evol = new Discord.EmbedBuilder()
+        .setTitle(`${fsh.emojis.console} Eval error`)
+        .setColor("#ff0000")
+        .setDescription(`Response:\n${err}`);
     }
     message.channel.send({
-      embeds: [evol],
+      embeds: [evol]
     });
   }
 };

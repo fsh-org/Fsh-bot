@@ -91,6 +91,10 @@ function UserCheck(mem, members, susers) {
   if (un.includes("ζ") || dn.includes("ζ") || nn.includes("ζ")) {
     members[mem] = 2 + members[mem]
   }
+  // if name contains groomer symbol +2 sus (its also the micro simbols so many false positives)
+  if (un.includes("μ") || dn.includes("μ") || nn.includes("μ")) {
+    members[mem] = 2 + members[mem]
+  }
   // If not a bot and impersonates bot +5
   if (!susers[mem].user.bot) {
     let bots = ["captcha.bot","mee6","fsh","probot","dyno","carl-bot","arcane","dank memer"];
@@ -142,6 +146,34 @@ function UserCheck(mem, members, susers) {
       if(ee.includes(e)) members[mem] = 2 + members[mem];
     })
   })
+  // Nick / Global name to be placed on top (common scammer tactic) +4
+  if (dn === "!" || nn === "!") {
+    members[mem] = 4 + members[mem]
+  }
+  // Word DM in status +5
+  let pres = susers[mem]?.presence;
+  if (pres) {
+    pres = pres?.activities;
+    if (pres) {
+      pres = pres.filter(e=>e.type===4);
+      if (pres[0]) {
+        pres = pres[0].state;
+        if (pres) {
+          pres = pres.toLowerCase();
+          if (pres.includes('dm')) {
+            members[mem] = 5 + members[mem]
+          }
+          // Remove some false positives
+          if (pres.includes('word')) {
+            members[mem] = members[mem] - 3
+          }
+          if (pres.includes('potato') || pres.includes('uwu')) {
+            members[mem] = members[mem] - 2
+          }
+        }
+      }
+    }
+  }
 }
 
 module.exports = {

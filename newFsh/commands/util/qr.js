@@ -15,7 +15,7 @@ module.exports = {
       return;
     }
     
-    var embed = new Discord.EmbedBuilder()
+    let embed = new Discord.EmbedBuilder()
       .setTitle("QR creator")
       .setFooter({ text: `V${fsh.version}` })
       .setTimestamp(new Date())

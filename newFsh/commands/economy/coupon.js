@@ -1,5 +1,5 @@
 const Discord = require("discord.js");
-const crypto = require("crypto-js");
+const crypto = require("crypto");
 
 module.exports = {
   name: ['coupon', 'redeem'],
@@ -13,7 +13,7 @@ module.exports = {
       return;
     }
 
-    let dd = crypto.SHA512(message.content.split(" ")[1])
+    let dd = crypto.createHash('sha256').update(message.content.split(' ')[1]).digest();
     dd = String(dd)
 
     if (fsh.coupon.has(dd)) {

@@ -15,6 +15,7 @@ module.exports = {
     }
     message.channel.send(`${data.title} (${data.code})
 type: ${data.type}
-standard: ${data.standard}`)
+standard: ${data.standard}
+${arguments2[1] === 'cat' ? `cat: https://http.cat/${data.code}.jpg` : (arguments2[1] === 'dog' ? `dog: https://http.dog/${data.code}.jpg` : '')}`)
   }
 };

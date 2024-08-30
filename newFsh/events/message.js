@@ -2,8 +2,6 @@ const { Events } = require("discord.js");
 const Discord = require("discord.js");
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
-
 const fs = require("fs");
 let path = require('path');
 

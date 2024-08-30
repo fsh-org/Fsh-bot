@@ -26,7 +26,7 @@ ${encodeURIComponent(arguments2.join("%20"))}<end_of_turn>
     data = await fetch(`https://api.fsh.plus/generate?text=`+encodeURIComponent(data.generated_text));
     data = await data.json();
     
-    message.reply(`${fsh.emojis.ai} ${fsh.emojis.alpha} Response:
+    message.reply(`${fsh.emojis.ai} Response:
 ${data.generated_text.split('<start_of_turn>model')[1]}`)
   }
 };

@@ -34,21 +34,13 @@ module.exports = {
     
     let user = String(arguments2[0]).replace(/<@/g, "").replace(/>/g, "");
     if (!typeof Number(user) == "Number") return;
-    user = fsh.client.users.cache.get(user) || message.author;
+    try {
+      user = await fsh.client.users.fetch(user, { force: true });
+    } catch(err) {
+      user = message.author
+    }
     let member = message.guild.members.cache.get(user.id);
 
-    let response;
-    if (!user.bot) {
-      response = await fetch(`https://discord.com/api/v8/users/${user.id}`, {
-        method: 'GET',
-        headers: {
-          Authorization: `Bot ${fsh.client.token}`
-        }
-      })
-      response = await response.json();
-    } else {
-      response = {}
-    }
     let pres = "";
     get_presences(member).forEach(e => {
       pres = pres + fsh.emojis[String(e)]
@@ -97,7 +89,7 @@ ${String(member.communicationDisabledUntilTimestamp/1000) == "0" ? "" : `Ends: <
       {
         name: "Links",
         value: `Avatar: ${member.displayAvatarURL({dynamic: true})}
-Banner: ${response.banner ? `https://cdn.discordapp.com/banners/${user.id}/${response.banner}.${response.banner.includes("a_") ? "gif" : "png"}` : fsh.usrbg.has(user.id) ? `${fsh.usrbg.get(user.id)} [usrbg]` : "None"}
+Banner: ${user.banner ? `https://cdn.discordapp.com/banners/${user.id}/${user.banner}.${user.banner.includes("a_") ? "gif" : "png"}` : fsh.usrbg.has(user.id) ? `${fsh.usrbg.get(user.id)} [usrbg]` : "None"}
 User url: https://discord.com/users/${user.id}`
       },
       {
@@ -124,8 +116,8 @@ ${list}`
       }
     )
     
-    if (response.banner) {
-      embed.setImage(`https://cdn.discordapp.com/banners/${user.id}/${response.banner}.${response.banner.includes("a_") ? "gif" : "png"}`)
+    if (user.banner) {
+      embed.setImage(`https://cdn.discordapp.com/banners/${user.id}/${user.banner}.${user.banner.includes("a_") ? "gif" : "png"}`)
     } else {
       if (fsh.usrbg.has(user.id)) {
         embed.setImage(fsh.usrbg.get(user.id))
