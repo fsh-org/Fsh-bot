@@ -4,3 +4,4 @@ disallow: /api
 allow: /invite
 disallow: /api/*
 disallow: /auth
+disallow: /hub
