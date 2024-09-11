@@ -2,7 +2,6 @@ const version = "1.0.0 beta";
 
 /* -- Imports -- */
 const Discord = require("discord.js");
-const logs = require("discord-logs");
 
 const Database = require("easy-json-database");
 const fs = require("fs");
@@ -45,17 +44,13 @@ let fsh = {
   version,
   reaquire
 };
-
-/* Music */
-const MusicLogic = require('./music-logic.js');
-fsh.music = new MusicLogic(fsh);
-
-/* USRBG */
-let USRBGinstance = new usrbg(2);
-(async()=>{
-  await USRBGinstance.load()
-  fsh.usrbg = USRBGinstance;
-})()
+// Dev ids
+fsh.devIds = [
+  "1068572316986003466", // Fsh
+  "816691475844694047", // Inv
+  "712342308565024818", // Frost
+  "1098211925495664751" // Inv alt
+];
 
 /* -- Make client -- */
 fsh.client = new Discord.Client({
@@ -74,13 +69,16 @@ fsh.client = new Discord.Client({
   ],
 });
 
-/* -- Dev ids */
-fsh.devIds = [
-  "1068572316986003466", // Fsh
-  "816691475844694047", // Inv
-  "712342308565024818", // Frost
-  "1098211925495664751", // Inv alt
-];
+/* -- Music -- */
+const createMusic = require('./music.js');
+createMusic(fsh);
+
+/* -- USRBG -- */
+let USRBGinstance = new usrbg(2);
+(async()=>{
+  await USRBGinstance.load()
+  fsh.usrbg = USRBGinstance;
+})()
 
 /* -- Save dbs on fsh -- */
 // User data
@@ -89,11 +87,11 @@ fsh.user_inventory = new Database("./databases/user_inventory.json");
 fsh.user_badges = new Database("./databases/user_badges.json");
 fsh.bank_fsh = new Database("./databases/bank_fsh.json");
 fsh.bank_limit = new Database("./databases/bank_limit.json");
+fsh.cooldown = new Database("./databases/cooldown.json");
 // Server data
 fsh.server_config = new Database("./databases/server_config.json");
 // Other
 fsh.items = new Database("./databases/items.json");
-fsh.cooldown = new Database("./databases/cooldown.json");
 fsh.coupon = new Database("./databases/coupon.json");
 fsh.emojis = new Database("./databases/emojis.json").data;
 
@@ -117,8 +115,6 @@ const getAllJsFiles = function (dirPath, arrayOfFiles) {
 
 function refresh(directory, collection) {
   fsh.ws_api = reaquire('./ws-api.js')
-  fsh.z_music = reaquire('./z-music')
-  fsh.playSong = reaquire('./z-music/playSong.js')
   
   fsh.client[collection] = new Discord.Collection();
   const commandsPath = path.join(__dirname, directory);

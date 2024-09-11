@@ -3,7 +3,6 @@ const Discord = require("discord.js");
 const os = require("node:os");
 const https = require("https");
 const crypto = require("crypto");
-const ytstream = require('yt-stream');
 const fs = require("node:fs");
 
 // evel these vars for funnis

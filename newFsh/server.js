@@ -7,6 +7,8 @@ const cors = require("cors");
 var path = require("path");
 const crypto = require("crypto")
 
+const { useQueue, useTimeline } = require("discord-player");
+
 function listsGetRandomItem(list, remove) {
   var x = Math.floor(Math.random() * list.length);
   if (remove) {
@@ -169,6 +171,155 @@ module.exports = {
           res.send("Fsh - Api endpoint not specified | if you are getting this from s4d, the api blocks are broken");
       }
     });
+
+    /* Music */
+    app.get("/music-panel", async function(req, res) {
+      if (!req.query['id']) {
+        res.send('provide id');
+        return;
+      }
+      let queue = useQueue(req.query['id']);
+      if (!queue) {
+        res.send('unmeow');
+        return;
+      }
+      const { timestamp, track, volume, paused } = useTimeline(req.query['id']);
+      let now = Date.now();
+      res.send(`<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Music panel - Fsh bot</title>
+    <!-- Boiler plate------ -->
+    <link rel="icon" href="https://fsh.plus/fsh.png" type="image/png">
+    <meta name="description" content="Music currently playing in the server">
+    <!-- ------- -->
+    <link rel="stylesheet" href="https://fsh.plus/media/style.css">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og:image" content="https://fsh.plus/fsh.png"/>
+    <meta name="theme-color" content="#a89c9b">
+    <!-- ------------------ -->
+    <style>
+      h1, h2 {
+        text-align: center;
+      }
+
+      .card {
+        display: flex;
+        flex-direction: column;
+        width: 30vw;
+        height: 21.45vh;
+        position: relative;
+        margin: 20px auto;
+        padding: 15px;
+        border-radius: 1rem;
+        background: linear-gradient(in oklch, rgba(0,0,0,0) 50%, rgba(0,0,0,0.75) 100%), url(${track.thumbnail}), var(--bg-2);
+        background-size: 100%;
+        background-repeat: no-repeat;
+      }
+      .card .name {
+        color: var(--text-0);
+        font-size: 125%;
+        word-break: break-word;
+      }
+      .card .author {
+        color: var(--text-1);
+        margin: -4px 0;
+      }
+      .card .time {
+        display: flex;
+        margin: 16px 2px 4px 2px;
+      }
+      .pb {
+        height: 8px;
+        overflow: hidden;
+        border-radius: 1rem;
+        background-color: var(--bg-3);
+      }
+      .pb > div {
+        height: 100%;
+        width: var(--p, 0%);
+        background-color: var(--accent-2);
+      }
+      .card > a {
+        position: absolute;
+        top: 7px;
+        right: 7px;
+      }
+      .card > a svg {
+        fill: var(--text-2);
+      }
+      .card > a svg:hover {
+        fill: var(--text-1);
+      }
+
+      .tracks {
+        display: flex;
+        flex-direction:column
+        gap: 10px;
+        position: relative;
+        width: fit-content;
+        margin: 20px auto;
+        padding: 15px;
+        border-radius: 1rem;
+        background-color: var(--bg-2);
+      }
+      .tracks > span {
+        display: flex;
+        flex-direction: column;
+      }
+      ol {
+        margin: 0;
+      }
+      li > span:nth-child(2) {
+        float: right;
+        margin-left: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Currently ${paused ? 'paused' : 'playing'}</h1>
+    <div class="card">
+      <span style="flex:1"></span>
+      <span>
+        <p class="name">${track.cleanTitle}</p>
+        <p class="author">by ${track.author.replace(' - Topic','')}</p>
+      </span>
+      <span class="time">
+        <span style="flex:1">${timestamp.current.label}</span>
+        <span>${timestamp.total.label}</span>
+      </span>
+      <div style="--p:${(timestamp.current.value / timestamp.total.value)*100}%" class="pb">
+        <div></div>
+      </div>${paused ? '' : `<script>
+        function numToTime(num) {
+          num = Math.floor(num/1000)
+          return (num<60 ? '0' : Math.floor(num/60).toString().padStart(2, '0'))+':'+String(num%60).padStart(2, '0')
+        }
+        function progress() {
+          let w = (Date.now() - ${now}) + ${timestamp.current.value};
+          let p = w / ${timestamp.total.value};
+          if (p>1) {
+            location.reload();
+            clearInterval(inter)
+          }
+          document.querySelector('.pb').style.setProperty('--p', (p*100)+'%');
+          document.querySelector('.time').innerHTML = '<span style="flex:1">'+numToTime(w)+'</span><span>${timestamp.total.label}</span>';
+        }
+        var inter = setInterval(progress, 250)
+      </script>`}
+      <a href="${track.url}"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="14" height="14"><path d="M320 0c-17.7 0-32 14.3-32 32s14.3 32 32 32l82.7 0L201.4 265.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L448 109.3l0 82.7c0 17.7 14.3 32 32 32s32-14.3 32-32l0-160c0-17.7-14.3-32-32-32L320 0zM80 32C35.8 32 0 67.8 0 112L0 432c0 44.2 35.8 80 80 80l320 0c44.2 0 80-35.8 80-80l0-112c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 112c0 8.8-7.2 16-16 16L80 448c-8.8 0-16-7.2-16-16l0-320c0-8.8 7.2-16 16-16l112 0c17.7 0 32-14.3 32-32s-14.3-32-32-32L80 32z"></path></svg></a>
+    </div>
+    <h2>Queue</h2>
+    <div class="tracks">
+      ${queue.tracks.data.length ? `<ol>
+        ${queue.tracks.data.map(t=>`<li><span>${t.title}</span><span>by ${t.author}</span></li>`).join('\n')}
+      </ol>` : '<p>Nothing in queue</p>'}
+    </div>
+  </body>
+</html>`)
+    })
 
     /* -- Weird page register -- */
     let paths = [

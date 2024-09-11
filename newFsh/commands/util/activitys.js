@@ -197,5 +197,5 @@ module.exports = {
     } else {
       message.channel.send({ embeds });
     }
-  },
+  }
 };

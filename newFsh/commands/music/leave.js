@@ -1,4 +1,5 @@
 const Discord = require("discord.js");
+const { useQueue } = require("discord-player");
 
 module.exports = {
   name: ["leave", "stop"],
@@ -7,7 +8,13 @@ module.exports = {
   category: "music",
 
   async execute(message, arguments2, fsh) {
-    if (!message.member.voice?.channel) return message.channel.send('connect to a Voice Channel');
-    fsh.music.leave(message.guild.id)
+    if (fsh.music.checkVoice(message)) return;
+    let queue = useQueue(message.guild.id);
+    if (fsh.music.checkQueue(message, queue)) return;
+    if (fsh.music.checkSameVoice(message, queue)) return;
+    if (!queue.deleted) {
+      queue.delete();
+      message.reply('left');
+    }
   }
 }

@@ -1,17 +1,19 @@
 const Discord = require("discord.js");
+const { useQueue } = require("discord-player");
 
 module.exports = {
-  name: ["pause", "unpause", "resume"],
+  name: ["pause", "resume"],
   params: [],
-  info: "Pauses or unpauses the current song",
+  info: "Pause or resume the current queue",
   category: "music",
 
   async execute(message, arguments2, fsh) {
-    if (!message.member.voice?.channel) return message.channel.send('connect to a Voice Channel');
-    if (fsh.music.paused.get(message.guild.id)) {
-      fsh.music.unpause(message.guild.id)
-    } else {
-      fsh.music.pause(message.guild.id)
-    }
+    if (fsh.music.checkVoice(message)) return;
+    let queue = useQueue(message.guild.id);
+    if (fsh.music.checkQueue(message, queue)) return;
+    if (fsh.music.checkSameVoice(message, queue)) return;
+    let state = (!queue.node.isPaused());
+    queue.node.setPaused(state);
+    message.reply((state ? 'paused' : 'resumed')+' queue')
   }
 }
