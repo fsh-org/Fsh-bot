@@ -6,7 +6,18 @@ module.exports = {
     //console.log(interaction)
     /* -- Is slash command -- */
     if (interaction.isChatInputCommand()) {
-      // Do stuff
+      let cmd = fsh.client.textcommands.filter(p => p?.slash).find(p => p.name === interaction.commandName);
+      if (!cmd) {
+        interaction.reply('could not find the command');
+        console.log('[WARN] '+interaction.commandName+' Not bound to anything');
+      }
+      if (!cmd.slash) {
+        interaction.reply('this command is not a slash command');
+        console.log('[WARN] '+interaction.commandName+' Was not slash but called as one');
+      }
+      let args = {};
+      interaction.options._hoistedOptions.map(a => args[a.name]=a.value);
+      cmd.execute(interaction, args, fsh);
       return;
     }
     let userId = 0;
@@ -54,5 +65,5 @@ module.exports = {
         .execute(fsh.client, interaction, 0, fsh);
       return;
     }
-  },
+  }
 };

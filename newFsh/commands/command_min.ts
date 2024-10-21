@@ -4,9 +4,10 @@ module.exports = {
   name: "command_name",
   //params: [],
   info: "Info on command",
+  //slash: false,
   category: "hidden",
 
-  async execute(message, arguments2, fsh) {
+  async execute(message, arguments, fsh) {
     
   }
 };

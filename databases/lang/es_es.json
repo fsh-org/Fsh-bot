@@ -1,0 +1,95 @@
+{
+  "commands": {
+    "about": {
+      "name": "sobre",
+      "info": "Sobre fsh",
+      "inner": {
+        "about": "Sobre fsh",
+        "links": "Enlaces",
+        "email": "Email",
+        "tech": "Info tecnica",
+        "created": "Creado y mantenido por",
+        "and": "y"
+      }
+    },
+    "info": {
+      "name": "info",
+      "info": "Da info sobre el bot",
+      "params": {
+        "versions": {
+          "name": "versiones",
+          "info": "Ve informacion de versiones completa"
+        }
+      },
+      "inner": {
+        "info": "Info",
+        "created": "Creado y mantenido por",
+        "and": "y",
+        "bot": "Bot",
+        "ping": "Ping",
+        "users": "Usuarios",
+        "channels": "Canales",
+        "servers": "Servidores",
+        "commands": "Comandos",
+        "host": "Servidor",
+        "uptime": "Encendido",
+        "versions": "Versiones",
+        "version_tip": "`versiones` para lista completa"
+      }
+    },
+    "ping": {
+      "name": "ping",
+      "info": "El ping y latencia del bot",
+      "inner": {
+        "ping": "Ping",
+        "latency": "Latencia"
+      }
+    },
+    "suggest": {
+      "name": "sugerir",
+      "info": "Sugiere una funcionalidad para añadir o mejorar",
+      "params": {
+        "text": {
+          "name": "texto",
+          "info": "Escribe tu sugestion"
+        }
+      },
+      "inner": {
+        "small": "Sugeriencia demasiado pequeña, escribe al menos 4 letras",
+        "big": "Sugeriencia demasiado grande, dejalo debajo de 120 letras",
+        "sent": "sugeriencia enviada"
+      }
+    },
+    "coin": {
+      "name": "moneda",
+      "info": "Tira una moneda",
+      "inner": {
+        "got": "Lanzo una moneda :coin:, consiguio",
+        "head": "Cara",
+        "tail": "Cruz"
+      }
+    },
+    "eat": {
+      "name": "comer",
+      "info": "Intenta comer a fsh",
+      "inner": {
+        "0": "no u",
+        "1": "fsh ha notado tu intento de comerle\nCORRE!!",
+        "2": "fsh triste",
+        "3": "no",
+        "4": "tu intento fallo",
+        "5": "como te atreves",
+        "6": "te hiciste daño con tu confusion",
+        "7": "te mordiste a ti mismo",
+        "8": "never gonna eat you"
+      }
+    },
+    "meme": {
+      "name": "meme",
+      "info": "Envia un meme aleatorio de fsh",
+      "inner": {
+        "desc": "¿Dijo alguien memes?"
+      }
+    }
+  }
+}

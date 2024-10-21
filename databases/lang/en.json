@@ -1,0 +1,95 @@
+{
+  "commands": {
+    "about": {
+      "name": "about",
+      "info": "About fsh",
+      "inner": {
+        "about": "About fsh",
+        "links": "Links",
+        "email": "Email",
+        "tech": "Technical info",
+        "created": "Created and maintained by",
+        "and": "and"
+      }
+    },
+    "info": {
+      "name": "info",
+      "info": "Gives info about the bot",
+      "params": {
+        "versions": {
+          "name": "versions",
+          "info": "Se full version information"
+        }
+      },
+      "inner": {
+        "info": "Info",
+        "created": "Created and maintained by",
+        "and": "and",
+        "bot": "Bot",
+        "ping": "Ping",
+        "users": "Users",
+        "channels": "Channels",
+        "servers": "Servers",
+        "commands": "Commands",
+        "host": "Host",
+        "uptime": "Uptime",
+        "versions": "Versions",
+        "version_tip": "`versions` for full list"
+      }
+    },
+    "ping": {
+      "name": "ping",
+      "info": "Ping and latency of the bot",
+      "inner": {
+        "ping": "Ping",
+        "latency": "Latency"
+      }
+    },
+    "suggest": {
+      "name": "suggest",
+      "info": "Suggest a feature to be added or improved",
+      "params": {
+        "text": {
+          "name": "text",
+          "info": "Write your suggestion"
+        }
+      },
+      "inner": {
+        "small": "Suggestion too small, type atleast 4 characters",
+        "big": "Suggestion too big, keep it under 120 characters",
+        "sent": "suggestion sent"
+      }
+    },
+    "coin": {
+      "name": "coin",
+      "info": "Flip a coin",
+      "inner": {
+        "got": "Flipped a coin :coin:, got",
+        "head": "Heads",
+        "tail": "Tail"
+      }
+    },
+    "eat": {
+      "name": "eat",
+      "info": "Try to eat fsh",
+      "inner": {
+        "0": "no u",
+        "1": "fsh has noticed your attempt to eat him\nRUN!!",
+        "2": "fsh sed",
+        "3": "no",
+        "4": "your attempt failed",
+        "5": "how dare you",
+        "6": "you hurt yourself with your confusion",
+        "7": "you bit yourself",
+        "8": "never gonna eat you"
+      }
+    },
+    "meme": {
+      "name": "meme",
+      "info": "Sends random fsh meme",
+      "inner": {
+        "desc": "Did someone say memes?"
+      }
+    }
+  }
+}

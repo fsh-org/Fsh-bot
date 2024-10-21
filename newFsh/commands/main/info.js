@@ -55,11 +55,18 @@ function getCPUInfo() {
 
 module.exports = {
   name: "info",
-  info: "Gives info about the bot",
+  slash: true,
+  params: [{
+    name: 'versions',
+    type: 'boolean',
+    required: false
+  }],
   category: "main",
-  async execute(message, arguments2, fsh) {
+
+  async execute(interaction, arguments, fsh) {
+    let inner = fsh.getInnerLocale(interaction);
     function userin(id) {
-      if (message.guild.members.cache.has(id)) {
+      if (interaction.guild.members.cache.has(id)) {
         return `<@${id}>`;
       } else {
         return fsh.client.users.cache.get(id).username;
@@ -73,38 +80,37 @@ module.exports = {
     let cpu1 = getCPUInfo();
     await delay(500);
     let cpu2 = getCPUInfo();
-    CPUsage = 1 - 2 * ((cpu2.idle - cpu1.idle) / (cpu2.total - cpu1.total));
-    CPUsage = Math.round(CPUsage * 1000) / 100;
+    CPUsage = /*1 - 2 **/ ((cpu2.idle - cpu1.idle) / (cpu2.total - cpu1.total));
+    CPUsage = Math.round(CPUsage * 100) / 100;
 
     let info = new EmbedBuilder()
-      .setTitle("Fsh info")
+      .setTitle(inner.info)
       .setFooter({ text: `V${fsh.version}` })
       .setTimestamp(new Date())
       .setColor("#999999")
-      .setDescription(`Created and maintained by ${userin("712342308565024818")} and ${userin("816691475844694047")}`);
+      .setDescription(`${inner.created} ${userin("712342308565024818")} ${inner.and} ${userin("816691475844694047")}`);
 
-    if(arguments2[0] !== "version") {
+    if (!arguments['versions']) {
       info.addFields({
-        name: `${fsh.emojis.fsh} Bot`,
-        value: `
-> Ping: \`${fsh.client.ws.ping}ms\`
-> Users: \`${Object.keys(fsh.user_fsh.all()).length}/${fsh.client.users.cache.size}\`
-> Channels: \`${fsh.client.channels.cache.size}\`
-> Servers: \`${fsh.client.guilds.cache.size}\`
-> Commands: \`${CM.length}\` (\`${lo.length}\`)`,
+        name: `${fsh.emojis.fsh} ${inner.bot}`,
+        value: `> Ping: \`${fsh.client.ws.ping}ms\`
+> ${inner.users}: \`${Object.keys(fsh.user_fsh.all()).length}/${fsh.client.users.cache.size}\`
+> ${inner.channels}: \`${fsh.client.channels.cache.size}\`
+> ${inner.servers}: \`${fsh.client.guilds.cache.size}\`
+> ${inner.commands}: \`${CM.length}\` (\`${lo.length}\`)`,
         inline: true,
       },
       {
-        name: `${fsh.emojis.server} Host`,
-        value: `> Uptime: \`${time_gud(Math.floor(fsh.client.uptime / 1000))}\`
+        name: `${fsh.emojis.server} ${inner.host}`,
+        value: `> ${inner.uptime}: \`${time_gud(Math.floor(fsh.client.uptime / 1000))}\`
 > CPU: \`${CPUsage}%\`
-> Memory: \`${formatBytes(os.totalmem() - os.freemem(), false)}/${formatBytes(os.totalmem())} (${Math.round(((os.totalmem() - os.freemem()) / os.totalmem()) * 10000) / 100}%)\`
+> RAM: \`${formatBytes(os.totalmem() - os.freemem(), false)}/${formatBytes(os.totalmem())} (${Math.round(((os.totalmem() - os.freemem()) / os.totalmem()) * 10000) / 100}%)\`
 > OS: \`${os.platform()}\` (\`${os.machine()}\`)`,
         inline: true,
       });
     }
     let dete = [];
-    if (arguments2[0] === "version") {
+    if (arguments['versions']) {
       let JSONdata = require("../../../package.json").dependencies;
       Object.keys(JSONdata).forEach(async (key) => {
         if (key != "discord.js") {
@@ -113,20 +119,18 @@ module.exports = {
       });
     } else {
       let dep = require("../../../package.json").dependencies;
-      dete = [
-        "`info version` for full list"
-      ];
+      dete = [inner.version_tip];
     }
     info.addFields({
-      name: "Versions",
-      value: `
-${fsh.emojis.nodejs} NodeJS: \`${process.version.replace(/v/g, "")}\`
+      name: inner.versions,
+      value: `${fsh.emojis.nodejs} NodeJS: \`${process.version.replace(/v/g, "")}\`
 ${fsh.emojis.djs} Discord.js: \`${require("discord.js").version}\`
 ${dete.join("\n").replaceAll("^", "")}`,
       inline: true,
     });
-    message.channel.send({
-      embeds: [info],
+
+    interaction.reply({
+      embeds: [info]
     });
-  },
+  }
 };

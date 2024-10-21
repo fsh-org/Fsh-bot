@@ -10,14 +10,17 @@ module.exports = {
   /* [param1, required1, param2, required2] */
   //params: ['param1', false],
 
-  /* Shown on help menu */
+  /* Shown on help menu (not necessary for slash) */
   info: "Info on command",
+
+  /* If its a message or slash command */
+  //slash: false,
 
   /* main, economy, fun, music, utility, admin: anything else will hide it */
   category: "hidden",
 
   /* function that runs when command is recived */
-  async execute(message, arguments2, fsh) {
+  async execute(message, arguments, fsh) {
     /*
         message - message object {content, channel, author, ect...}
         arguments2 - command arguments [arg1, arg2, ect...]

@@ -3,11 +3,11 @@ const version = "1.0.0 beta";
 /* -- Imports -- */
 const Discord = require("discord.js");
 
-const Database = require("easy-json-database");
 const fs = require("fs");
+const Database = require("easy-json-database");
+const { DB } = require('fshdb')
 
 const path = require("path");
-const events = require("events");
 const { exec } = require("child_process");
 const usrbg = require('usrbg');
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
@@ -27,7 +27,7 @@ process.on("uncaughtException", function (err) {
 });
 
 process.on('unhandledRejection', error => {
-	console.error('Unhandled promise rejection:', error);
+  console.error('Unhandled promise rejection:', error);
 });
 
 /*   -- THE MAGIC FUNCTION --
@@ -54,6 +54,10 @@ fsh.devIds = [
 
 /* -- Make client -- */
 fsh.client = new Discord.Client({
+  makeCache: Discord.Options.cacheWithLimits({
+    ...Discord.Options.DefaultMakeCacheSettings,
+    MessageManager: 100
+  }),
   intents: [
     Discord.GatewayIntentBits.Guilds,
     Discord.GatewayIntentBits.GuildMessages,
@@ -94,6 +98,12 @@ fsh.server_config = new Database("./databases/server_config.json");
 fsh.items = new Database("./databases/items.json");
 fsh.coupon = new Database("./databases/coupon.json");
 fsh.emojis = new Database("./databases/emojis.json").data;
+
+// Trnaslations
+fsh.lang = {};
+fsh.lang.available = ['es-ES'];
+fsh.lang.en = new DB('./databases/lang/en.json');
+fsh.lang.es_es = new DB('./databases/lang/es_es.json');
 
 /* -- Make function to get all .js files in a directory -- */
 const getAllJsFiles = function (dirPath, arrayOfFiles) {
@@ -143,6 +153,13 @@ resFunc.res("interactions", "interactions");
 resFunc.res("context", "contextmenu");
 fsh.TxtCmdsFiles = getAllJsFiles(path.join(__dirname, "commands"), []);
 
+/* Register slash commands */
+fsh.getLocale = function(interaction){return fsh.lang[fsh.lang.available.includes(interaction.locale) ? interaction.locale.toLowerCase().replace('-','_') : 'en']};
+fsh.getInnerLocale = function(interaction){return fsh.getLocale(interaction).get('commands.'+interaction.commandName+'.inner')};
+// Should only be used when new commands or translations are added since there is a limit per day
+//let RegisterSlash = require('./slash.js');
+//RegisterSlash(fsh)
+
 /* -- Event manager -- */
 /* ~ Get events ~ */
 const eventsPath = path.join(__dirname, "events");
@@ -168,34 +185,3 @@ for (const file of eventFiles) {
 
 /* -- Login -- */
 fsh.client.login(process.env["token"]);
-
-fsh.qplay = function(message, filelocal){
-	const {
-			createAudioPlayer,
-			createAudioResource,
-			StreamType,
-			demuxProbe,
-			joinVoiceChannel,
-			NoSubscriberBehavior,
-			AudioPlayerStatus,
-			VoiceConnectionStatus,
-			getVoiceConnection
-	} = require('@discordjs/voice');
-	let player = createAudioPlayer()
-
-	let connection = joinVoiceChannel({
-	 channelId: message.member.voice.channel.id,
-		guildId: message.guild.id,
-		adapterCreator: message.guild.voiceAdapterCreator,
-		selfDeaf: true
-	})
-
-	 connection.subscribe(player)
-
-	let resource = createAudioResource(`./${filelocal}.mp3`)
-	player.play(resource)
-
-	player.on(AudioPlayerStatus.Idle, async () => {
-	connection.destroy()
-	})
-}

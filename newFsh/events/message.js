@@ -29,24 +29,20 @@ module.exports = {
     /* -- Let webhooks be able to fsh -- */
     if (message.webhookId != null) {
       if (message.content.toLowerCase().includes("fsh")) {
-        if (message.channel.parentId != "1095063470082363493") {
-          try {
-            message.channel.send("fsh");
-          } catch (err) {
-            return;
-          }
+        try {
+          message.channel.send("fsh");
+        } catch (err) {
+          return;
         }
       }
     }
     /* -- No bots -- */
-    if (["1126479544883355700",'1183446047666737162'].includes(message.author.id)) {
-      require('../interactions/quiz.js').execute(message)
-    }
     if (message.author.bot) return;
     /* -- Check if token -- */
+    const fileTypes = ['text/plain', 'application/json'];
     if ((fsh.server_config.get(message.guild.id)||{}).token_warn || false) {
       const files = Array.from(message.attachments);
-      files.map(e=>{return (e[1].contentType=="text/plain"?e[1]:'')}).filter(e=>{return e.length});
+      files.map(e=>{return (fileTypes.includes(e[1].contentType)?e[1]:'')}).filter(e=>{return e.length});
       if (files.length) {
         files.forEach(async file=>{
           try {
@@ -70,19 +66,23 @@ module.exports = {
       message.content.toLowerCase().includes("fsh") &&
       !(message.content.toLowerCase() || "").startsWith(prefix)
     ) {
+      // Try to send fsh
       try {
         message.channel.send("fsh");
       } catch (err) {
         return;
       }
+      // If new user set some basic stuff
       if (!fsh.bank_fsh.has(message.author.id)) {
         fsh.bank_fsh.set(message.author.id, 0)
       }
       if (!fsh.bank_limit.has(message.author.id)) {
         fsh.bank_limit.set(message.author.id, 1000)
       }
+      // Has used fsh before?
       if (fsh.user_fsh.has(message.author.id)) {
         fsh.user_fsh.add(message.author.id, 1);
+        // If owns a server with fsh add extra fsh
         fsh.client.guilds.cache.forEach(async (s) => {
           if (s.ownerId == message.author.id) {
             fsh.user_fsh.add(message.author.id, 1);
@@ -96,14 +96,16 @@ module.exports = {
     }
     /* -- Check if pinger bot -- */
     if (message.mentions.users != null && message.mentions.users.size > 0) {
-      if (message.mentions.members.first().id == "1068572316986003466") {
+      if (message.mentions.members.first().id === "1068572316986003466") {
         if (!message.content.toLowerCase().includes(prefix)) {
-          if (!(message.type == "19")) {
+          // Type 19 is a reply, we want @ not reply
+          if (!(message.type === "19")) {
             message.channel.send(`fsh\n*( my prefix is ${prefix} )*`);
+            // Add fsh
             if (fsh.user_fsh.has(message.author.id)) {
               fsh.user_fsh.add(message.author.id, 1);
               fsh.client.guilds.cache.forEach(async (s) => {
-                if (s.ownerId == message.author.id) {
+                if (s.ownerId === message.author.id) {
                   fsh.user_fsh.add(message.author.id, 1);
                   return;
                 }
@@ -116,20 +118,19 @@ module.exports = {
         }
       }
     }
-    /* -- Commands handeler -- */
-    let arguments2 = message.content.toLowerCase().split(" ");
-    let command = arguments2.shift();
+    /* -- Command handeler -- */
+    let arguments = message.content.toLowerCase().split(" ");
+    let command = arguments.shift();
 
-    if (!(message.content.toLowerCase() || "").startsWith(prefix)) return;
+    if (!(message.content.toLowerCase() ?? "").startsWith(prefix)) return;
     command = command.replaceAll(prefix, "");
-
     
     if (!fsh.user_fsh.has(message.author.id)) {
       fsh.user_fsh.set(message.author.id, 0);
     }
 
     /* -- Run command if it exists -- */
-    if (!fsh.client.textcommands.has(command)) {
+    if (!fsh.client.textcommands.filter(c=>!c.slash).has(command)) {
       if (command == "re") {
         if (!fsh.devIds.includes(message.author.id)) {
           message.channel.send("dev only!");
@@ -146,18 +147,16 @@ module.exports = {
           fsh.TxtCmdsFiles = getAllJsFiles(path.join(__dirname, "../"), []);
         } catch (err) {
           console.log(err);
-          resh.setDescription(
-            `Couldn't refresh\n${err}\n(more info in console)`
-          );
+          resh.setDescription(`Couldn't refresh\n${err}\n(more info in console)`);
         }
         message.channel.send({
-          embeds: [resh],
+          embeds: [resh]
         });
       }
       return;
     }
     fsh.client.textcommands
       .get(command)
-      .execute(message, arguments2, fsh, resFunc);
+      .execute(message, arguments, fsh, resFunc);
   },
 };

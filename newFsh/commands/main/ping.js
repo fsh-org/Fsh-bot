@@ -2,19 +2,20 @@ const { EmbedBuilder } = require("discord.js");
 
 module.exports = {
   name: "ping",
-  info: "Bot's ping and some others",
+  slash: true,
   category: "main",
 
-  async execute(message, arguments2, fsh) {
-    var ping = new EmbedBuilder()
-      .setTitle(`Fsh ping`)
+  async execute(interaction, arguments, fsh) {
+    let inner = fsh.getInnerLocale(interaction);
+    let ping = new EmbedBuilder()
+      .setTitle(inner.ping)
       .setFooter({ text: `V${fsh.version}` })
       .setTimestamp(new Date())
       .setColor("#999999")
-      .setDescription(`${fsh.emojis.ping} Ping: \`${fsh.client.ws.ping}ms\`
-${fsh.emojis.lat} Latency: \`${Date.now() - message.createdTimestamp}ms\``);
+      .setDescription(`${fsh.emojis.ping} ${inner.ping}: \`${fsh.client.ws.ping}ms\`
+${fsh.emojis.lat} ${inner.latency}: \`${Date.now() - interaction.createdTimestamp}ms\``);
 
-    message.channel.send({
+    interaction.reply({
       embeds: [ping]
     })
   }

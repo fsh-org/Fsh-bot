@@ -9,6 +9,7 @@ module.exports = {
   name: "help",
   info: "List of all commands",
   category: "main",
+
   async execute(message, arguments2, fsh) {
     /* -- User in server function -- */
     function userin(id) {

@@ -28,4 +28,4 @@ module.exports = {
       message.channel.send('current volume: '+volume)
     }
   }
-}}
+}

@@ -18,9 +18,10 @@ let doblcomd = [];
 
 /* -- Manage creating the help embed -- */
 function helpGen(collection, category, prefix, interaction, context, fsh) {
+  let locale = fsh.getLocale(interaction);
   let color = interaction.message.embeds[0].color;
   let help = [];
-  if (category == "context") {
+  if (category === "context") {
     context.forEach((menu) => {
       help.push(`**${menu.name}** {${menu.usage}} - ${menu.info}`);
     });
@@ -36,21 +37,24 @@ function helpGen(collection, category, prefix, interaction, context, fsh) {
           return;
         }
       }
-      if (command.category == category) {
-        let paramList = [];
-        var i_inc = 2;
+      if (command.category === category) {
         let param = command.params || [];
-        if (param.length != 0) {
-          for (i = 0; i <= param.length / 2; i += i_inc) {
-            if (param[i + 1] == true) {
-              paramList.push(`<${param[i]}>`);
-            } else {
-              paramList.push(`(${param[i]})`);
+        if (command.slash) {
+          param = param.map(p => `${p.required ? '<' : '('}${locale.get('commands.'+command.name+'.params.'+p.name+'.name')}${p.required ? '>' : ')'}`).join(' ');
+        } else {
+          let paramList = [];
+          if (param.length != 0) {
+            for (i = 0; i <= param.length / 2; i += 2) {
+              if (param[i + 1] == true) {
+                paramList.push(`<${param[i]}>`);
+              } else {
+                paramList.push(`(${param[i]})`);
+              }
             }
           }
+          param = paramList.join(" ");
         }
-        param = paramList.join(" ");
-        help.push(`**${prefix}${commandName}** ${param} - ${command.info}`);
+        help.push(`**${command.slash ? '/' : prefix}${commandName}** ${param} - ${command.slash ? locale.get(`commands.${command.name}.info`) : command.info}`);
       }
     });
   }
@@ -115,7 +119,7 @@ module.exports = {
       fsh
     );
     await interaction.update({
-      embeds: [embed],
+      embeds: [embed]
     });
-  },
+  }
 };

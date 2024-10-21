@@ -2,21 +2,24 @@ const Discord = require("discord.js");
 
 module.exports = {
   name: "meme",
-  info: "Sends random fsh meme",
+  slash: true,
   category: "fun",
 
-  async execute(message, arguments2, fsh) {
+  async execute(interaction, arguments, fsh) {
+    let inner = fsh.getInnerLocale(interaction);
+
     let img = await fetch("https://api.fsh.plus/meme");
     img = await img.json();
-    img = img.link;
+
     let embed = new Discord.EmbedBuilder()
       .setTitle(`${fsh.emojis.fun} Meme`)
-      .setDescription(`Did someone say memes?`)
+      .setDescription(inner.desc)
       .setTimestamp()
       .setFooter({ text: `V${fsh.version}` })
       .setColor("#888888")
-      .setImage(img);
-    message.channel.send({
+      .setImage(img.link);
+
+    interaction.reply({
       embeds: [embed]
     });
   }
