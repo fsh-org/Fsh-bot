@@ -23,67 +23,77 @@ module.exports = {
     /* -- Get search term -- */
     let term = interaction.fields.getTextInputValue("searchterm");
 
+    const prefix = 'fsh!'
+    let locale = fsh.getLocale(interaction);
+
     let results = [];
     let results2 = [];
+    let done = [];
 
     /* -- Get results for said term -- */
-    client.textcommands.forEach((command) => {
+    client.textcommands.forEach(command => {
       let commandName = command.name;
+      if (Array.isArray(commandName)) {
+        if (done.includes(commandName[0])) {
+          return;
+        } else {
+          done.push(commandName[0])
+        }
+      }
       let commandInfo = command.info;
       let commandCat = command.category; // cat 🐈 reel
-      let commandCatn =
-        commandCat + listsRepeat(" ", 8 - commandCat.length).join("");
+
+      if (command.slash) {
+        let inf = locale.get(`commands.${commandName}`);
+        commandName = inf.name;
+        commandInfo = inf.info;
+      }
 
       if (existing_cat.includes(commandCat)) {
         /* -- Get parameters --  */
-        let paramList = [];
-        var i_inc = 2;
         let param = command.params || [];
-        if (param.length != 0) {
-          for (i = 0; i <= param.length / 2; i += i_inc) {
-            if (param[i + 1] == true) {
-              paramList.push(`<${param[i]}>`);
-            } else {
-              paramList.push(`(${param[i]})`);
+        if (command.slash) {
+          param = param.map(p => `${p.required ? '<' : '('}${locale.get('commands.'+command.name+'.params.'+p.name+'.name')}${p.required ? '>' : ')'}`).join(' ');
+        } else {
+          let paramList = [];
+          if (param.length != 0) {
+            for (i = 0; i <= param.length / 2; i += 2) {
+              if (param[i + 1] == true) {
+                paramList.push(`<${param[i]}>`);
+              } else {
+                paramList.push(`(${param[i]})`);
+              }
             }
           }
+          param = paramList.join(" ");
         }
-        param = paramList.join(" ");
         /* -- Join command name if multi alias -- */
         if (Array.isArray(commandName)) {
           commandName = commandName.join("/");
         }
 
         if (commandName.includes(term)) {
-          results.push(
-            `${commandCatn} > fsh!${commandName} ${param} - ${commandInfo}`
-          );
+          results.push(`*${commandCat}* > **${command.slash ? '/' : prefix}${commandName}** ${param} - ${commandInfo}`);
         }
         if (commandInfo.includes(term)) {
-          results2.push(
-            `${commandCatn} > fsh!${commandName} ${param} - ${commandInfo}`
-          );
+          results2.push(`*${commandCat}* > **${command.slash ? '/' : prefix}${commandName}** ${param} - ${commandInfo}`);
         }
       }
     });
     /* -- create embed -- */
     let color = interaction.message.embeds[0].color;
 
-    // o i forgor to make param getter
     let embed = new Discord.EmbedBuilder()
       .setTitle(`${fsh.emojis.search} Help Menu - Results For "${term}"`)
-      .setDescription(
-        `<required>, (not required)
+      .setDescription(`(optional) - <required>
 Name search
-> ${results.join("\n> ") || "**Sorry, no commands have that name**"}
+> ${results.slice(0,18).join("\n> ") || "**Sorry, no commands have that name**"}
 Info Search
-> ${results2.join("\n> ") || "**Sorry, no commands with that in their info**"}`
-      )
+> ${results2.slice(0,18).join("\n> ") || "**Sorry, no commands with that in their info**"}`.slice(0,4096))
       .setColor(color);
 
-    /* -- join/send results -- */
     await interaction.update({
-      embeds: [embed],
+      embeds: [embed]
     });
-  },
+  }
 };
