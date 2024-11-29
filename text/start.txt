@@ -1,2 +1,2 @@
 [1;33mStarting[0m [1;31mF[0m[1;32ms[0m[1;34mh[0m
-[1;33mType[0m [1;32m"rs"[0m [1;33mto[0m [1;30mrestart[0m [1;35mserver[0m [1;33mat any[0m [1;37mmoment[0m
+[1;33mType[0m [1;32m"rs"[0m [1;33mto restart server at any moment[0m
