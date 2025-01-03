@@ -60,6 +60,34 @@
         "sent": "sugeriencia enviada"
       }
     },
+    "8ball": {
+      "name": "bola8",
+      "info": "Deja la bola 8 responder",
+      "params": {
+        "query": {
+          "name": "pregunta",
+          "info": "Que preguntar a la bola 8"
+        }
+      },
+      "inner": {
+        "0": "sí",
+        "1": "no",
+        "2": "posiblemente",
+        "3": "tal vez",
+        "4": "nunca",
+        "5": "probablemente",
+        "6": "muy probable",
+        "7": "poco probable",
+        "8": "muy poco probable",
+        "9": "pregunta mas tarde",
+        "10": "seguro, porque no",
+        "11": "no, porque",
+        "12": "bien",
+        "13": "mal",
+        "14": "**NO**",
+        "15": "**SÍ**"
+      }
+    },
     "coin": {
       "name": "moneda",
       "info": "Tira una moneda",
@@ -67,6 +95,20 @@
         "got": "Lanzo una moneda :coin:, consiguio",
         "head": "Cara",
         "tail": "Cruz"
+      }
+    },
+    "dice": {
+      "name": "dado",
+      "info": "Lanzo un dado",
+      "params": {
+        "sides": {
+          "name": "lados",
+          "info": "Cuantos lados deberia tener el dado"
+        }
+      },
+      "inner": {
+        "rolled1": "Tiro un dado :game_die: con",
+        "rolled2": "lados, consiguio"
       }
     },
     "eat": {
@@ -82,6 +124,19 @@
         "6": "te hiciste daño con tu confusion",
         "7": "te mordiste a ti mismo",
         "8": "never gonna eat you"
+      }
+    },
+    "gcomplete": {
+      "name": "gcompleta",
+      "info": "Deja que google termine tu frase",
+      "params": {
+        "query": {
+          "name": "frase",
+          "info": "Frase para google"
+        }
+      },
+      "inner": {
+        "title": "Google completa"
       }
     },
     "meme": {

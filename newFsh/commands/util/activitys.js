@@ -33,16 +33,17 @@ module.exports = {
   params: ["userid/ping", false],
   info: "Get user activities",
   category: "utility",
+
   async execute(message, arguments2, fsh) {
     //if (!fsh.devIds.includes(message.author.id)) return;
     /*
-		Playing	0
-		Streaming	1
-		Listening	2
-		Watching	3
-		Custom	4
-		Competing	5
-		*/
+    Playing 0
+    Streaming 1
+    Listening 2
+    Watching 3
+    Custom 4
+    Competing 5
+    */
 
     let embeds = [];
 
@@ -153,42 +154,42 @@ module.exports = {
       embeds.push(emb);
 
       /*const exampleEmbed = new EmbedBuilder()
-				.setColor(0x0099FF)
-				.setTitle('Some title')
-				.setURL('https://discord.js.org/')
-				.setAuthor({
-					name: 'Some name',
-					iconURL: 'https://i.imgur.com/AfFp7pu.png',
-					url: 'https://discord.js.org'
-				})
-				.setDescription('Some description here')
-				.setThumbnail('https://i.imgur.com/AfFp7pu.png')
-				.addFields({
-					name: 'Regular field title',
-					value: 'Some value here'
-				}, {
-					name: '\u200B',
-					value: '\u200B'
-				}, {
-					name: 'Inline field title',
-					value: 'Some value here',
-					inline: true
-				}, {
-					name: 'Inline field title',
-					value: 'Some value here',
-					inline: true
-				}, )
-				.addFields({
-					name: 'Inline field title',
-					value: 'Some value here',
-					inline: true
-				})
-				.setImage('https://i.imgur.com/AfFp7pu.png')
-				.setTimestamp()
-				.setFooter({
-					text: 'Some footer text here',
-					iconURL: 'https://i.imgur.com/AfFp7pu.png'
-				});*/
+        .setColor(0x0099FF)
+        .setTitle('Some title')
+        .setURL('https://discord.js.org/')
+        .setAuthor({
+          name: 'Some name',
+          iconURL: 'https://i.imgur.com/AfFp7pu.png',
+          url: 'https://discord.js.org'
+        })
+        .setDescription('Some description here')
+        .setThumbnail('https://i.imgur.com/AfFp7pu.png')
+        .addFields({
+          name: 'Regular field title',
+          value: 'Some value here'
+        }, {
+          name: '\u200B',
+          value: '\u200B'
+        }, {
+          name: 'Inline field title',
+          value: 'Some value here',
+          inline: true
+        }, {
+          name: 'Inline field title',
+          value: 'Some value here',
+          inline: true
+        }, )
+        .addFields({
+          name: 'Inline field title',
+          value: 'Some value here',
+          inline: true
+        })
+        .setImage('https://i.imgur.com/AfFp7pu.png')
+        .setTimestamp()
+        .setFooter({
+          text: 'Some footer text here',
+          iconURL: 'https://i.imgur.com/AfFp7pu.png'
+        });*/
     });
 
     if (!embeds.length) {

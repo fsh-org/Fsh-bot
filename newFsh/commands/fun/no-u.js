@@ -5,14 +5,15 @@ module.exports = {
   params: ['user', true],
   info: "No u a user",
   category: "fun",
-  async execute(message, arguments2, fsh) {
-    let user = String(arguments2[0]).replace(/<@/g, "").replace(/>/g, "");
-    if (!typeof Number(user) == "Number") {
-      message.channel.send("mention someone");
+
+  async execute(message, arguments, fsh) {
+    let user = (arguments[0]??'').replace(/<@/g, "").replace(/>/g, "");
+    if (Number.isNaN(Number(user))) {
+      message.reply("mention someone");
       return;
     }
     message.delete()
-    if (["816691475844694047","1068572316986003466","712342308565024818"].includes(user)) {
+    if (fsh.devIds.includes(user)) {
       user = message.member.id
     }
     message.channel.send(`<@${user}> no u\n||This action was performed by a user||`)

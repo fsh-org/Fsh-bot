@@ -4,8 +4,8 @@ module.exports = {
   name: ["give", "pay", "gift"],
   params: ["member", true, "amount", true],
   info: "Give someone fsh",
-
   category: "economy",
+
   async execute(message, arguments2, fsh) {
     let user = String(arguments2[0]).replace(/<@/g, "").replace(/>/g, "");
     if (!typeof Number(user) == "Number") {
@@ -25,11 +25,11 @@ module.exports = {
       message.channel.send("amount can't be negative");
       return;
     }
-		//	Could just Math.floor()...
-    //	still user would be like: why didn't decimal part get sent
-		//	ok
-    //	wait am i dumb or did i not understand
-		//	i was saying both ways
+    // Could just Math.floor()...
+    // still user would be like: why didn't decimal part get sent
+    // ok
+    // wait am i dumb or did i not understand
+    // i was saying both ways
     if (Number(arguments2[1]) != Math.floor(Number(arguments2[1]))) {
       message.channel.send("amount can't have decimals");
       return;
@@ -69,11 +69,10 @@ module.exports = {
       })
       .setThumbnail(user.displayAvatarURL({ format: "png" }))
       .setColor("#888888")
-      .setDescription(
-        `${message.member} gave <@${user.id}> ${arguments2[1]} fsh`
-      );
+      .setDescription(`${message.member} gave <@${user.id}> ${arguments2[1]} fsh`);
+
     message.channel.send({
-      embeds: [embed],
+      embeds: [embed]
     });
-  },
+  }
 };

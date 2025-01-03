@@ -1,18 +1,22 @@
 const Discord = require("discord.js");
 
 module.exports = {
-  name: ['dice', 'die'],
-  params: ['sides', false],
-  info: "Throw a dice",
+  name: "dice",
+  slash: true,
+  params: [{
+    name: 'sides',
+    type: 'number',
+    min: 1,
+    max: 420000,
+    required: false
+  }],
   category: "fun",
 
-  async execute(message, arguments2, fsh) {
-    let sides = 6
-    if (String(Number(arguments2[0])) != "NaN") {
-      sides = Math.max(Number(arguments2[0]), 1)
-    }
+  async execute(interaction, arguments, fsh) {
+    let inner = fsh.getInnerLocale(interaction);
+    let sides = Number(arguments['sides']) || 6;
     let rs = Math.floor(Math.random() * sides + 1);
 
-    message.reply(`Rolled a dice :game_die: with ${sides} sides, got ${rs}`)
+    interaction.reply(`${inner.rolled1} ${sides} ${inner.rolled2} ${rs}`)
   }
 };

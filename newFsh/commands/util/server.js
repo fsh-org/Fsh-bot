@@ -1,53 +1,8 @@
 const Discord = require("discord.js");
+const guild_features = require("../../../text/guild_features.js");
 
-function feat(f) {
-  let n = {
-    GUILD_ONBOARDING: 'Onboarding',
-    PREVIEW_ENABLED: 'Server preview',
-    THREADS_ENABLED: 'Threads',
-    COMMUNITY: 'Community server',
-    SOUNDBOARD: 'Soundboard',
-    NEWS: 'Announcement channels',
-    AUTOMOD_TRIGGER_USER_PROFILE: 'User profile automod',
-    GUILD_SERVER_GUIDE: 'Server guide',
-    GUILD_ONBOARDING_EVER_ENABLED: 'Onboarding tried',
-    NEW_THREAD_PERMISSIONS: 'Thread permisions v2',
-    AUTO_MODERATION: 'Automod',
-    GUILD_ONBOARDING_HAS_PROMPTS: 'Onboarding prompts',
-    MEMBER_VERIFICATION_GATE_ENABLED: 'Verification gate',
-    TEXT_IN_VOICE_ENABLED: 'Text in voice',
-    WELCOME_SCREEN_ENABLED: 'Welcome screen',
-    CHANNEL_ICON_EMOJIS_GENERATED: 'Auto channel icon',
-    ANIMATED_BANNER: 'Animated banner',
-    ANIMATED_ICON: 'Animated icon',
-    APPLICATION_COMMAND_PERMISSIONS_V2: 'Bot command permission v2',
-    BANNER: 'Banner',
-    CREATOR_MONETIZABLE_PROVISIONAL: 'Server monitization',
-    CREATOR_STORE_PAGE: 'Server store',
-    DEVELOPER_SUPPORT_SERVER: 'Bot support server',
-    DISCOVERABLE: 'Discoverable',
-    FEATURABLE: 'Featurable',
-    HAS_DIRECTORY_ENTRY: 'Channel directory',
-    HUB: 'Student hub',
-    INVITE_SPLASH: 'Invite splash',
-    INVITES_DISABLED: 'Disabled invites',
-    LINKED_TO_HUB: 'Student hub linked',
-    MEMBER_VERIFICATION_GATE_ENABLED: 'Member verification gate',
-    MONETIZATION_ENABLED: 'Monitization',
-    MORE_STICKERS: 'More stickers',
-    PARTNERED: 'Partnered',
-    PRIVATE_THREADS: 'Private threads',
-    RAID_ALERTS_DISABLED: 'Raid alerts off',
-    RELAY_ENABLED: 'Relay',
-    ROLE_ICONS: 'Role icons',
-    ROLE_SUBSCRIPTIONS_AVAILABLE_FOR_PURCHASE: 'Role subscriptions for purchased',
-    ROLE_SUBSCRIPTIONS_ENABLED: 'Role subscriptions',
-    TICKETED_EVENTS_ENABLED: 'Ticketed events',
-    VIP_REGIONS: 'Vip regions',
-    VANITY_URL: 'Vanity url',
-    VERIFIED: 'Verified'
-  };
-  return (n[f] ? n[f] : 'U:'+f)
+function feat(feature) {
+  return (guild_features[feature] ? guild_features[feature] : `U:${feature}`)
 }
 
 module.exports = {

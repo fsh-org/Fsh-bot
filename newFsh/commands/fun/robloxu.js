@@ -36,10 +36,10 @@ module.exports = {
     let users = await getof(`https://users.roblox.com/v1/users/${data.id}`);
 
     let pfp = await getof(`https://thumbnails.roblox.com/v1/users/avatar?userIds=${data.id}&size=720x720&format=Png&isCircular=false`);
-			pfp = pfp.data[0].imageUrl;
-			
+    pfp = pfp.data[0].imageUrl;
+
     let games = await getof(`https://games.roblox.com/v2/users/${data.id}/games?accessFilter=2&limit=10&sortOrder=Asc`);
-		games = games.data
+    games = games.data;
 
     let friends = await getof(`https://friends.roblox.com/v1/users/${data.id}/friends/count`);
     friends = friends.count;

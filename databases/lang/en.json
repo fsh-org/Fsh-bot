@@ -60,6 +60,34 @@
         "sent": "suggestion sent"
       }
     },
+    "8ball": {
+      "name": "8ball",
+      "info": "Let the 8ball respond",
+      "params": {
+        "query": {
+          "name": "query",
+          "info": "What to ask the 8ball"
+        }
+      },
+      "inner": {
+        "0": "yes",
+        "1": "no",
+        "2": "probably",
+        "3": "maybe",
+        "4": "never",
+        "5": "likely",
+        "6": "very likely",
+        "7": "unlikely",
+        "8": "very unlikely",
+        "9": "ask later",
+        "10": "sure, why not",
+        "11": "don't, why",
+        "12": "good",
+        "13": "bad",
+        "14": "**NO**",
+        "15": "**YES**"
+      }
+    },
     "coin": {
       "name": "coin",
       "info": "Flip a coin",
@@ -67,6 +95,20 @@
         "got": "Flipped a coin :coin:, got",
         "head": "Heads",
         "tail": "Tail"
+      }
+    },
+    "dice": {
+      "name": "dice",
+      "info": "Throw a dice",
+      "params": {
+        "sides": {
+          "name": "sides",
+          "info": "How many sides should the dice have"
+        }
+      },
+      "inner": {
+        "rolled1": "Rolled a dice :game_die: with",
+        "rolled2": "sides, got"
       }
     },
     "eat": {
@@ -82,6 +124,19 @@
         "6": "you hurt yourself with your confusion",
         "7": "you bit yourself",
         "8": "never gonna eat you"
+      }
+    },
+    "gcomplete": {
+      "name": "gcomplete",
+      "info": "Let google finish a sentence",
+      "params": {
+        "query": {
+          "name": "query",
+          "info": "Query to google"
+        }
+      },
+      "inner": {
+        "title": "Google complete"
       }
     },
     "meme": {

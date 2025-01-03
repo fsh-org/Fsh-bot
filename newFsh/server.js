@@ -1,5 +1,5 @@
 /* -- New Server -- */
-const PORT = 3000;
+const PORT = 10002;
 
 const express = require("express");
 const bodyParser = require("body-parser");
@@ -8,50 +8,6 @@ var path = require("path");
 const crypto = require("crypto")
 
 const { useQueue, useTimeline } = require("discord-player");
-
-function listsGetRandomItem(list, remove) {
-  var x = Math.floor(Math.random() * list.length);
-  if (remove) {
-    return list.splice(x, 1)[0];
-  } else {
-    return list[x];
-  }
-}
-
-function listsRepeat(value, n) {
-  var array = [];
-  for (var i = 0; i < n; i++) {
-    array[i] = value;
-  }
-  return array;
-}
-
-function mathRandomInt(a, b) {
-  if (a > b) {
-    var c = a;
-    a = b;
-    b = c;
-  }
-  return Math.floor(Math.random() * (b - a + 1) + a);
-}
-
-function listsGetSortCompare(type, direction) {
-  var compareFuncs = {
-    NUMERIC: function (a, b) {
-      return Number(a) - Number(b);
-    },
-    TEXT: function (a, b) {
-      return a.toString() > b.toString() ? 1 : -1;
-    },
-    IGNORE_CASE: function (a, b) {
-      return a.toString().toLowerCase() > b.toString().toLowerCase() ? 1 : -1;
-    },
-  };
-  var compare = compareFuncs[type];
-  return function (a, b) {
-    return compare(a, b) * direction;
-  };
-}
 
 function makeid(length) {
   var result = '';
@@ -173,27 +129,27 @@ module.exports = {
     });
 
     /* Music */
-    app.get("/music-panel", async function(req, res) {
-      if (!req.query['id']) {
+    app.get("/hub/music", async function(req, res) {
+      if (!req.query['guild_id']) {
         res.send('provide id');
         return;
       }
-      let queue = useQueue(req.query['id']);
+      let queue = useQueue(req.query['guild_id']);
       if (!queue) {
         res.send('unmeow');
         return;
       }
-      const { timestamp, track, volume, paused } = useTimeline(req.query['id']);
+      const { timestamp, track, volume, paused } = useTimeline(req.query['guild_id']);
       let now = Date.now();
       res.send(`<!DOCTYPE html>
 <html lang="en">
   <head>
     <title>Music panel - Fsh bot</title>
     <!-- Boiler plate------ -->
-    <link rel="icon" href="https://fsh.plus/fsh.png" type="image/png">
+    <link rel="icon" href=/fsh/fsh.png" type="image/png">
     <meta name="description" content="Music currently playing in the server">
     <!-- ------- -->
-    <link rel="stylesheet" href="https://fsh.plus/media/style.css">
+    <link rel="stylesheet" href="/fsh/media/style.css">
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -214,7 +170,7 @@ module.exports = {
         margin: 20px auto;
         padding: 15px;
         border-radius: 1rem;
-        background: linear-gradient(in oklch, rgba(0,0,0,0) 50%, rgba(0,0,0,0.75) 100%), url(${track.thumbnail}), var(--bg-2);
+        background: linear-gradient(in oklch, rgba(0,0,0,0) 50%, rgba(0,0,0,0.75) 100%), url(${track.thumbnail.replace('https://i.ytimg.com','/ytimg')}), var(--bg-2);
         background-size: 100%;
         background-repeat: no-repeat;
       }
@@ -326,7 +282,6 @@ module.exports = {
       ["index.html", "/"],
       ["api.html", "/api"],
       ["invite.html", "/invite"],
-      ["hub.html", "/hub"],
       ["robots.txt"]
     ];
 
@@ -367,10 +322,7 @@ module.exports = {
               fsh.client.channels.cache
                 .get(message.channel)
                 .send(message.message);
-              socket.emit(
-                "chat",
-                `Server: Sent (${message.message}) to channel (${message.channel})`
-              );
+              socket.emit("chat", `Server: Sent (${message.message}) to channel (${message.channel})`);
             } catch (err) {
               socket.emit("chat", `Server: ERR\n\n  ${err}`);
             }
