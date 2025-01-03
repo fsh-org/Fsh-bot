@@ -1,11 +1,7 @@
 const Discord = require("discord.js");
 
 function intToHex(code){
-  const red = (code >> 16) & 255;
-  const green = (code >> 8) & 255;
-  const blue = code & 255;
-
-  return `#${(1 << 24 | red << 16 | green << 8 | blue).toString(16).slice(1)}`;
+  return `#${code.toString(16).padStart(6, '0')}`;
 };
 
 function get_presences(member) {
@@ -31,7 +27,6 @@ module.exports = {
   category: "utility",
 
   async execute(message, arguments2, fsh) {
-    
     let user = String(arguments2[0]).replace(/<@/g, "").replace(/>/g, "");
     if (!typeof Number(user) == "Number") return;
     try {
@@ -53,9 +48,9 @@ module.exports = {
 
     require('../admin/scan.js')
       .UserCheck(user.id,members,susers);
-    
+
     var embed = new Discord.EmbedBuilder()
-      .setTitle(`${user.globalName || user.username}${user.discriminator == "0" ? "" : `#${user.discriminator}`}${member.nickname != null ? ` [${member.nickname}]`: ""} ${pres}`)
+      .setTitle(`${user.globalName ?? user.username}${user.discriminator == "0" ? "" : `#${user.discriminator}`}${member.nickname != null ? ` [${member.nickname}]`: ""} ${pres}`)
       .setFooter({
         text: `V${fsh.version}`
       })
@@ -64,6 +59,7 @@ module.exports = {
       .setThumbnail(user.displayAvatarURL({
         format: "png"
       }));
+
     let jos = Math.floor(new Date(member.joinedTimestamp)/1000);
     let jod = Math.floor(new Date(user.createdAt)/1000);
     embed.addFields(
@@ -71,7 +67,7 @@ module.exports = {
         name: "General",
         value: `Display name: ${user.globalName}
 Username: ${user.username}${user.discriminator.length < 3 ? "" : `#${user.discriminator}`}
-Nickname: ${member.nickname || "None"}
+Nickname: ${member.nickname ?? "None"}
 Id: ${user.id}
 Ping: <@${user.id}>
 Suspiciousness: ${members[user.id]}`,
@@ -80,8 +76,8 @@ Suspiciousness: ${members[user.id]}`,
       {
         name: "Conditionals",
         value: `Bot: ${user.bot ? "True" : "False"}
-System: ${user.system ? `True` : "False"}
-Administrator: ${member.permissions.has(Discord.PermissionsBitField.Flags.Administrator) ? `True` : "False"}
+System: ${user.system ? "True" : "False"}
+Administrator: ${member.permissions.has(Discord.PermissionsBitField.Flags.Administrator) ? "True" : "False"}
 Timed out: ${member.isCommunicationDisabled() ? "True" : "False"}
 ${String(member.communicationDisabledUntilTimestamp/1000) == "0" ? "" : `Ends: <t:${Math.floor(member.communicationDisabledUntilTimestamp/1000)}:R>`}`,
         inline: true
@@ -89,7 +85,7 @@ ${String(member.communicationDisabledUntilTimestamp/1000) == "0" ? "" : `Ends: <
       {
         name: "Links",
         value: `Avatar: ${member.displayAvatarURL({dynamic: true})}
-Banner: ${user.banner ? `https://cdn.discordapp.com/banners/${user.id}/${user.banner}.${user.banner.includes("a_") ? "gif" : "png"}` : fsh.usrbg.has(user.id) ? `${fsh.usrbg.get(user.id)} [usrbg]` : "None"}
+Banner: ${fsh.usrbg.has(user.id) ? `${fsh.usrbg.get(user.id)} [usrbg]` : member.banner ? member.displayBannerURL({dynamic: true}) : "None"}
 User url: https://discord.com/users/${user.id}`
       },
       {
@@ -98,7 +94,7 @@ User url: https://discord.com/users/${user.id}`
 > Joined discord: <t:${jod}:R> (<t:${jod}:t> | <t:${jod}:d>)`
       }
     );
-    
+
     let roles = [];
     let list = "";
     roles = Array.from(member.roles.cache).sort((a,b)=>{return -(Number(a[0].rawPosition)-Number(b[0].rawPosition))});
@@ -115,15 +111,15 @@ User url: https://discord.com/users/${user.id}`
 ${list}`
       }
     )
-    
-    if (user.banner) {
-      embed.setImage(`https://cdn.discordapp.com/banners/${user.id}/${user.banner}.${user.banner.includes("a_") ? "gif" : "png"}`)
+
+    if (fsh.usrbg.has(user.id)) {
+      embed.setImage(fsh.usrbg.get(user.id))
     } else {
-      if (fsh.usrbg.has(user.id)) {
-        embed.setImage(fsh.usrbg.get(user.id))
+      if (member.banner) {
+        embed.setImage(member.displayBannerURL({dynamic: true}))
       }
     }
-    
+
     message.channel.send({
       embeds: [embed]
     })

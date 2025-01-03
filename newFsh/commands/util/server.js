@@ -18,7 +18,7 @@ module.exports = {
     let inv = await g.invites.fetch();
 
     var embed = new Discord.EmbedBuilder()
-      .setTitle(g.name)
+      .setTitle(`${g.name} (${g.nameAcronym})`)
       .setFooter({
         text: `V${fsh.version}`
       })
@@ -26,28 +26,27 @@ module.exports = {
       .setColor('#888888')
       .setThumbnail(g.iconURL({ dynamic: true }))
       .setImage(g.bannerURL({ dynamic: true }))
-      .setDescription(`Acronym: ${g.nameAcronym}
-Id: ${g.id}
+      .setDescription(`Id: ${g.id}
 Created: <t:${created}:R> (<t:${created}:t> | <t:${created}:d>)
 Owner: ${owner} (${owner.id})
-Vanity: ${g.vanityURLCode || 'None'} (Uses: ${g.vanityURLUses || 'None'})
-Available: ${g.available}
-Partner: ${g.partnered}
-Verified: ${g.verified}
+Vanity: ${g.vanityURLCode ? `${g.vanityURLCode} (Uses: ${g.vanityURLUses ?? '0'})` : 'None'}
+Available: ${g.available} | Partner: ${g.partnered} | Verified: ${g.verified}
 Language: ${g.preferredLocale}
-${g.description || 'No description'}`);
+${g.description ?? 'No description'}`);
 
     embed.addFields(
       {
         name: "Stats",
-        value: `Members: ${g.memberCount} (Large: ${g.large})
+        value: `Members: ${g.memberCount}${g.large ? ' (Large)' : ''}
 > People: ${g.members.cache.filter(member => !member.user.bot).size}
 > Bots: ${g.members.cache.filter(member => member.user.bot).size}
 Roles: ${g.roles.cache.size}
 Channels: ${g.channels.cache.filter(channel => ![10, 11, 12].includes(channel.type)).size} (${g.channels.cache.size})
-> Text: ${g.channels.cache.filter(channel => [0, 1, 3, 4, 5, 14, 15, 16].includes(channel.type)).size}
-> Thread: ${g.channels.cache.filter(channel => [10, 11, 12].includes(channel.type)).size}
+> Text: ${g.channels.cache.filter(channel => [0, 1, 3, 5, 6, 7, 8, 14, 17, 18].includes(channel.type)).size}
 > Voice: ${g.channels.cache.filter(channel => [2, 13].includes(channel.type)).size}
+> Category: ${g.channels.cache.filter(channel => [4, 14].includes(channel.type)).size}
+> Thread: ${g.channels.cache.filter(channel => [9, 10, 11, 12].includes(channel.type)).size}
+> Forum: ${g.channels.cache.filter(channel => [15, 16].includes(channel.type)).size}
 Emojis: ${g.emojis.cache.size}
 Stickers: ${g.stickers.cache.size}
 Invites: ${inv.size}`,
@@ -55,11 +54,11 @@ Invites: ${inv.size}`,
       },
       {
         name: "Maximums",
-        value: `Members: ${g.maximumMembers || 'None'}
-Presences: ${g.maximumPresences || 'None'}
-Bitrate: ${g.maximumBitrate || 'None'}
-Video users: ${g.maxVideoChannelUsers || 'None'}
-Stage video users: ${g.maxStageVideoChannelUsers || 'None'}`,
+        value: `Members: ${g.maximumMembers ?? 'Infinite'}
+Presences: ${g.maximumPresences ?? 'Infinite'}
+Bitrate: ${g.maximumBitrate ?? 'Infinite'}
+Video users: ${g.maxVideoChannelUsers ?? 'Infinite'}
+Stage video users: ${g.maxStageVideoChannelUsers ?? 'Infinite'}`,
         inline: true
       },
       {
@@ -78,9 +77,9 @@ Default notifications: ${['All mesages', 'Only mentions'][g.defaultMessageNotifi
       {
         name: "Links",
         value: `Server link: https://discord.com/channels/${g.id}
-Icon: ${g.iconURL({ dynamic: true }) || 'None'}
-Banner: ${g.bannerURL({ dynamic: true }) || 'None'}
-Widget: ${g.widgetImageURL({ dynamic: true}) || 'None'}`,
+Icon: ${g.iconURL({ dynamic: true }) ?? 'None'}
+Banner: ${g.bannerURL({ dynamic: true }) ?? 'None'}
+Widget: ${g.widgetImageURL({ dynamic: true}) ?? 'None'}`,
         inline: false
       },
       {
@@ -98,7 +97,7 @@ Channel: ${g.afkChannelId ? '<#'+g.afkChannelId+'>' : 'None'}`,
       },
       {
         name: "Widget",
-        value: `Enabled: ${g.widgetEnabled || 'false'}
+        value: `Enabled: ${g.widgetEnabled ?? 'false'}
 Channel: ${g.widgetChannelId ? '<#'+g.widgetChannelId+'>' : 'None'}`,
         inline: true
       },
@@ -120,7 +119,7 @@ Channel: ${g.widgetChannelId ? '<#'+g.widgetChannelId+'>' : 'None'}`,
     }
     embed.addFields(
       {
-        name: "Roles ("+g.roles.cache.size+")",
+        name: `Roles (${g.roles.cache.size})`,
         value: list,
         inline: false
       }
