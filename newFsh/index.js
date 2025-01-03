@@ -78,7 +78,7 @@ const createMusic = require('./music.js');
 createMusic(fsh);
 
 /* -- USRBG -- */
-let USRBGinstance = new usrbg(2);
+let USRBGinstance = new usrbg();
 (async()=>{
   await USRBGinstance.load()
   fsh.usrbg = USRBGinstance;

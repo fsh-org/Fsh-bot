@@ -40,7 +40,7 @@
     "node": "^20.5.1",
     "qrcode": "^1.5.3",
     "socket.io": "^4.7.1",
-    "usrbg": "^0.1.0"
+    "usrbg": "^0.1.2"
   },
   "devDependencies": {
     "nodemon": "^3.0.1"
