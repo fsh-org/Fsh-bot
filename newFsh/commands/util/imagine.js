@@ -37,11 +37,6 @@ Model: SG161222/Realistic_Vision_V1.4`)
           default: true,
         },
         {
-          label: "Dall-e 3",
-          description: "lastest version of dall-e",
-          value: "dall-e",
-        },
-        {
           label: "Protogen 5.8",
           description: "darkstorm2150/Protogen_x5.8_Official_Release",
           value: "darkstorm2150/Protogen_x5.8_Official_Release",

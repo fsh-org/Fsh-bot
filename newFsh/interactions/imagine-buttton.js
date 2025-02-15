@@ -26,7 +26,7 @@ module.exports = {
     let tempEmbed = Discord.EmbedBuilder.from(embed)
     let params = encodeURIComponent(embed.description.replace("Prompt: ","").replace("Negative: ","").replace("Model: ","")).split("%0A")
     tempEmbed.setDescription(embed.description+`\n\n${fsh.emojis.load} Generating your image, please wait\nStarted: <t:${temptime}:R>`)
-    
+
     await interaction.update({
       embeds: [tempEmbed], //set embed
       components: [] //delete rows
@@ -39,7 +39,6 @@ module.exports = {
       image = await image.json()
       if (image.err) throw new Error("failed generate");
       if (!image.link) throw new Error("failed generate");
-      //console.log(image)
       image = image.link
     } catch (err) {
       await interaction.editReply({
@@ -52,9 +51,9 @@ module.exports = {
 
     newEmbed.setDescription(embed.description+`\n\nTime taken: \`${Math.floor(new Date()/1000)-temptime} seconds\``)
     newEmbed.setImage(image)
-    
+
     await interaction.editReply({
       embeds: [newEmbed]
     });
-  },
+  }
 };
