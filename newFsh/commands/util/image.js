@@ -1,6 +1,6 @@
 const Discord = require("discord.js");
 
-const filters = ['ad', 'bi', 'blur', 'communism', 'deepfry', 'flip', 'flop', 'gay', 'greyscale', 'gun', 'invert', 'jail', 'pixelate', 'uncover', 'wanted']
+const filters = ['ad', 'bi', 'blur', 'communism', 'deepfry', 'flip', 'flop', 'gay', 'greyscale', 'gun', 'invert', 'jail', 'image-mean', 'pixelate', 'uncover', 'wanted']
 
 module.exports = {
   name: "image",
@@ -20,11 +20,11 @@ module.exports = {
     const attachment = message.attachments.first();
     
     if (!attachment) {
-      message.reply('include atachement')
+      message.reply('include atachement');
       return;
     }
     if (!attachment.contentType.startsWith('image/')) {
-      message.reply('must be image')
+      message.reply('must be image');
       return;
     }
     
@@ -46,13 +46,12 @@ module.exports = {
     for (var i = 0; i < binaryString.length; i++) {
         byteArray[i] = binaryString.charCodeAt(i);
     }
-    
+
     const attach = new Discord.AttachmentBuilder(Buffer.from(byteArray), {name: 'edited.png'});
 
     message.reply({
       content: `Requested by: <@${message.author.id}>`,
       files: [attach]
     })
-    
   }
 };
