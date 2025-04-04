@@ -48,6 +48,7 @@ module.exports = {
   DISCOVERABLE_DISABLED: 'Discovery disabled',
   ENABLED_DISCOVERABLE_BEFORE: 'Previously discoverable',
   ENABLED_MODERATION_EXPERIENCE_FOR_NON_COMMUNITY: 'Members tab without community',
+  ENHANCED_ROLE_COLORS: 'Enhanced role colors',
   EXPOSED_TO_BOOSTING_TIERS_EXPERIMENT: 'Reduced boosts requirement',
   FEATURABLE: 'Featured',
   FORCE_RELAY: 'Forced relay',

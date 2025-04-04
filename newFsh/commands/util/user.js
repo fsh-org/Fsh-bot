@@ -56,9 +56,7 @@ module.exports = {
       })
       .setTimestamp(new Date())
       .setColor(member.displayHexColor)
-      .setThumbnail(user.displayAvatarURL({
-        format: "png"
-      }));
+      .setThumbnail(user.displayAvatarURL({ format: "png" }));
 
     let jos = Math.floor(new Date(member.joinedTimestamp)/1000);
     let jod = Math.floor(new Date(user.createdAt)/1000);
@@ -97,26 +95,24 @@ User url: https://discord.com/users/${user.id}`
 
     let roles = [];
     let list = "";
-    roles = Array.from(member.roles.cache).sort((a,b)=>{return -(Number(a[0].rawPosition)-Number(b[0].rawPosition))});
+    roles = Array.from(member.roles.cache).toSorted((a,b)=>b[1].rawPosition-a[1].rawPosition);
     roles.slice(0,35).forEach(rol => {
       list = list + `<@&${rol[0]}> `;
     })
     if (roles.length != roles.slice(0,35).length) {
       list = list + `[${roles.length - roles.slice(0,35).length} more]`
     }
-    embed.addFields(
-      {
-        name: `Roles (${member.roles.cache.size})`,
-        value: `Highest: <@&${member.roles.highest.id}> (color: \`${intToHex(member.roles.highest.color)}\`)
+    embed.addFields({
+      name: `Roles (${member.roles.cache.size})`,
+      value: `Highest: <@&${member.roles.highest.id}> (color: \`${intToHex(member.roles.highest.color)}\`)
 ${list}`
-      }
-    )
+    })
 
     if (fsh.usrbg.has(user.id)) {
       embed.setImage(fsh.usrbg.get(user.id))
     } else {
       if (member.banner) {
-        embed.setImage(member.displayBannerURL({dynamic: true}))
+        embed.setImage(member.displayBannerURL({ dynamic: true }))
       }
     }
 

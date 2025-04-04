@@ -145,6 +145,23 @@
       "inner": {
         "desc": "¿Dijo alguien memes?"
       }
+    },
+    "math": {
+      "name": "mate",
+      "info": "Resuelve una expresion matematica",
+      "params": {
+        "expression": {
+          "name": "expresion",
+          "info": "Expresion matematica para la evaluacion"
+        }
+      },
+      "inner": {
+        "result": "Resultado",
+        "short": "Corto",
+        "time": "Tiempo",
+        "errexpresion": "Expresion invalida",
+        "errshort": "No hay corto :("
+      }
     }
   }
 }

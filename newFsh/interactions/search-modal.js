@@ -21,7 +21,8 @@ module.exports = {
   name: "search-modal",
   async execute(client, interaction, userId, fsh) {
     /* -- Get search term -- */
-    let term = interaction.fields.getTextInputValue("searchterm");
+    let oterm = interaction.fields.getTextInputValue("searchterm");
+    let term = oterm.toLowerCase();
 
     const prefix = 'fsh!'
     let locale = fsh.getLocale(interaction);
@@ -72,10 +73,10 @@ module.exports = {
           commandName = commandName.join("/");
         }
 
-        if (commandName.includes(term)) {
+        if (commandName.toLowerCase().includes(term)) {
           results.push(`*${commandCat}* > **${command.slash ? '/' : prefix}${commandName}** ${param} - ${commandInfo}`);
         }
-        if (commandInfo.includes(term)) {
+        if (commandInfo.toLowerCase().includes(term)) {
           results2.push(`*${commandCat}* > **${command.slash ? '/' : prefix}${commandName}** ${param} - ${commandInfo}`);
         }
       }
@@ -84,12 +85,12 @@ module.exports = {
     let color = interaction.message.embeds[0].color;
 
     let embed = new Discord.EmbedBuilder()
-      .setTitle(`${fsh.emojis.search} Help Menu - Results For "${term}"`)
+      .setTitle(`${fsh.emojis.search} Help Menu - Results For "${oterm}"`)
       .setDescription(`(optional) - <required>
 Name search
-> ${results.slice(0,18).join("\n> ") || "**Sorry, no commands have that name**"}
+> ${results.slice(0,18).join("\n> ") ?? "**Sorry, no commands have that name**"}
 Info Search
-> ${results2.slice(0,18).join("\n> ") || "**Sorry, no commands with that in their info**"}`.slice(0,4096))
+> ${results2.slice(0,18).join("\n> ") ?? "**Sorry, no commands with that in their info**"}`.slice(0,4096))
       .setColor(color);
 
     await interaction.update({
