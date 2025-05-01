@@ -11,7 +11,7 @@ module.exports = {
       message.reply("include a query");
       return;
     }
-    
+
     let data = await fetch(`https://malpedia.caad.fkie.fraunhofer.de/backend/quicksearch?needle=${arguments2.join("%20")}`);
     data = await data.json();
 
@@ -31,7 +31,7 @@ module.exports = {
         embeds: [embed]
       })
     } else {
-      message.reply("not found")
+      message.reply("no results found");
     }
   }
 };

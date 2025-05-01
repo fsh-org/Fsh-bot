@@ -8,10 +8,6 @@ module.exports = {
 
   async execute(message, arguments2, fsh) {
     let user = String(arguments2[0]).replace(/<@/g, "").replace(/>/g, "");
-    if (!typeof Number(user) == "Number") {
-      message.channel.send("please mention someone");
-      return;
-    }
     user = fsh.client.users.cache.get(user);
     if (!user) {
       message.channel.send("user does not exist / or hasn't been cached");
@@ -35,9 +31,7 @@ module.exports = {
       return;
     }
     if (message.member.user == user) {
-      message.channel.send(
-        "you gave yourself money, don't think that is how it works"
-      );
+      message.channel.send("you gave yourself money, don't think that is how it works");
       return;
     }
     if (user.id == "1068572316986003466") {

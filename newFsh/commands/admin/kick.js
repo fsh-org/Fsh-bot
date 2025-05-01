@@ -12,7 +12,7 @@ module.exports = {
     if (!fsh.devIds.includes(message.author.id)) return;
     // ------------- //
     let user = String(arguments2[0]).replace(/<@/g, "").replace(/>/g, "");
-    if (!typeof Number(user) == "Number") {
+    if (typeof Number(user) !== "number") {
       message.channel.send("Invalid member");
       return;
     }
@@ -47,5 +47,5 @@ module.exports = {
     } catch {
       message.channel.send("Couldn't kick");
     }
-  },
+  }
 };

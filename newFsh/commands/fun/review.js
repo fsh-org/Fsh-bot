@@ -13,9 +13,7 @@ module.exports = {
   category: "fun",
 
   async execute(message, arguments2, fsh) {
-
     let user = String(arguments2[0]).replace(/<@/g, "").replace(/>/g, "");
-    if (!typeof Number(user) == "Number") return;
     user = fsh.client.users.cache.get(user) || message.author;
 
     let reviews = await fetch(`https://manti.vendicated.dev/api/reviewdb/users/${user.id}/reviews`);
@@ -53,9 +51,9 @@ module.exports = {
         rews = rews.filter(ee => {return !ee.comment.match(ff)});
       })
       }
-      
+
       embed.setDescription(`User reviews powered by [ReviewDB](<https://reviewdb.mantikafasi.dev>)${reviews.reviews.length > rews.length ? "\nSome reviews have been omitted, add non at the end to include.":""}`);
-      
+
       rews = rews.slice(1,15);
       rews.forEach(h => {
         fields.push({

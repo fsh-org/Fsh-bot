@@ -14,14 +14,13 @@ module.exports = {
 
   async execute(message, arguments2, fsh) {
     let user = String(arguments2[0]).replace(/<@/g, "").replace(/>/g, "");
-    if (!typeof Number(user) == "Number") return;
     user = fsh.client.users.cache.get(user) || message.author;
     let embed = new Discord.EmbedBuilder()
       .setTitle(`${textToTitleCase(user.displayName)}'${user.displayName.endsWith('s') ? "" : "s"} economy profile`)
       .setDescription(
         `${fsh.emojis.net} \`${fsh.user_fsh.get(user.id) || 0}\` fsh in net
 ${fsh.emojis.tank} \`${fsh.bank_fsh.get(user.id) || 0}/${fsh.bank_limit.get(user.id) || 1000}\` fsh in tank
-        
+
 ${fsh.emojis.fsh} \`${
           (fsh.user_fsh.get(user.id) || 0) + (fsh.bank_fsh.get(user.id) || 0)
         }\` total fsh`

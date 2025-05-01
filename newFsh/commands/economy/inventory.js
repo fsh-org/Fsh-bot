@@ -8,7 +8,6 @@ module.exports = {
 
   async execute(message, arguments2, fsh) {
     let user = String(arguments2[0]).replace(/<@/g, "").replace(/>/g, "");
-    if (!typeof Number(user) == "Number") return;
     user = fsh.client.users.cache.get(user) || message.author;
 
     let inv = fsh.user_inventory.get(user.id) || {};
