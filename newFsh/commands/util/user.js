@@ -3,6 +3,9 @@ const Discord = require("discord.js");
 function intToHex(code){
   return `#${code.toString(16).padStart(6, '0')}`;
 };
+function hexToInt(code){
+  return parseInt(code.replace('#',''), 16);
+};
 
 function get_presences(member) {
   let presenceList = [];
@@ -28,7 +31,7 @@ module.exports = {
 
   async execute(message, arguments2, fsh) {
     let user = String(arguments2[0]).replace(/<@/g, "").replace(/>/g, "");
-    if (!typeof Number(user) == "Number") return;
+    if (typeof Number(user) !== "number") return;
     try {
       user = await fsh.client.users.fetch(user, { force: true });
     } catch(err) {
@@ -49,49 +52,33 @@ module.exports = {
     require('../admin/scan.js')
       .UserCheck(user.id,members,susers);
 
-    var embed = new Discord.EmbedBuilder()
-      .setTitle(`${user.globalName ?? user.username}${user.discriminator == "0" ? "" : `#${user.discriminator}`}${member.nickname != null ? ` [${member.nickname}]`: ""} ${pres}`)
-      .setFooter({
-        text: `V${fsh.version}`
-      })
-      .setTimestamp(new Date())
-      .setColor(member.displayHexColor)
-      .setThumbnail(user.displayAvatarURL({ format: "png" }));
+    let base = new Discord.ContainerBuilder()
+      .setAccentColor(hexToInt(member.displayHexColor));
 
-    let jos = Math.floor(new Date(member.joinedTimestamp)/1000);
-    let jod = Math.floor(new Date(user.createdAt)/1000);
-    embed.addFields(
-      {
-        name: "General",
-        value: `Display name: ${user.globalName}
-Username: ${user.username}${user.discriminator.length < 3 ? "" : `#${user.discriminator}`}
-Nickname: ${member.nickname ?? "None"}
-Id: ${user.id}
+    let user_join = Math.floor(new Date(member.joinedTimestamp)/1000);
+    let user_create = Math.floor(new Date(user.createdAt)/1000);
+
+    let pfp = new Discord.ThumbnailBuilder()
+      .setURL(user.displayAvatarURL({ format: "png" }))
+      .setDescription((user.globalName??user.username)+"'s name");
+
+    let user_section = new Discord.SectionBuilder()
+      .addTextDisplayComponents([
+        new Discord.TextDisplayBuilder().setContent(`## ${user.globalName??user.username} ${pres}`),
+        new Discord.TextDisplayBuilder().setContent(`-# ${user.id}
+Display: ${user.globalName??user.username} (${member.nickname??'No nickname'})
+Username: ${user.username}${user.discriminator.length<3?'':`#${user.discriminator}`}
 Ping: <@${user.id}>
-Suspiciousness: ${members[user.id]}`,
-        inline: true
-      },
-      {
-        name: "Conditionals",
-        value: `Bot: ${user.bot ? "True" : "False"}
-System: ${user.system ? "True" : "False"}
-Administrator: ${member.permissions.has(Discord.PermissionsBitField.Flags.Administrator) ? "True" : "False"}
-Timed out: ${member.isCommunicationDisabled() ? "True" : "False"}
-${String(member.communicationDisabledUntilTimestamp/1000) == "0" ? "" : `Ends: <t:${Math.floor(member.communicationDisabledUntilTimestamp/1000)}:R>`}`,
-        inline: true
-      },
-      {
-        name: "Links",
-        value: `Avatar: ${member.displayAvatarURL({dynamic: true})}
-Banner: ${fsh.usrbg.has(user.id) ? `${fsh.usrbg.get(user.id)} [usrbg]` : member.banner ? member.displayBannerURL({dynamic: true}) : "None"}
-User url: https://discord.com/users/${user.id}`
-      },
-      {
-        name: `Dates`,
-        value: `${member ? `> Joined server: <t:${jos}:R> (<t:${jos}:t> | <t:${jos}:d>)` : "User not in server"}
-> Joined discord: <t:${jod}:R> (<t:${jod}:t> | <t:${jod}:d>)`
-      }
-    );
+Conditionals:${member.permissions.has(Discord.PermissionsBitField.Flags.Administrator)?' Admin':''}${user.verified?' Verified':''}${user.system?' System':''}${user.bot?' Bot':''}
+${member.isCommunicationDisabled()?`:warning: Timed out. Ends: <t:${Math.floor(member.communicationDisabledUntilTimestamp/1000)}:R>\n`:''}Suspiciousness: ${members[user.id]}`),
+        new Discord.TextDisplayBuilder().setContent(`${member?`> Joined server: <t:${user_join}:R> (<t:${user_join}:t> | <t:${user_join}:d>)`:'User not in server'}
+> Joined discord: <t:${user_create}:R> (<t:${user_create}:t> | <t:${user_create}:d>)`)
+      ])
+      .setThumbnailAccessory(pfp);
+
+    base.addSectionComponents([user_section]);
+/*
+    base.addSeparatorComponents(new Discord.SeparatorBuilder());
 
     let roles = [];
     let list = "";
@@ -102,22 +89,53 @@ User url: https://discord.com/users/${user.id}`
     if (roles.length != roles.slice(0,35).length) {
       list = list + `[${roles.length - roles.slice(0,35).length} more]`
     }
-    embed.addFields({
-      name: `Roles (${member.roles.cache.size})`,
-      value: `Highest: <@&${member.roles.highest.id}> (color: \`${intToHex(member.roles.highest.color)}\`)
-${list}`
-    })
+    let role = new Discord.TextDisplayBuilder()
+      .setContent(`${member.roles.cache.size} Roles. Highest: <@&${member.roles.highest.id}> (color: \`${intToHex(member.roles.highest.color)}\`)
+${list}`);
 
-    if (fsh.usrbg.has(user.id)) {
-      embed.setImage(fsh.usrbg.get(user.id))
-    } else {
-      if (member.banner) {
-        embed.setImage(member.displayBannerURL({ dynamic: true }))
-      }
+    base.addTextDisplayComponents([role]);*/
+
+    base.addSeparatorComponents(new Discord.SeparatorBuilder());
+
+    let links = new Discord.ActionRowBuilder()
+      .addComponents([
+        new Discord.ButtonBuilder()
+          .setStyle(Discord.ButtonStyle.Link)
+          .setLabel('User')
+          .setURL(`https://discord.com/users/${user.id}`),
+        new Discord.ButtonBuilder()
+          .setStyle(Discord.ButtonStyle.Link)
+          .setLabel('Avatar')
+          .setURL(member.displayAvatarURL({dynamic: true}))
+      ]);
+    if (fsh.usrbg.has(user.id) || member.banner) {
+      links.addComponents([
+        new Discord.ButtonBuilder()
+          .setStyle(Discord.ButtonStyle.Link)
+          .setLabel(`Banner${fsh.usrbg.has(user.id)?' [usrbg]':''}`)
+          .setURL(fsh.usrbg.has(user.id)?fsh.usrbg.get(user.id):member.displayBannerURL({dynamic: true}))
+      ]);
+    }
+
+    base.addActionRowComponents([links]);
+
+    if (fsh.usrbg.has(user.id) || member.banner) {
+      let banner = new Discord.MediaGalleryBuilder().addItems([
+        new Discord.MediaGalleryItemBuilder()
+          .setURL(fsh.usrbg.has(user.id)?fsh.usrbg.get(user.id):member.displayBannerURL({dynamic: true}))
+          .setDescription((user.globalName??user.username)+"'s banner")
+      ]);
+      base.addMediaGalleryComponents([banner]);
     }
 
     message.channel.send({
-      embeds: [embed]
-    })
+      flags: Discord.MessageFlags.IsComponentsV2,
+      components: [base],
+      allowedMentions: {
+        parse: [],
+        users: [],
+        roles: []
+      }
+    });
   }
 };

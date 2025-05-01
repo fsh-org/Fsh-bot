@@ -28,6 +28,15 @@ function mptourl(u, activity) {
   return url.replace("mp:", "https://media.discordapp.net/");
 }
 
+const typeToText = [
+  'Playing ',      // 0 Playing
+  'Streaming ',    // 1 Streaming
+  'Listening to ', // 2 Listening
+  'Watching ',     // 3 Watching
+  '',              // 4 Custom
+  'Competing in '  // 5 Competing
+];
+
 module.exports = {
   name: "activities",
   params: ["userid/ping", false],
@@ -35,16 +44,6 @@ module.exports = {
   category: "utility",
 
   async execute(message, arguments2, fsh) {
-    //if (!fsh.devIds.includes(message.author.id)) return;
-    /*
-    Playing 0
-    Streaming 1
-    Listening 2
-    Watching 3
-    Custom 4
-    Competing 5
-    */
-
     let embeds = [];
 
     // Get mention/member
@@ -53,19 +52,15 @@ module.exports = {
       try {
         if (!arguments2[0].length) throw new Error("balls");
         targetUser = await message.guild.members.fetch(arguments2[0]);
-        // message.guild.members.cache.get(arguments2[0])
         if (targetUser == undefined) throw new Error("balls");
       } catch (err) {
         targetUser = message.member;
       }
     }
 
-    //console.log(targetUser)
-
     /* No presence */
     if (!targetUser.presence) {
-      // code
-      message.channel.send("not online presence");
+      message.channel.send("no online presence");
       return;
     }
     if(!targetUser.presence.activities){
@@ -74,22 +69,10 @@ module.exports = {
     }
 
     targetUser.presence.activities.forEach((activity) => {
-      let type =
-        activity.type == 0
-          ? "Playing "
-          : activity.type == 1
-          ? "Streaming "
-          : activity.type == 2
-          ? "Listening to "
-          : activity.type == 3
-          ? "Watching "
-          : activity.type == 4
-          ? ""
-          : activity.type == 5
-          ? "Competing in "
-          : "Unknown ";
+      let type = typeToText[activity.type] ?? 'Unknown ';
 
-      const emb = new Discord.EmbedBuilder().setColor(0x0099ff);
+      const emb = new Discord.EmbedBuilder()
+        .setColor(0x0099ff);
 
       emb.setTitle(`${type}\`${activity.name}\``);
 
@@ -112,10 +95,7 @@ module.exports = {
           inline: true,
         });
         emb.setThumbnail(
-          activity.assets.largeImage.replace(
-            "spotify:",
-            "https://i.scdn.co/image/"
-          ) || ""
+          activity.assets.largeImage.replace("spotify:", "https://i.scdn.co/image/") || ""
         );
       } else {
         emb.setDescription(
@@ -145,56 +125,17 @@ module.exports = {
         /* Asset text manag */
         if (activity.assets) {
           emb.addFields({
-            name: activity.assets.largeText || " ",
-            value: activity.assets.smallText || " ",
+            name: activity.assets.largeText ?? " ",
+            value: activity.assets.smallText ?? " ",
           });
         }
       }
 
       embeds.push(emb);
-
-      /*const exampleEmbed = new EmbedBuilder()
-        .setColor(0x0099FF)
-        .setTitle('Some title')
-        .setURL('https://discord.js.org/')
-        .setAuthor({
-          name: 'Some name',
-          iconURL: 'https://i.imgur.com/AfFp7pu.png',
-          url: 'https://discord.js.org'
-        })
-        .setDescription('Some description here')
-        .setThumbnail('https://i.imgur.com/AfFp7pu.png')
-        .addFields({
-          name: 'Regular field title',
-          value: 'Some value here'
-        }, {
-          name: '\u200B',
-          value: '\u200B'
-        }, {
-          name: 'Inline field title',
-          value: 'Some value here',
-          inline: true
-        }, {
-          name: 'Inline field title',
-          value: 'Some value here',
-          inline: true
-        }, )
-        .addFields({
-          name: 'Inline field title',
-          value: 'Some value here',
-          inline: true
-        })
-        .setImage('https://i.imgur.com/AfFp7pu.png')
-        .setTimestamp()
-        .setFooter({
-          text: 'Some footer text here',
-          iconURL: 'https://i.imgur.com/AfFp7pu.png'
-        });*/
     });
 
     if (!embeds.length) {
-      message.channel.send("Error: no activities found");
-      console.log(embeds)
+      message.channel.send('no activities found');
     } else {
       message.channel.send({ embeds });
     }
