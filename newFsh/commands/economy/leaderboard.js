@@ -86,7 +86,7 @@ module.exports = {
     })
     embed.addFields({
       name: `${fsh.emojis.fsh} Total (${String(total(fsh.user_fsh)+total(fsh.bank_fsh))})`,
-      value: `${fsh.emojis.net} ${String(total(fsh.user_fsh))} fsh in net**  |  **${fsh.emojis.tank} ${String(total(fsh.bank_fsh))} fsh in tank` || "err",
+      value: `${fsh.emojis.net} ${String(total(fsh.user_fsh))} fsh in net**  |  **${fsh.emojis.tank} ${String(total(fsh.bank_fsh))} fsh in tank`,
       inline: false
     })
     embed.addFields({
@@ -103,5 +103,5 @@ module.exports = {
     message.channel.send({
       embeds: [embed],
     });
-  },
+  }
 };

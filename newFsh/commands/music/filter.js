@@ -8,7 +8,9 @@ module.exports = {
   category: "hidden",
 
   async execute(message, arguments2, fsh) {
-    if (true) return;
+    // temp dev only //
+    if (!fsh.devIds.includes(message.author.id)) return;
+    // ------------- //
     if (fsh.music.checkVoice(message)) return;
     let queue = useQueue(message.guild.id);
     if (fsh.music.checkQueue(message, queue)) return;
