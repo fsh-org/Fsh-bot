@@ -1,0 +1,400 @@
+                      > fsh!rob <user> - Tries to rob someone
+                      > fsh!captcha - Shows captcha that you can solve
+                      > fsh!floppa - Sends floppa
+                      > fsh!translate <language code> <text> - Translates text
+
+      case "rob":
+        if (
+          server_config
+            .get(String(s4dmessage.guild.id))
+            .split(",")[1]
+            .toLowerCase() == "true"
+        ) {
+          if (
+            s4dmessage.mentions.users != null &&
+            s4dmessage.mentions.users.size > 0
+          ) {
+            if (s4dmessage.member != s4dmessage.mentions.members.first()) {
+              if (
+                s4dmessage.mentions.members.first() ==
+                s4dmessage.guild.members.cache.find(
+                  (m) => m.id === s4d.client.user.id
+                )
+              ) {
+                s4dmessage.channel.send({
+                  content: String("you can not rob me"),
+                });
+                return;
+              }
+              if (
+                !fsh_count.has(String(s4dmessage.mentions.members.first().id))
+              ) {
+                fsh_count.set(
+                  String(s4dmessage.mentions.members.first().id),
+                  0
+                );
+                s4dmessage.channel.send({
+                  content: String("User doesn't have fsh/doesn't exist"),
+                });
+                return;
+              }
+              if (
+                fsh_count.get(String(s4dmessage.mentions.members.first().id)) <
+                5
+              ) {
+                s4dmessage.channel.send({
+                  content: String("User doesn't have fsh/doesn't exist"),
+                });
+                return;
+              }
+              if (cooldown.has(String(String(s4dmessage.author.id) + "-rob"))) {
+                if (
+                  cooldown.get(String(String(s4dmessage.author.id) + "-rob")) +
+                    3600 >
+                  Math.floor(new Date().getTime() / 1000)
+                ) {
+                  s4dmessage.channel.send({
+                    content: String(
+                      [
+                        "you are on cooldown. you will be able to rob again in <t:",
+                        cooldown.get(
+                          String(String(s4dmessage.author.id) + "-rob")
+                        ) + 3600,
+                        ":R>",
+                      ].join("")
+                    ),
+                  });
+                  return;
+                }
+              }
+              if (mathRandomInt(1, 3) == 2) {
+                s4dmessage.channel.send({
+                  content: String("Rob successful"),
+                });
+                b = mathRandomInt(10, 75);
+                if (
+                  b >
+                  fsh_count.get(String(s4dmessage.mentions.members.first().id))
+                ) {
+                  s4dmessage.channel.send({
+                    content: String(
+                      [
+                        "You robbed `",
+                        fsh_count.get(
+                          String(s4dmessage.mentions.members.first().id)
+                        ),
+                        "` fsh",
+                      ].join("")
+                    ),
+                  });
+                  fsh_count.add(
+                    String(s4dmessage.author.id),
+                    parseInt(
+                      fsh_count.get(
+                        String(s4dmessage.mentions.members.first().id)
+                      )
+                    )
+                  );
+                  fsh_count.set(
+                    String(s4dmessage.mentions.members.first().id),
+                    0
+                  );
+                } else {
+                  s4dmessage.channel.send({
+                    content: String(["You robbed `", b, "` fsh"].join("")),
+                  });
+                  fsh_count.add(String(s4dmessage.author.id), parseInt(b));
+                  fsh_count.subtract(
+                    String(s4dmessage.mentions.members.first().id),
+                    parseInt(b)
+                  );
+                }
+              } else {
+                if (mathRandomInt(1, 2) == 2) {
+                  s4dmessage.channel.send({
+                    content: String("Rob failed but you were not found"),
+                  });
+                } else {
+                  s4dmessage.channel.send({
+                    content: String("Rob failed and you got caught by police"),
+                  });
+                  b = mathRandomInt(10, 75);
+                  if (b > fsh_count.get(String(s4dmessage.author.id))) {
+                    s4dmessage.channel.send({
+                      content: String(
+                        [
+                          "You lost",
+                          fsh_count.get(String(s4dmessage.author.id)),
+                          "`",
+                        ].join("")
+                      ),
+                    });
+                    fsh_count.set(String(s4dmessage.author.id), 0);
+                  } else {
+                    s4dmessage.channel.send({
+                      content: String(["You lost `", b, "`"].join("")),
+                    });
+                    fsh_count.subtract(
+                      String(s4dmessage.author.id),
+                      parseInt(b)
+                    );
+                  }
+                }
+              }
+              cooldown.set(
+                String(String(s4dmessage.author.id) + "-rob"),
+                Math.floor(new Date().getTime() / 1000)
+              );
+            } else {
+              s4dmessage.channel.send({
+                content: String("you can't rob yourself"),
+              });
+            }
+          } else {
+            s4dmessage.channel.send({
+              content: String("you need to mention someone"),
+            });
+          }
+        } else {
+          s4dmessage.channel.send({
+            content: String("server has disabled robing"),
+          });
+        }
+
+        break;
+
+
+            case "neko":
+              get_imag(
+                "https://nekos.life/api/v2/img/neko",
+                "data.url",
+                s4dmessage
+              );
+
+              break;
+            case "fox girl":
+              get_imag(
+                "https://nekos.life/api/v2/img/fox_girl",
+                "data.url",
+                s4dmessage
+              );
+
+
+        break;
+      case "captcha":
+        let captcha = new Captcha();
+        s4dmessage.reply({
+          content: String("Respond to the following captcha"),
+          allowedMentions: {
+            repliedUser: true,
+          },
+        });
+        s4dmessage.channel.send({
+          files: [
+            new Discord.MessageAttachment(captcha.JPEGStream, "captcha.jpeg"),
+          ],
+        });
+        s4dmessage.channel.send(String("Write captcha code here")).then(() => {
+          s4dmessage.channel
+            .awaitMessages({
+              filter: (m) => m.author.id === s4dmessage.member.id,
+              time: 1 * 60 * 1000,
+              max: 1,
+            })
+            .then(async (collected) => {
+              s4d.reply = collected.first().content;
+              s4d.message = collected.first();
+              if (s4d.reply.toUpperCase() == captcha.value) {
+                s4dmessage.reply({
+                  content: String("Captcha succesful"),
+                  allowedMentions: {
+                    repliedUser: true,
+                  },
+                });
+                item = mathRandomInt(2, 7);
+                s4dmessage.channel.send({
+                  content: String(
+                    String("+% fsh").replaceAll("%", String(item))
+                  ),
+                });
+                fsh_count.add(String(s4dmessage.author.id), parseInt(item));
+              } else {
+                s4dmessage.reply({
+                  content: String(
+                    ["Captcha failed (code was ", captcha.value, ")"].join("")
+                  ),
+                  allowedMentions: {
+                    repliedUser: true,
+                  },
+                });
+              }
+
+              s4d.reply = null;
+            })
+            .catch(async (e) => {
+              console.error(e);
+              s4dmessage.reply({
+                content: String("Captcha failed (no response)"),
+                allowedMentions: {
+                  repliedUser: true,
+                },
+              });
+            });
+        });
+
+        break;
+      case "floppa":
+        S4D_APP_REDDIT_musakui("bigfloppa")
+          .then(async (result) => {
+            var flopp = new Discord.MessageEmbed();
+            flopp.setTitle(String(result.title));
+            flopp.setURL(String(result.reddit_url));
+            flopp.setImage(String(result.media_url));
+            flopp.setTimestamp(new Date());
+            flopp.setFooter({
+              text: String("V" + String(version)),
+              iconURL: String(),
+            });
+            flopp.setColor("#cc6600");
+
+            s4dmessage.channel.send({
+              embeds: [flopp],
+            });
+          })
+          .catch((error) => console.log(error));
+
+        break;
+      case "role":
+        var role_info = new Discord.MessageEmbed();
+        role_info.setTimestamp(new Date());
+        role_info.setFooter({
+          text: String("V" + String(version)),
+          iconURL: String(),
+        });
+
+        s4dmessage.channel.send({
+          embeds: [role_info],
+        });
+
+        break;
+            case "number":
+              if (arguments2[0] > 4000) {
+                s4dmessage.channel.send({
+                  content: String("Too big"),
+                });
+              } else {
+                c = "";
+                var repeat_end3 = arguments2[0];
+                for (var count3 = 0; count3 < repeat_end3; count3++) {
+                  c = String(c) + String(mathRandomInt(0, 9));
+                }
+                var rande = new Discord.MessageEmbed();
+                rande.setTimestamp(new Date());
+                rande.setFooter({
+                  text: String("V" + String(version)),
+                  iconURL: String(),
+                });
+                rande.setColor("#ff9966");
+                rande.setTitle(String("Random number"));
+                rande.setURL(String());
+                rande.setDescription(String(c));
+
+                s4dmessage.channel.send({
+                  embeds: [rande],
+                });
+              }
+
+              break;
+            case "fraction":
+              if (arguments2[0] > 400) {
+                s4dmessage.channel.send({
+                  content: String("Too big"),
+                });
+              } else {
+                c = "";
+                var repeat_end4 = arguments2[0];
+                for (var count4 = 0; count4 < repeat_end4; count4++) {
+                  c = [c, Math.random(), "\n"].join("");
+                }
+                var rande = new Discord.MessageEmbed();
+                rande.setTimestamp(new Date());
+                rande.setFooter({
+                  text: String("V" + String(version)),
+                  iconURL: String(),
+                });
+                rande.setColor("#ff9966");
+                rande.setTitle(String("Random fraction"));
+                rande.setURL(String());
+                rande.setDescription(String(c));
+
+                s4dmessage.channel.send({
+                  embeds: [rande],
+                });
+              }
+
+              break;
+            case "member":
+              if (arguments2[0] > 100) {
+                s4dmessage.channel.send({
+                  content: String("Too big"),
+                });
+              } else {
+                c = "";
+                var repeat_end5 = arguments2[0];
+                for (var count5 = 0; count5 < repeat_end5; count5++) {
+                  c = [
+                    c,
+                    "<@",
+                    s4dmessage.guild.members.cache.random().user.id,
+                    "> ",
+                  ].join("");
+                }
+                var rande = new Discord.MessageEmbed();
+                rande.setTimestamp(new Date());
+                rande.setFooter({
+                  text: String("V" + String(version)),
+                  iconURL: String(),
+                });
+                rande.setColor("#ff9966");
+                rande.setTitle(String("Random member"));
+                rande.setURL(String());
+                rande.setDescription(String(c));
+
+                s4dmessage.channel.send({
+                  embeds: [rande],
+                });
+              }
+
+              break;
+          }
+        }
+
+        break;
+      case "translate":
+        break; /*
+            case 'image':
+                if (!arguments2.length) {} else {
+                    if ((s4dmessage).attachments != null && (s4dmessage).attachments.size > 0) {
+                        image = 0;
+                        var JimpImageBlock = image;
+                        await jimp.read(image, async (err, image) => {
+                            if (err) throw err;
+                            await image.blur(Number())
+
+                        });
+                        .send({
+                            files: [(new Discord.MessageAttachment((await new DIG.Blur().getImage()), "image.png"))]
+                        });
+                    } else {}
+                }
+
+                break;*/
+      case "discrimin":
+        if (!arguments2.length) {
+        } else {
+          if (arguments2[0].length == 4) {
+          } else {
+          }
+        }
+
+        break;

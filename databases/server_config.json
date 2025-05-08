@@ -1366,5 +1366,401 @@
       }
     },
     "version": 1
+  },
+  "1280251398730022917": {
+    "rob": true,
+    "token_warn": true,
+    "join_gate": {
+      "active": false,
+      "limit": 10,
+      "role": ""
+    },
+    "command_channel": [],
+    "leveling": {
+      "active": false,
+      "notifications": {
+        "active": false,
+        "channel": ""
+      }
+    },
+    "version": 1
+  },
+  "1279496385879609465": {
+    "rob": true,
+    "token_warn": true,
+    "join_gate": {
+      "active": false,
+      "limit": 10,
+      "role": ""
+    },
+    "command_channel": [],
+    "leveling": {
+      "active": false,
+      "notifications": {
+        "active": false,
+        "channel": ""
+      }
+    },
+    "version": 1
+  },
+  "1280395134285910016": {
+    "rob": true,
+    "token_warn": true,
+    "join_gate": {
+      "active": false,
+      "limit": 10,
+      "role": ""
+    },
+    "command_channel": [],
+    "leveling": {
+      "active": false,
+      "notifications": {
+        "active": false,
+        "channel": ""
+      }
+    },
+    "version": 1
+  },
+  "1285806100486160446": {
+    "rob": true,
+    "token_warn": true,
+    "join_gate": {
+      "active": false,
+      "limit": 10,
+      "role": ""
+    },
+    "command_channel": [],
+    "leveling": {
+      "active": false,
+      "notifications": {
+        "active": false,
+        "channel": ""
+      }
+    },
+    "version": 1
+  },
+  "879731276582649876": {
+    "rob": true,
+    "token_warn": true,
+    "join_gate": {
+      "active": false,
+      "limit": 10,
+      "role": ""
+    },
+    "command_channel": [],
+    "leveling": {
+      "active": false,
+      "notifications": {
+        "active": false,
+        "channel": ""
+      }
+    },
+    "version": 1
+  },
+  "1274409715677401130": {
+    "rob": true,
+    "token_warn": true,
+    "join_gate": {
+      "active": false,
+      "limit": 10,
+      "role": ""
+    },
+    "command_channel": [],
+    "leveling": {
+      "active": false,
+      "notifications": {
+        "active": false,
+        "channel": ""
+      }
+    },
+    "version": 1
+  },
+  "1273809771727814707": {
+    "rob": true,
+    "token_warn": true,
+    "join_gate": {
+      "active": false,
+      "limit": 10,
+      "role": ""
+    },
+    "command_channel": [],
+    "leveling": {
+      "active": false,
+      "notifications": {
+        "active": false,
+        "channel": ""
+      }
+    },
+    "version": 1
+  },
+  "1242196660860354713": {
+    "rob": true,
+    "token_warn": true,
+    "join_gate": {
+      "active": false,
+      "limit": 10,
+      "role": ""
+    },
+    "command_channel": [],
+    "leveling": {
+      "active": false,
+      "notifications": {
+        "active": false,
+        "channel": ""
+      }
+    },
+    "version": 1
+  },
+  "1297145496024125480": {
+    "rob": true,
+    "token_warn": true,
+    "join_gate": {
+      "active": false,
+      "limit": 10,
+      "role": ""
+    },
+    "command_channel": [],
+    "leveling": {
+      "active": false,
+      "notifications": {
+        "active": false,
+        "channel": ""
+      }
+    },
+    "version": 1
+  },
+  "1305691259955970069": {
+    "rob": true,
+    "token_warn": true,
+    "join_gate": {
+      "active": false,
+      "limit": 10,
+      "role": ""
+    },
+    "command_channel": [],
+    "leveling": {
+      "active": false,
+      "notifications": {
+        "active": false,
+        "channel": ""
+      }
+    },
+    "version": 1
+  },
+  "1325513946077073518": {
+    "rob": true,
+    "token_warn": true,
+    "join_gate": {
+      "active": false,
+      "limit": 10,
+      "role": ""
+    },
+    "command_channel": [],
+    "leveling": {
+      "active": false,
+      "notifications": {
+        "active": false,
+        "channel": ""
+      }
+    },
+    "version": 1
+  },
+  "1301897660424257566": {
+    "rob": true,
+    "token_warn": true,
+    "join_gate": {
+      "active": false,
+      "limit": 10,
+      "role": ""
+    },
+    "command_channel": [],
+    "leveling": {
+      "active": false,
+      "notifications": {
+        "active": false,
+        "channel": ""
+      }
+    },
+    "version": 1
+  },
+  "1335085130468950168": {
+    "rob": true,
+    "token_warn": true,
+    "join_gate": {
+      "active": false,
+      "limit": 10,
+      "role": ""
+    },
+    "command_channel": [],
+    "leveling": {
+      "active": false,
+      "notifications": {
+        "active": false,
+        "channel": ""
+      }
+    },
+    "version": 1
+  },
+  "1318848872780398592": {
+    "rob": true,
+    "token_warn": true,
+    "join_gate": {
+      "active": false,
+      "limit": 10,
+      "role": ""
+    },
+    "command_channel": [],
+    "leveling": {
+      "active": false,
+      "notifications": {
+        "active": false,
+        "channel": ""
+      }
+    },
+    "version": 1
+  },
+  "1340725445854892225": {
+    "rob": true,
+    "token_warn": true,
+    "join_gate": {
+      "active": false,
+      "limit": 10,
+      "role": ""
+    },
+    "command_channel": [],
+    "leveling": {
+      "active": false,
+      "notifications": {
+        "active": false,
+        "channel": ""
+      }
+    },
+    "version": 1
+  },
+  "1342544263505903749": {
+    "rob": true,
+    "token_warn": true,
+    "join_gate": {
+      "active": false,
+      "limit": 10,
+      "role": ""
+    },
+    "command_channel": [],
+    "leveling": {
+      "active": false,
+      "notifications": {
+        "active": false,
+        "channel": ""
+      }
+    },
+    "version": 1
+  },
+  "1350287312784855203": {
+    "rob": true,
+    "token_warn": true,
+    "join_gate": {
+      "active": false,
+      "limit": 10,
+      "role": ""
+    },
+    "command_channel": [],
+    "leveling": {
+      "active": false,
+      "notifications": {
+        "active": false,
+        "channel": ""
+      }
+    },
+    "version": 1
+  },
+  "1226646754628210698": {
+    "rob": true,
+    "token_warn": true,
+    "join_gate": {
+      "active": false,
+      "limit": 10,
+      "role": ""
+    },
+    "command_channel": [],
+    "leveling": {
+      "active": false,
+      "notifications": {
+        "active": false,
+        "channel": ""
+      }
+    },
+    "version": 1
+  },
+  "1319396206815875126": {
+    "rob": true,
+    "token_warn": true,
+    "join_gate": {
+      "active": false,
+      "limit": 10,
+      "role": ""
+    },
+    "command_channel": [],
+    "leveling": {
+      "active": false,
+      "notifications": {
+        "active": false,
+        "channel": ""
+      }
+    },
+    "version": 1
+  },
+  "1362511914852159680": {
+    "rob": true,
+    "token_warn": true,
+    "join_gate": {
+      "active": false,
+      "limit": 10,
+      "role": ""
+    },
+    "command_channel": [],
+    "leveling": {
+      "active": false,
+      "notifications": {
+        "active": false,
+        "channel": ""
+      }
+    },
+    "version": 1
+  },
+  "1364898904654614581": {
+    "rob": true,
+    "token_warn": true,
+    "join_gate": {
+      "active": false,
+      "limit": 10,
+      "role": ""
+    },
+    "command_channel": [],
+    "leveling": {
+      "active": false,
+      "notifications": {
+        "active": false,
+        "channel": ""
+      }
+    },
+    "version": 1
+  },
+  "1357955050990862498": {
+    "rob": true,
+    "token_warn": true,
+    "join_gate": {
+      "active": false,
+      "limit": 10,
+      "role": ""
+    },
+    "command_channel": [],
+    "leveling": {
+      "active": false,
+      "notifications": {
+        "active": false,
+        "channel": ""
+      }
+    },
+    "version": 1
   }
 }
