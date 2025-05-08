@@ -10,8 +10,8 @@ module.exports = {
     if (!arguments2[0]) {
       let data = await fetch(`https://api.urbandictionary.com/v0/random`)
       data = await data.json();
-      data = data.list[0]
-      
+      data = data.list[0];
+
       let embed = new Discord.EmbedBuilder()
         .setTitle(`Urban random "${data.word}"`)
         .setURL(data.permalink)
@@ -32,10 +32,10 @@ By: ${data.author} | Created: <t:${Math.floor(new Date(data.written_on)/1000)}:R
     }
     let data = await fetch(`https://api.urbandictionary.com/v0/define?term=${arguments2.join("%20")}`)
     data = await data.json();
-    
+
     data = data.list.filter(e => {return e.word.match(new RegExp(arguments2[0],"ig"))}).sort((a,b) => {return a.thumbs_up > b.thumbs_up ? -1 : 1});
-    data = data[0]
-    
+    data = data[0];
+
     if (!data) {
       message.reply("not found")
       return;

@@ -15,7 +15,7 @@ module.exports = {
     data = await data.json();
 
     data = data.collection.items[0].href
-    
+
     let data2 = await fetch(data);
     data2 = await data2.json();
     message.channel.send(data2[0].replaceAll(" ","%20"))

@@ -18,7 +18,7 @@ module.exports = {
       return;
     }
     const attachment = message.attachments.first();
-    
+
     if (!attachment) {
       message.reply('include atachement');
       return;
@@ -27,27 +27,27 @@ module.exports = {
       message.reply('must be image');
       return;
     }
-    
+
     let atta = attachment.attachment;
     atta = await fetch(atta);
     atta = await atta.arrayBuffer();
     atta = Buffer.from(atta);
-    
+
     let data = await fetch('https://api.fsh.plus/'+arguments2[0], {
       method: 'POST',
       headers: {'content-type': 'application/octet-stream'},
       body: atta
     });
     data = await data.json()
-  
-    var binaryString = atob(data.image.split(',')[1]);
 
-    var byteArray = new Uint8Array(binaryString.length);
+    let binaryString = atob(data.image.split(',')[1]);
+
+    let byteArray = new Uint8Array(binaryString.length);
     for (var i = 0; i < binaryString.length; i++) {
-        byteArray[i] = binaryString.charCodeAt(i);
+      byteArray[i] = binaryString.charCodeAt(i);
     }
 
-    const attach = new Discord.AttachmentBuilder(Buffer.from(byteArray), {name: 'edited.png'});
+    const attach = new Discord.AttachmentBuilder(Buffer.from(byteArray), { name: 'edited.png' });
 
     message.reply({
       content: `Requested by: <@${message.author.id}>`,

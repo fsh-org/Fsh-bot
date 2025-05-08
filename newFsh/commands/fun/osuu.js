@@ -17,7 +17,7 @@ module.exports = {
   params: ['user/id', true, 'mode', false],
   info: "Search for a osu account",
   category: "fun",
-  
+
   async execute(message, arguments2, fsh) {
     let ff = arguments2[1]
     if (!ff) {
@@ -38,7 +38,7 @@ module.exports = {
           break;
       }
     }
-    
+
     let data = await fetch(`https://osu.ppy.sh/api/get_user?k=${process.env['osu']}&u=${arguments2[0]}${ff}`);
     data = await data.json();
     data = data[0];
