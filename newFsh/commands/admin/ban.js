@@ -11,26 +11,13 @@ module.exports = {
     // temp dev only //
     if (!fsh.devIds.includes(message.author.id)) return;
     // ------------- //
-    let user = String(arguments2[0]).replace(/<@/g, "").replace(/>/g, "");
-    if (typeof Number(user) !== "number") {
-      message.channel.send("Invalid member");
-      return;
-    }
-    user = fsh.client.users.cache.get(user) || 0;
     if (!message.member.permissions.has(PermissionsBitField.Flags.BanMembers)) {
       message.channel.send("You don't have ban permissions");
       return;
     }
-    if (user == 0) {
-      message.channel.send("Invalid member");
-      return;
-    }
-    if (!message.guild.members.cache.has(user.id)) {
-      message.channel.send("User not in server");
-      return;
-    }
-    if (user.bot) {
-      message.channel.send("Cannot ban bots");
+    let user = String(arguments2[0]).replace(/<@/g, "").replace(/>/g, "");
+    if (Number.isNaN(Number(user))) {
+      message.channel.send('invalid user');
       return;
     }
     if (arguments2[1] == "y") {
@@ -39,12 +26,20 @@ module.exports = {
       });
     }
     try {
-      await message.guild.members.ban(user.id, {
+      await message.guild.members.ban(user, {
         reason: arguments2.slice(2, arguments2.length).join(" "),
       });
-      message.channel.send("ultra beta ban message: success");
-    } catch {
-      message.channel.send("Couldn't ban");
+      let name = 'unknow user';
+      let dis = '';
+      try {
+        let use = await fsh.client.users.fetch(user);
+        name = use.globalName??use.username;
+        dis = (use.discriminator.length>1?'#'+use.discriminator:'');
+      } catch(err) { /* Ignore */ }
+      message.reply(`banned ${name}${dis}`);
+    } catch(err) {
+      console.log('Ban error', err);
+      message.reply('could not ban');
     }
   }
 };
