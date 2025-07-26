@@ -1,10 +1,5 @@
 const Discord = require("discord.js");
 
-function colourRandom() {
-  var num = Math.floor(Math.random() * Math.pow(2, 24));
-  return "#" + ("00000" + num.toString(16)).substr(-6);
-}
-
 module.exports = {
   name: "help",
   info: "List of all commands",
@@ -35,11 +30,7 @@ module.exports = {
       .setURL("https://discord.gg/SXcXZN4tkM")
       .setEmoji(fsh.emojis.discord)
       .setStyle(Discord.ButtonStyle.Link);
-    const button_row = new Discord.ActionRowBuilder().addComponents(
-      website,
-      invite,
-      server
-    );
+    const button_row = new Discord.ActionRowBuilder().addComponents(website, invite, server);
     /* -- Context menu -- */
     let menu = new Discord.ActionRowBuilder().addComponents(
       new Discord.StringSelectMenuBuilder()
@@ -102,10 +93,10 @@ module.exports = {
 Made by ${userin("712342308565024818")} & ${userin("816691475844694047")}`)
       .setTimestamp()
       .setFooter({ text: `V${fsh.version}` })
-      .setColor(colourRandom());
+      .setColor('#'+Math.floor(Math.random()*0xFFFFFF).toString(16));
     message.channel.send({
       embeds: [embed],
-      components: [menu, button_row],
+      components: [menu, button_row]
     });
-  },
+  }
 };

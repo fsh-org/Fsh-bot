@@ -4,19 +4,13 @@ const PORT = 10002;
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
-var path = require("path");
+const path = require("path");
 const crypto = require("crypto")
 
 const { useQueue, useTimeline } = require("discord-player");
 
 function makeid(length) {
-  var result = '';
-  var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#';
-  var charactersLength = characters.length;
-  for (var i = 0; i < Number(length); i++) {
-    result += characters.charAt(Math.floor(Math.random() * charactersLength));
-  }
-  return result;
+  return Math.floor(Math.random()*(36**length)).toString(36);
 }
 
 const app = express();
@@ -39,8 +33,8 @@ module.exports = {
   testexecute(fsh) {
     const app = express();
 
-    app.get("/", (req, res) => {
-      res.send("Hello World!");
+    app.get('/', (req, res) => {
+      res.send('Hello World!');
     });
 
     app.listen(PORT, () => {
@@ -98,38 +92,40 @@ module.exports = {
             res.json({
               rating: members[mem],
               username: susers[mem].user.username
-            })
+            });
           } catch (err) {
             res.status(500);
-            res.json({"rating": null, "username": "None"})
+            res.json({"rating": null, "username": "None"});
           }
           break;
         case 'coupon-create':
           if (!req.query["key"]) {
-            res.send("no")
+            res.status(400);
+            res.send('Invalid key');
             return;
           }
           if (req.query["key"] != process.env["apiKey"]) {
-            res.send("No :)")
+            res.status(400);
+            res.send('Invalid key');
             return;
           }
-          let code = makeid(10);
-          code = `${req.query["prefix"]}-${code}`
+          let code = makeid(12);
+          code = `${req.query["prefix"]}-${code}`;
           let sha = crypto.createHash('sha256').update(code).digest();
-          sha = String(sha)
-          fsh.coupon.set(sha, req.query["by"])
+          sha = String(sha);
+          fsh.coupon.set(sha, req.query["by"]);
           res.json({
             coupon: code
-          })
+          });
           break;
         default:
           // no option :<
-          res.send("Fsh - Api endpoint not specified | if you are getting this from s4d, the api blocks are broken");
+          res.send('Fsh - Api endpoint not specified | if you are getting this from s4d, the api blocks are broken');
       }
     });
 
     /* Music */
-    app.get("/hub/music", async function(req, res) {
+    app.get('/hub/music', async function(req, res) {
       if (!req.query['guild_id']) {
         res.send('provide id');
         return;
@@ -275,14 +271,14 @@ module.exports = {
     </div>
   </body>
 </html>`)
-    })
+    });
 
     /* -- Weird page register -- */
     let paths = [
-      ["index.html", "/"],
-      ["api.html", "/api"],
-      ["invite.html", "/invite"],
-      ["robots.txt"]
+      ['index.html', '/'],
+      ['api.html', '/api'],
+      ['invite.html', '/invite'],
+      ['robots.txt']
     ];
 
     for (let index = 0; index < paths.length; index++) {
@@ -292,10 +288,10 @@ module.exports = {
         //it no got :<; it's only executing once?; hmm
         try {
           res.status(200);
-          res.sendFile(path.join(__dirname, "../neWeb/page/" + directory));
+          res.sendFile(path.join(__dirname, '../neWeb/page/' + directory));
         } catch (err) {
           res.status(500);
-          res.send("err");
+          res.send('Internal file not found');
         }
       });
     }
@@ -311,35 +307,35 @@ module.exports = {
     /* -- Socket.io stuff -- */
     io.on("connection", async(socket) => {
       if (socket.handshake.auth.token != process.env["sockauth"] || "") {
-        socket.emit("chat", `Invalid token`);
+        socket.emit('chat', `Invalid token`);
         socket.disconnect();
       }
-      socket.emit("chat", `User with id "${socket.id}" has connected`);
-      socket.on("chat", async(message) => {
+      socket.emit('chat', `User with id "${socket.id}" has connected`);
+      socket.on('chat', async(message) => {
         if (message.channel) {
           if (message.message) {
             try {
               fsh.client.channels.cache
                 .get(message.channel)
                 .send(message.message);
-              socket.emit("chat", `Server: Sent (${message.message}) to channel (${message.channel})`);
+              socket.emit('chat', `Server: Sent (${message.message}) to channel (${message.channel})`);
             } catch (err) {
-              socket.emit("chat", `Server: ERR\n\n  ${err}`);
+              socket.emit('chat', `Server: ERR\n\n  ${err}`);
             }
             return;
           }
-          return socket.emit("chat", "Server: No message");
+          return socket.emit("chat", 'Server: No message');
         }
-        return socket.emit("chat", "Server: No channel");
+        return socket.emit('chat', 'Server: No channel');
       });
 
-      socket.on("api", async(data) => {
+      socket.on('api', async(data) => {
         await fsh.ws_api(fsh, socket, data)
       })
     });
 
     server.listen(PORT, () => {
-      console.log("Server Online");
+      console.log('Server online at '+PORT);
     });
   }
 };
