@@ -25,7 +25,7 @@ module.exports = {
   params: ["action", false, "amount", false],
   info: "Tank actions",
   category: "economy",
-  
+
   async execute(message, arguments2, fsh) {
     let embed = new Discord.EmbedBuilder()
       .setTitle(`${fsh.emojis.tank} Tank`)
@@ -55,7 +55,7 @@ ${group.join("")}
 - Deposit - Insert fsh into the tank
 - Withdraw - Take back fsh from the tank
 - Expand/Upgrade - Make your tank bigger (1:1 ratio, 100 fsh tax)`)
-      
+
     } else if (arguments2[0] == "deposit") {
       if (Good(message, arguments2)) return;
       if (Number(arguments2[1])<=money) {
@@ -90,7 +90,7 @@ ${group.join("")}
     } else {
       embed.setDescription(`Action not found`)
     }
-    
+
     message.channel.send({
       embeds: [embed]
     });

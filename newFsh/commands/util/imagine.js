@@ -5,7 +5,7 @@ module.exports = {
   params: ['prompt', true],
   info: "Uses AI to generate a image based on your prompt",
   category: "utility",
-  
+
   async execute(message, arguments2, fsh) {
     const sep = "&";
     if (arguments2.length < 1) {
@@ -119,7 +119,7 @@ Model: SG161222/Realistic_Vision_V1.4`)
       .setCustomId(`imagine-button%${message.author.id}%`)
       .setStyle(Discord.ButtonStyle.Success)
     );
-    
+
     message.channel.send({
       embeds: [embed],
       components: [menu, button_row]

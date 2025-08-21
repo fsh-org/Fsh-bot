@@ -22,7 +22,7 @@ module.exports = {
     if (!Object.keys(lootable).includes(arguments2[0])) {
       message.reply('location does not exist')
     }
-    
+
     message.channel.send('hmmm')
   }
 };

@@ -125,11 +125,11 @@ const getAllJsFiles = function (dirPath, arrayOfFiles) {
 
 function refresh(directory, collection) {
   fsh.ws_api = reaquire('./ws-api.js')
-  
+
   fsh.client[collection] = new Discord.Collection();
   const commandsPath = path.join(__dirname, directory);
   const commandFiles = getAllJsFiles(commandsPath);
-  
+
   for (const file of commandFiles) {
     const command = reaquire(file);
     if ("execute" in command) {

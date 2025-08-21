@@ -17,7 +17,7 @@ module.exports = {
     if (thong.includes("://")) {
       thong = thong.split("/")[2]
     }
-    
+
     let data = await fetch(`https://networkcalc.com/api/dns/lookup/${thong}`);
     data = await data.json();
     if (data.status != "OK") {

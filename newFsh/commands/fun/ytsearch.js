@@ -9,7 +9,7 @@ module.exports = {
     let dat = await fetch(`https://api.fsh.plus/ytsearch?query=${arguments2.join("%20")}`);
     dat = await dat.json();
     dat = dat.videos;
-    
+
     let embed = new Discord.EmbedBuilder()
       .setTitle(`${fsh.emojis.youtube} YouTube search "${arguments2.join(" ")}"`)
       .setTimestamp()
@@ -26,7 +26,7 @@ module.exports = {
         value: `Views: ${element.views} | Uploaded: ${element.ago} | [Link](${element.url})\n${element.description.replaceAll(/#[a-zA-Z0-9]{1,10}/g, '').replaceAll(/(http|https):\/\/.{2,15}\..{2,6}[a-zA-Z0-9\/\-_:]+? /g, '').trim()}`,
       });
     });
-    
+
     message.channel.send({
       embeds: [embed]
     });

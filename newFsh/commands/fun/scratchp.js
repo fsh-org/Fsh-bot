@@ -5,7 +5,7 @@ module.exports = {
   params: ['id', true],
   info: "Info on a scratch project",
   category: "fun",
-  
+
   async execute(message, arguments2, fsh) {
     if (arguments2.length < 1) {
       message.channel.send("Please provide a project id")

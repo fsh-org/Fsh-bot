@@ -23,7 +23,7 @@ module.exports = {
       if (image.image) {
         embed.setThumbnail(image.image)
       }
-      
+
       message.channel.send({
         embeds: [embed]
       })

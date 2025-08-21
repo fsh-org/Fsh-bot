@@ -70,7 +70,7 @@ module.exports = {
       if (!value) value = false;
       return (value ? fsh.emojis.good : fsh.emojis.blocker);
     }
-    
+
     let embed = new Discord.EmbedBuilder()
       .setTitle(`${fsh.emojis.admin} Config`)
       .setTimestamp()

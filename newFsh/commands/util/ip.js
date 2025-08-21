@@ -17,7 +17,7 @@ module.exports = {
     if (thong.includes("://")) {
       thong = thong.split("/")[2]
     }
-    
+
     let yj = await fetch(`http://ip-api.com/json/${thong}?fields=status,message,continent,continentCode,country,countryCode,region,regionName,city,zip,lat,lon,timezone,isp,org,as,asname,mobile,proxy,hosting,query`);
     yj = await yj.json();
     if (yj.status == "fail") {

@@ -30,7 +30,7 @@ ${data[key][7] == "" ? "" : `uploaded to ${data[key][7]}\n`}`,
       )
       .join('\n')
       .slice(0,2048))
-    
+
       message.channel.send({
         embeds: [embed],
       });

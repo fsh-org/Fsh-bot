@@ -8,7 +8,7 @@ module.exports = {
   async execute(message, arguments2, fsh) {
     let data = await fetch(`https://today.zenquotes.io/api`);
     data = await data.json()
-    
+
     var embed = new Discord.EmbedBuilder()
       .setTitle(`Today ${data.date.replace("_"," ")}`)
       .setFooter({ text: `V${fsh.version}` })

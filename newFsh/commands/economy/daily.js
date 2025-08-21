@@ -4,7 +4,7 @@ module.exports = {
   name: "daily",
   info: "Get daily amount of fsh",
   category: "economy",
-  
+
   async execute(message, arguments2, fsh) {
     if (await fsh.cooldown.get(`${message.author.id}-daily`) > Math.floor(new Date().getTime() / 1000)) {
       message.reply(`you are on cooldown, you can use daily in <t:${await fsh.cooldown.get(`${message.author.id}-daily`)}:R>`);
@@ -24,7 +24,7 @@ module.exports = {
         }
       }
     });
-    
+
     let embed = new Discord.EmbedBuilder()
       .setTitle(`${fsh.emojis.economy} Daily`)
       .setDescription(`Recived: ${MFsh} fsh
@@ -37,7 +37,7 @@ Total: ${MFsh + BFsh} fsh`)
       .setColor("#888888");
 
     fsh.user_fsh.add(message.author.id, MFsh+BFsh)
-    
+
     message.channel.send({
       embeds: [embed]
     });

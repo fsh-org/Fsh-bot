@@ -42,7 +42,7 @@ module.exports = {
       .setCustomId(interaction.message.components[1].components[0].data.custom_id)
       .setStyle(Discord.ButtonStyle.Success)
     );
-    
+
     // it work!!    
     let embed = interaction.message.embeds[0]
     let newEmbed = Discord.EmbedBuilder.from(embed)

@@ -8,7 +8,7 @@ module.exports = {
   async execute(c, client) {
     console.log(`${client.user.displayName} [1;33mstarted[0m`);
     await require("../server.js").execute(c);
-    
+
     while (true) {
       c.client.user.setPresence({
         activities: [

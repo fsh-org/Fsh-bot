@@ -1,6 +1,5 @@
                       > fsh!rob <user> - Tries to rob someone
                       > fsh!captcha - Shows captcha that you can solve
-                      > fsh!floppa - Sends floppa
                       > fsh!translate <language code> <text> - Translates text
 
       case "rob":
@@ -170,7 +169,6 @@
                 "data.url",
                 s4dmessage
               );
-
               break;
             case "fox girl":
               get_imag(
@@ -242,159 +240,5 @@
             });
         });
 
-        break;
-      case "floppa":
-        S4D_APP_REDDIT_musakui("bigfloppa")
-          .then(async (result) => {
-            var flopp = new Discord.MessageEmbed();
-            flopp.setTitle(String(result.title));
-            flopp.setURL(String(result.reddit_url));
-            flopp.setImage(String(result.media_url));
-            flopp.setTimestamp(new Date());
-            flopp.setFooter({
-              text: String("V" + String(version)),
-              iconURL: String(),
-            });
-            flopp.setColor("#cc6600");
-
-            s4dmessage.channel.send({
-              embeds: [flopp],
-            });
-          })
-          .catch((error) => console.log(error));
-
-        break;
-      case "role":
-        var role_info = new Discord.MessageEmbed();
-        role_info.setTimestamp(new Date());
-        role_info.setFooter({
-          text: String("V" + String(version)),
-          iconURL: String(),
-        });
-
-        s4dmessage.channel.send({
-          embeds: [role_info],
-        });
-
-        break;
-            case "number":
-              if (arguments2[0] > 4000) {
-                s4dmessage.channel.send({
-                  content: String("Too big"),
-                });
-              } else {
-                c = "";
-                var repeat_end3 = arguments2[0];
-                for (var count3 = 0; count3 < repeat_end3; count3++) {
-                  c = String(c) + String(mathRandomInt(0, 9));
-                }
-                var rande = new Discord.MessageEmbed();
-                rande.setTimestamp(new Date());
-                rande.setFooter({
-                  text: String("V" + String(version)),
-                  iconURL: String(),
-                });
-                rande.setColor("#ff9966");
-                rande.setTitle(String("Random number"));
-                rande.setURL(String());
-                rande.setDescription(String(c));
-
-                s4dmessage.channel.send({
-                  embeds: [rande],
-                });
-              }
-
-              break;
-            case "fraction":
-              if (arguments2[0] > 400) {
-                s4dmessage.channel.send({
-                  content: String("Too big"),
-                });
-              } else {
-                c = "";
-                var repeat_end4 = arguments2[0];
-                for (var count4 = 0; count4 < repeat_end4; count4++) {
-                  c = [c, Math.random(), "\n"].join("");
-                }
-                var rande = new Discord.MessageEmbed();
-                rande.setTimestamp(new Date());
-                rande.setFooter({
-                  text: String("V" + String(version)),
-                  iconURL: String(),
-                });
-                rande.setColor("#ff9966");
-                rande.setTitle(String("Random fraction"));
-                rande.setURL(String());
-                rande.setDescription(String(c));
-
-                s4dmessage.channel.send({
-                  embeds: [rande],
-                });
-              }
-
-              break;
-            case "member":
-              if (arguments2[0] > 100) {
-                s4dmessage.channel.send({
-                  content: String("Too big"),
-                });
-              } else {
-                c = "";
-                var repeat_end5 = arguments2[0];
-                for (var count5 = 0; count5 < repeat_end5; count5++) {
-                  c = [
-                    c,
-                    "<@",
-                    s4dmessage.guild.members.cache.random().user.id,
-                    "> ",
-                  ].join("");
-                }
-                var rande = new Discord.MessageEmbed();
-                rande.setTimestamp(new Date());
-                rande.setFooter({
-                  text: String("V" + String(version)),
-                  iconURL: String(),
-                });
-                rande.setColor("#ff9966");
-                rande.setTitle(String("Random member"));
-                rande.setURL(String());
-                rande.setDescription(String(c));
-
-                s4dmessage.channel.send({
-                  embeds: [rande],
-                });
-              }
-
-              break;
-          }
-        }
-
-        break;
       case "translate":
-        break; /*
-            case 'image':
-                if (!arguments2.length) {} else {
-                    if ((s4dmessage).attachments != null && (s4dmessage).attachments.size > 0) {
-                        image = 0;
-                        var JimpImageBlock = image;
-                        await jimp.read(image, async (err, image) => {
-                            if (err) throw err;
-                            await image.blur(Number())
-
-                        });
-                        .send({
-                            files: [(new Discord.MessageAttachment((await new DIG.Blur().getImage()), "image.png"))]
-                        });
-                    } else {}
-                }
-
-                break;*/
-      case "discrimin":
-        if (!arguments2.length) {
-        } else {
-          if (arguments2[0].length == 4) {
-          } else {
-          }
-        }
-
         break;

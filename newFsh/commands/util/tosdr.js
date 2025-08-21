@@ -30,7 +30,7 @@ module.exports = {
 
     res = await fetch(`https://api.tosdr.org/service/v2/?id=${res.parameters.services[0].id}`);
     res = await res.json();
-    
+
     res = res.parameters;
 
     var embed = new Discord.EmbedBuilder()
@@ -46,7 +46,7 @@ ${res.documents.map(e => `${e.name}: ${e.url}`).join("\n")}`)
       .setThumbnail(res.image)
       .setImage(`https://shields.tosdr.org/${res.id}.png`)
       .setColor("#888888");
-    
+
     function GV(a,b) {
       let dat = {
         "blocker":3000,
@@ -60,7 +60,7 @@ ${res.documents.map(e => `${e.name}: ${e.url}`).join("\n")}`)
     let count = 0;
     // Sort
     let points = res.points.sort(GV);
-    
+
     // Remove duplicates, leave more effort ones
     points = points.reduce((acc, currentObj) => {
       const existingObj = acc.find(obj => obj.title === currentObj.title);
@@ -87,7 +87,7 @@ ${res.documents.map(e => `${e.name}: ${e.url}`).join("\n")}`)
       }
     }*///104=>64
     //console.log(points.length)
-    
+
     points.forEach(e => {
       if (count<24) {
         embed.addFields({

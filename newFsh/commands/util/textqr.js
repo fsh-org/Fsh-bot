@@ -15,7 +15,7 @@ module.exports = {
       message.reply(`message must be less than 1950 in length (${letext.length})`)
       return;
     }
-    
+
     var embed = new Discord.EmbedBuilder()
       .setTitle("Text QR creator")
       .setFooter({ text: `V${fsh.version}` })
@@ -25,7 +25,7 @@ module.exports = {
         name: message.member.user.username,
         iconURL: message.member.user.displayAvatarURL({ format: "png" })
       });
-    
+
       QRCode.toString(letext, {
         type: "image"
       }, async (err, QR) => {

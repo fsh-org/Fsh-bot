@@ -26,7 +26,7 @@ ${fsh.emojis.fsh} \`${(fsh.user_fsh.get(user.id) || 0) + (fsh.bank_fsh.get(user.
       .setFooter({ text: `V${fsh.version}` })
       .setThumbnail(user.displayAvatarURL({ format: "png" }))
       .setColor("#888888");
-    
+
     interaction.reply({
       embeds: [embed]
     });

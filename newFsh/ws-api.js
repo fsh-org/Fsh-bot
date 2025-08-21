@@ -1,6 +1,5 @@
 // fsh.io: full socket server
 module.exports = async(fsh, socket, data) => {
-  
   let endpoint = data.endpoint?.toLowerCase() || null;
 
   /* -- No endpoint -- */

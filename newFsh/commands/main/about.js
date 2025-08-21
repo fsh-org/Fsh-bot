@@ -14,7 +14,7 @@ module.exports = {
         return fsh.client.users.cache.get(id).username;
       }
     }
-    
+
     var embed = new Discord.EmbedBuilder()
       .setTitle(`${fsh.emojis.fsh} ${inner.about}`)
       .setFooter({ text: `V${fsh.version}` })

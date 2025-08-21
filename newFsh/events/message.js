@@ -124,7 +124,7 @@ module.exports = {
 
     if (!(message.content.toLowerCase() ?? "").startsWith(prefix)) return;
     command = command.replaceAll(prefix, "");
-    
+
     if (!fsh.user_fsh.has(message.author.id)) {
       fsh.user_fsh.set(message.author.id, 0);
     }

@@ -18,7 +18,7 @@ module.exports = {
       }
     })
     botList = botList.sort((a,b) => {return a.displayName.toString().toLowerCase() > b.displayName.toString().toLowerCase() ? 1 : -1})
-    
+
     let embed = new Discord.EmbedBuilder()
       .setTitle(`${fsh.emojis.admin} All bots (${verified.length + botList.length})`)
       .setTimestamp()
