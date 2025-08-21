@@ -36,7 +36,7 @@ ${g.description ?? 'No description'}`);
 
     embed.addFields(
       {
-        name: "Stats",
+        name: 'Stats',
         value: `Members: ${g.memberCount}${g.large ? ' (Large)' : ''}
 > People: ${g.members.cache.filter(member => !member.user.bot).size}
 > Bots: ${g.members.cache.filter(member => member.user.bot).size}
@@ -53,7 +53,7 @@ Invites: ${inv.size}`,
         inline: true
       },
       {
-        name: "Maximums",
+        name: 'Maximums',
         value: `Members: ${g.maximumMembers ?? 'Infinite'}
 Presences: ${g.maximumPresences ?? 'Infinite'}
 Bitrate: ${g.maximumBitrate ?? 'Infinite'}
@@ -62,7 +62,7 @@ Stage video users: ${g.maxStageVideoChannelUsers ?? 'Infinite'}`,
         inline: true
       },
       {
-        name: "Moderation",
+        name: 'Moderation',
         value: `Rules: ${g.rulesChannelId ? '<#'+g.rulesChannelId+'>' : 'None'}
 Public updates: ${g.publicUpdatesChannelId ? '<#'+g.publicUpdatesChannelId+'>' : 'None'}
 Safety alerts: ${g.safetyAlertsChannelId ? '<#'+g.safetyAlertsChannelId+'>' : 'None'}
@@ -75,7 +75,7 @@ Default notifications: ${['All mesages', 'Only mentions'][g.defaultMessageNotifi
         inline: true
       },
       {
-        name: "Links",
+        name: 'Links',
         value: `Server link: https://discord.com/channels/${g.id}
 Icon: ${g.iconURL({ dynamic: true }) ?? 'None'}
 Banner: ${g.bannerURL({ dynamic: true }) ?? 'None'}
@@ -83,50 +83,48 @@ Widget: ${g.widgetImageURL({ dynamic: true}) ?? 'None'}`,
         inline: false
       },
       {
-        name: "Boost",
+        name: 'Boost',
         value: `Boost bar: ${g.premiumProgressBarEnabled}
 Tier: ${g.premiumTier}
 Boosts: ${g.premiumSubscriptionCount}`,
         inline: true
       },
       {
-        name: "AFK",
+        name: 'AFK',
         value: `Timeout: ${g.afkTimeout > 59 ? Math.floor(g.afkTimeout/60)+' minutes' : g.afkTimeout+' seconds'}
 Channel: ${g.afkChannelId ? '<#'+g.afkChannelId+'>' : 'None'}`,
         inline: true
       },
       {
-        name: "Widget",
+        name: 'Widget',
         value: `Enabled: ${g.widgetEnabled ?? 'false'}
 Channel: ${g.widgetChannelId ? '<#'+g.widgetChannelId+'>' : 'None'}`,
         inline: true
       },
       {
-        name: "Features",
+        name: 'Features',
         value: g.features.map(e => feat(e)).sort().join(', '),
         inline: false
       }
     );
 
     let roles = [];
-    let list = "";
+    let list = '';
     roles = Array.from(g.roles.cache).sort((a,b)=>{return -(Number(a[1].rawPosition)-Number(b[1].rawPosition))});
     roles.slice(0,40).forEach(rol => {
       list = list + `<@&${rol[0]}> `;
-    })
+    });
     if (roles.length != roles.slice(0,40).length) {
       list = list + `[${roles.length - roles.slice(0,40).length} more]`
     }
-    embed.addFields(
-      {
-        name: `Roles (${g.roles.cache.size})`,
-        value: list,
-        inline: false
-      }
-    )
+    embed.addFields({
+      name: `Roles (${g.roles.cache.size})`,
+      value: list,
+      inline: false
+    });
 
     message.channel.send({
       embeds: [embed]
-    })
+    });
   }
 };

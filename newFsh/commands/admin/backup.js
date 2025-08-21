@@ -94,7 +94,7 @@ function createBackup(message) {
       name: r.name,
       //icon: null,
       unicodeEmoji: r.unicodeEmoji,
-      color: r.color,
+      colors: r.colors,
       hoist: r.hoist,
       rawPosition: r.rawPosition,
       //permissions: PermissionsBitField { bitfield: 1096185279794753n },
@@ -156,7 +156,7 @@ function loadBackup(message, id, fsh) {
     roles.push({
       name: r.name,
       unicodeEmoji: r.unicodeEmoji,
-      color: r.color,
+      colors: r.colors,
       hoist: r.hoist,
       rawPosition: r.rawPosition,
       managed: r.managed,

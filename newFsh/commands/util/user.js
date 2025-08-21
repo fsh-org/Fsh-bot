@@ -10,11 +10,11 @@ function hexToInt(code){
 function get_presences(member) {
   let presenceList = [];
   try {
-    let presences = (member.presence.clientStatus);
+    let presences = member.presence.clientStatus;
     Object.keys(presences).forEach(key => {
       let thing = [];
       thing.push(key);
-      thing.push((presences[String(key)]));
+      thing.push(presences[String(key)]);
       presenceList.push(thing.join("-"));
     });
   } catch (err) {
@@ -90,7 +90,7 @@ ${member.isCommunicationDisabled()?`:warning: Timed out. Ends: <t:${Math.floor(m
       list = list + `[${roles.length - roles.slice(0,35).length} more]`
     }
     let role = new Discord.TextDisplayBuilder()
-      .setContent(`${member.roles.cache.size} Roles. Highest: <@&${member.roles.highest.id}> (color: \`${intToHex(member.roles.highest.color)}\`)
+      .setContent(`${member.roles.cache.size} Roles. Highest: <@&${member.roles.highest.id}> (color: \`${intToHex(member.roles.highest.colors.primaryColor)}${member.roles.highest.colors.secondaryColor?' > '+intToHex(member.roles.highest.colors.secondaryColor):''}${member.roles.highest.colors.tertiaryColor?' > '+intToHex(member.roles.highest.colors.tertiaryColor):''}\`)
 ${list}`);
 
     base.addTextDisplayComponents([role]);*/

@@ -1,25 +1,25 @@
 /* -- New Server -- */
-const PORT = 10002;
+const PORT = 3001;
 
-const express = require("express");
-const bodyParser = require("body-parser");
-const cors = require("cors");
-const path = require("path");
-const crypto = require("crypto")
+const express = require('express');
+const bodyParser = require('body-parser');
+const cors = require('cors');
+const path = require('path');
+const crypto = require('crypto')
 
-const { useQueue, useTimeline } = require("discord-player");
+const { useQueue, useTimeline } = require('discord-player');
 
 function makeid(length) {
   return Math.floor(Math.random()*(36**length)).toString(36);
 }
 
 const app = express();
-const server = require("http").createServer(app);
-const io = require("socket.io")(server, {
-  path: "/socket",
+const server = require('http').createServer(app);
+const io = require('socket.io')(server, {
+  path: '/socket',
   cors: {
-    origin: "*",
-    methods: ["GET", "POST"]
+    origin: '*',
+    methods: ['GET', 'POST']
   }
 });
 
@@ -43,20 +43,20 @@ module.exports = {
   },
   async execute(fsh) {
     /* -- Api endpoints -- */
-    app.get("/api/:type", async function (req, res) {
+    app.get('/api/:type', async function (req, res) {
       res.status(200);
-      if (req.query["plain"] == "1") {
-        res.header("Content-Type", "text/plain");
+      if (req.query['plain'] == '1') {
+        res.header('Content-Type', 'text/plain');
       } else {
-        res.header("Content-Type", "application/json");
+        res.header('Content-Type', 'application/json');
       }
-      switch (req.params["type"]) {
-        case "ping":
-          res.send(req.query["plain"] == "1" ? fsh.client.ws.ping : `{"ping":"${fsh.client.ws.ping}"}`);
+      switch (req.params['type']) {
+        case 'ping':
+          res.send(req.query['plain'] == '1' ? fsh.client.ws.ping : `{"ping":"${fsh.client.ws.ping}"}`);
           break;
-        case "info":
+        case 'info':
           let Fshdata = fsh.user_fsh.all();
-          if (req.query["plain"] === "1") {
+          if (req.query['plain'] === '1') {
             res.send([
               fsh.client.ws.ping,
               fsh.client.uptime,
@@ -64,7 +64,7 @@ module.exports = {
               fsh.client.channels.cache.size,
               fsh.client.users.cache.size,
               Object.keys(Fshdata).length,
-            ].join(","))
+            ].join(','))
           } else {
             res.json({
               ping: fsh.client.ws.ping,
@@ -79,11 +79,11 @@ module.exports = {
         case 'user-check':
           try {
             let que = req.query
-            let mem = que["id"];
+            let mem = que['id'];
             let members = {};
             members[mem] = 0;
             let susers = {};
-            susers[mem] = fsh.client.guilds.cache.get(que["server"]).members.cache.get(mem);
+            susers[mem] = fsh.client.guilds.cache.get(que['server']).members.cache.get(mem);
 
             require('./commands/admin/scan.js')
               .UserCheck(mem,members,susers);
@@ -95,25 +95,25 @@ module.exports = {
             });
           } catch (err) {
             res.status(500);
-            res.json({"rating": null, "username": "None"});
+            res.json({'rating': null, 'username': 'None'});
           }
           break;
         case 'coupon-create':
-          if (!req.query["key"]) {
+          if (!req.query['key']) {
             res.status(400);
             res.send('Invalid key');
             return;
           }
-          if (req.query["key"] != process.env["apiKey"]) {
+          if (req.query['key'] != process.env['apiKey']) {
             res.status(400);
             res.send('Invalid key');
             return;
           }
           let code = makeid(12);
-          code = `${req.query["prefix"]}-${code}`;
+          code = `${req.query['prefix']}-${code}`;
           let sha = crypto.createHash('sha256').update(code).digest();
           sha = String(sha);
-          fsh.coupon.set(sha, req.query["by"]);
+          fsh.coupon.set(sha, req.query['by']);
           res.json({
             coupon: code
           });
@@ -270,7 +270,7 @@ module.exports = {
       </ol>` : '<p>Nothing in queue</p>'}
     </div>
   </body>
-</html>`)
+</html>`);
     });
 
     /* -- Weird page register -- */
@@ -287,26 +287,24 @@ module.exports = {
       app.get(url, async (req, res) => {
         //it no got :<; it's only executing once?; hmm
         try {
-          res.status(200);
-          res.sendFile(path.join(__dirname, '../neWeb/page/' + directory));
+          res.status(200).sendFile(path.join(__dirname, '../neWeb/page/' + directory));
         } catch (err) {
-          res.status(500);
-          res.send('Internal file not found');
+          res.status(500).send('Internal file not found');
         }
       });
     }
 
-    app.use('/hub', express.static('neWeb/page/hub'))
-    app.use('/media', express.static('neWeb/media'))
-    
+    app.use('/hub', express.static('neWeb/page/hub'));
+    app.use('/media', express.static('neWeb/media'));
+
     app.use(function(req, res) {
-      res.sendFile(path.join(__dirname, '../neWeb/page/error.html'))
-    })
+      res.status(404).sendFile(path.join(__dirname, '../neWeb/page/error.html'));
+    });
 
     fsh.io = io;
     /* -- Socket.io stuff -- */
-    io.on("connection", async(socket) => {
-      if (socket.handshake.auth.token != process.env["sockauth"] || "") {
+    io.on('connection', async(socket) => {
+      if (socket.handshake.auth.token != process.env['sockauth'] || '') {
         socket.emit('chat', `Invalid token`);
         socket.disconnect();
       }
@@ -324,13 +322,13 @@ module.exports = {
             }
             return;
           }
-          return socket.emit("chat", 'Server: No message');
+          return socket.emit('chat', 'Server: No message');
         }
         return socket.emit('chat', 'Server: No channel');
       });
 
       socket.on('api', async(data) => {
-        await fsh.ws_api(fsh, socket, data)
+        await fsh.ws_api(fsh, socket, data);
       })
     });
 
