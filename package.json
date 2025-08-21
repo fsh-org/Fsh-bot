@@ -33,11 +33,11 @@
     "easy-json-database": "^1.5.0",
     "express": "^4.21.2",
     "ffmpeg-static": "^5.2.0",
-    "fshdb": "^1.0.0-beta.2",
-    "math-expression-evaluator": "^2.0.4",
+    "fshdb": "^0.4.0",
+    "math-expression-evaluator": "^2.0.7",
     "mediaplex": "^0.0.9",
-    "qrcode": "^1.5.3",
-    "socket.io": "^4.7.1",
+    "qrcode": "^1.5.4",
+    "socket.io": "^4.8.1",
     "usrbg": "^0.1.2"
   },
   "devDependencies": {
