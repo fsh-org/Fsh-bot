@@ -10,12 +10,10 @@ module.exports = {
   category: "hidden",
 
   async execute(message, arguments2, fsh) {
-    if (fsh.user_badges.get(message.member.id).filter(e => e.name === 'its a lie').length > 0) {
-      message.reply("Depleted")
+    if (fsh.user_badges.get(message.member.id).includes('cake')) {
+      message.reply('depleted');
     } else {
-      let y = fsh.user_badges.get(message.member.id)
-      y.push({ "emoji": "cake", "name": "its a lie" })
-      fsh.user_badges.set(message.member.id, y)
+      fsh.user_badges.push(message.member.id, 'cake');
       let r = [`\`\`\`
 ⠏⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠹
 ⠇Forms FORM-29827281-12:⠀ ⠀⠀⠀⠸             .,-:;//;:=,
@@ -64,7 +62,7 @@ module.exports = {
 ⠇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠸              ,.:=-.
 ⠧⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠼
 \`\`\``]
-      message.author.send(r[Math.floor(Math.random() * 2)])
+      message.author.send(r[Math.floor(Math.random() * 2)]);
     }
-  },
+  }
 };

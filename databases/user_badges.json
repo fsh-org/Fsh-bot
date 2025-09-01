@@ -1,34 +1,10 @@
 {
   "816691475844694047": [
-    {
-      "emoji": "fsh",
-      "name": "***dev***"
-    },
-    {
-      "emoji": "cake",
-      "name": "its a lie"
-    }
+    "dev",
+    "cake"
   ],
   "712342308565024818": [
-    {
-      "emoji": "fsh",
-      "name": "***dev***"
-    },
-    {
-      "emoji": "cake",
-      "name": "its a lie"
-    }
-  ],
-  "439788095483936768": [
-    {
-      "emoji": "ma",
-      "name": "*maxy dev*"
-    }
-  ],
-  "767102460673916958": [
-    {
-      "emoji": "zap",
-      "name": "*Hit*"
-    }
+    "dev",
+    "cake"
   ]
 }
