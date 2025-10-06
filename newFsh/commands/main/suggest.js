@@ -1,7 +1,7 @@
 const Discord = require("discord.js")
 
 module.exports = {
-  name: "suggest",
+  name: 'suggest',
   slash: true,
   params: [{
     name: 'text',
@@ -10,7 +10,7 @@ module.exports = {
     max: 120,
     required: true
   }],
-  category: "main",
+  category: 'main',
 
   async execute(interaction, arguments, fsh) {
     let inner = fsh.getInnerLocale(interaction);
@@ -37,9 +37,9 @@ module.exports = {
         name: `${interaction.user.globalName} (${interaction.user.id})`,
         iconURL: interaction.member.displayAvatarURL({ dynamic: true })
       })
-      .setColor("#888888");
+      .setColor('#888888');
 
-    fsh.client.channels.cache.get("1117473022878687392").send({
+    fsh.client.channels.cache.get('1117473022878687392').send({
       embeds: [embed]
     })
       .then((suggested) => {
@@ -47,9 +47,6 @@ module.exports = {
         suggested.react(fsh.emojis.thumbsdown);
       });
 
-    interaction.reply({
-      content: inner.sent,
-      ephemeral: true
-    });
+    interaction.reply({ content: inner.sent, flags: Discord.MessageFlags.Ephemeral });
   }
 };

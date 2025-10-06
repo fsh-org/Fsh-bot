@@ -1,20 +1,5 @@
 const Discord = require("discord.js");
 
-/* -- Make Title Case -- */
-function textToTitleCase(str) {
-  return str.replace(/\S+/g, function (txt) {
-    return txt[0].toUpperCase() + txt.substring(1).toLowerCase();
-  });
-}
-
-function listsRepeat(value, n) {
-  var array = [];
-  for (var i = 0; i < n; i++) {
-    array[i] = value;
-  }
-  return array;
-}
-
 let existing_cat = ["main", "economy", "fun", "music", "utility", "admin"];
 
 module.exports = {
@@ -70,7 +55,7 @@ module.exports = {
         }
         /* -- Join command name if multi alias -- */
         if (Array.isArray(commandName)) {
-          commandName = commandName.join("/");
+          commandName = commandName.join('/');
         }
 
         if (commandName.toLowerCase().includes(term)) {
@@ -88,9 +73,9 @@ module.exports = {
       .setTitle(`${fsh.emojis.search} Help Menu - Results For "${oterm}"`)
       .setDescription(`(optional) - <required>
 Name search
-> ${results.slice(0,18).join("\n> ") ?? "**Sorry, no commands have that name**"}
+> ${results.slice(0,18).join('\n> ') ?? '**Sorry, no commands have that name**'}
 Info Search
-> ${results2.slice(0,18).join("\n> ") ?? "**Sorry, no commands with that in their info**"}`.slice(0,4096))
+> ${results2.slice(0,18).join('\n> ') ?? '**Sorry, no commands with that in their info**'}`.slice(0,4096))
       .setColor(color);
 
     await interaction.update({

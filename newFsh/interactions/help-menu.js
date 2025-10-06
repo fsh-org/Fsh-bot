@@ -1,10 +1,4 @@
 const Discord = require("discord.js");
-const {
-  ActionRowBuilder,
-  ModalBuilder,
-  TextInputBuilder,
-  TextInputStyle,
-} = require("discord.js");
 
 /* -- Make Title Case -- */
 function textToTitleCase(str) {
@@ -87,23 +81,20 @@ module.exports = {
       interaction.user.id != userId &&
       !fsh.devIds.includes(interaction.user.id)
     ) {
-      return await interaction.reply({
-        content: "This isnt your menu",
-        ephemeral: true,
-      });
+      return await interaction.reply({ content: 'This isnt your menu', flags: Discord.MessageFlags.Ephemeral });
     }
     const selected = interaction.values[0];
 
     if (selected == "search") {
-      const modal = new ModalBuilder().setCustomId("search").setTitle("Search");
+      const modal = new Discord.ModalBuilder().setCustomId("search").setTitle("Search");
 
       // Create the text input components
-      const searchterm = new TextInputBuilder()
-        .setCustomId("searchterm")
-        .setLabel("What term do you want to search for?")
-        .setStyle(TextInputStyle.Short);
+      const searchterm = new Discord.TextInputBuilder()
+        .setCustomId('searchterm')
+        .setLabel('What term do you want to search for?')
+        .setStyle(Discord.TextInputStyle.Short);
 
-      const firstActionRow = new ActionRowBuilder().addComponents(searchterm);
+      const firstActionRow = new Discord.ActionRowBuilder().addComponents(searchterm);
 
       modal.addComponents(firstActionRow);
       await interaction.showModal(modal);
@@ -113,7 +104,7 @@ module.exports = {
     let embed = helpGen(
       client.textcommands,
       selected,
-      "fsh!",
+      'fsh!',
       interaction,
       client.contextmenu,
       fsh

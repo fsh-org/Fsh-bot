@@ -1,43 +1,42 @@
-const { Events, GatewayIntentBits, ActivityType } = require("discord.js");
-const discord = require("discord.js");
+const Discord = require("discord.js");
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
+const videos = ['1goAp0XmhZQ','jpO2zd9zbng']
+function randomVideo() {
+  return videos[Math.floor(Math.random()*videos.length)];
+}
+
 module.exports = {
-  name: Events.ClientReady,
+  name: Discord.Events.ClientReady,
   //once: true,
   async execute(c, client) {
     console.log(`${client.user.displayName} [1;33mstarted[0m`);
-    await require("../server.js").execute(c);
+
+    if (process.env['topgg']) {
+      fetch(`https://top.gg/api/bots/${client.user.id}/stats`, {
+        method: 'POST',
+        headers: {
+          'content-type': 'application/json',
+          authorization: `Bearer ${process.env['topgg']}`
+        },
+        body: JSON.stringify({
+          server_count: client.guilds.cache.size
+        })
+      });
+    }
+
+    await require('../server.js').execute(c);
 
     while (true) {
       c.client.user.setPresence({
-        activities: [
-          {
-            name: `Fsh -  ${c.client.ws.ping}ms`,
-            type: ActivityType.Streaming,
-            url: "https://youtube.com/watch?v=1goAp0XmhZQ",
-          },
-        ],
-        status: "online",
+        activities: [{
+          name: `Fsh -  ${c.client.ws.ping}ms`,
+          type: Discord.ActivityType.Streaming,
+          url: 'https://youtube.com/watch?v='+randomVideo()
+        }],
+        status: 'online',
       });
-      await delay(10000)
+      await delay(10000);
     }
-    /*
-    while (true) {
-      c.client.user.setActivity({
-        name: `Fsh -  ${c.client.ws.ping}ms`,
-        type: discord.ActivityType.Watching,
-        url: "https://www.youtube.com/watch?v=jpO2zd9zbng",
-      });
-    }*/
-    /*
-          c.client.user.setActivity(
-            ["fsh - ", c.client.ws.ping, "ms"].join(""),,
-            {
-              type: "STREAMING",
-              url: "https://www.youtube.com/watch?v=jpO2zd9zbng",
-            }
-          );
-    await delay(10000);*/
-  },
+  }
 };

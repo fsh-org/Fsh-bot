@@ -25,7 +25,7 @@ module.exports = {
     let tu = await fetch(`https://api.fsh.plus/animal?animal=${arguments.animal}`);
     tu = await tu.json();
     if (tu.error||!tu.image) {
-      interaction.reply('animal not found', { flags: Discord.MessageFlags.Ephemeral });
+      interaction.reply({ content: inner.notfound, flags: Discord.MessageFlags.Ephemeral });
       return;
     }
 

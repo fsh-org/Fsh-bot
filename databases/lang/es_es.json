@@ -110,6 +110,7 @@
       },
       "inner": {
         "animal": "Animal",
+        "notfound": "animal no encontrado",
         "alpaca": "Alpaca",
         "bird": "Pájaro",
         "bunny": "Conejo",
