@@ -31,7 +31,7 @@ function RegisterSlash(fsh) {
       let tr = fsh.lang[lang.toLowerCase().replace('-','_')].get(`commands.${cmd.name}`);
       trn[lang] = tr.name;
       trd[lang] = tr.info;
-    })
+    });
     let obj = {
       type: 1,
       name: base.name,
@@ -48,7 +48,7 @@ function RegisterSlash(fsh) {
           let ptr = fsh.lang[lang.toLowerCase().replace('-','_')].get(`commands.${cmd.name}.params.${param.name}`);
           pn[lang] = ptr.name;
           pd[lang] = ptr.info;
-        })
+        });
         let objp = {
           type: typeToNumber[param.type.toString().toLowerCase()],
           name: base.params[param.name].name,
@@ -56,18 +56,29 @@ function RegisterSlash(fsh) {
           required: param.required ?? true,
           name_localizations: pn,
           description_localizations: pd
+        };
+        if (param?.min) objp[param.type==='string'?'min_length':'min_value'] = param.min;
+        if (param?.max) objp[param.type==='string'?'max_length':'max_value'] = param.max;
+        if (param?.choices) {
+          objp.choices = [];
+          param.choices.forEach(choice => {
+            let locn = {};
+            fsh.lang.available.map(lang => {
+              locn[lang] = fsh.lang[lang.toLowerCase().replace('-','_')].get(`commands.${cmd.name}.params.${param.name}.choices.${choice.name}`);
+            });
+            let objc = {
+              name: choice.name,
+              name_localizations: locn,
+              value: choice.value
+            };
+            objp.choices.push(objc);
+          });
         }
-        if (param?.min) {
-          objp[param.type==='string'?'min_length':'min_value'] = param.min;
-        }
-        if (param?.max) {
-          objp[param.type==='string'?'max_length':'max_value'] = param.max;
-        }
-        obj.options.push(objp)
+        obj.options.push(objp);
       });
     }
-    json.push(obj)
-  })
+    json.push(obj);
+  });
   fetch('https://discord.com/api/v10/applications/1068572316986003466/commands', {
     method: 'PUT',
     headers: {
@@ -75,7 +86,17 @@ function RegisterSlash(fsh) {
       authorization: `Bot ${process.env['token']}`
     },
     body: JSON.stringify(json)
-  })
+  });
+  if (process.env['topgg']) {
+    fetch('https://top.gg/api/v1/projects/@me/commands', {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json',
+        authorization: `Bearer ${process.env['topgg']}`
+      },
+      body: JSON.stringify(json)
+    });
+  }
 }
 
 module.exports = RegisterSlash;

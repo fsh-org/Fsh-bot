@@ -1,51 +1,47 @@
 const Discord = require("discord.js");
 
 module.exports = {
-  name: "animal",
-  params: ["animal", false],
-  info: "Get random image of a animal",
-  category: "fun",
+  name: 'animal',
+  slash: true,
+  params: [{
+    name: 'animal',
+    type: 'string',
+    choices: [
+      { name: 'Alpaca', value: 'alpaca' },
+      { name: 'Bird', value: 'bird' },
+      { name: 'Bunny', value: 'bunny' },
+      { name: 'Cat', value: 'cat' },
+      { name: 'Dog', value: 'dog' },
+      { name: 'Duck', value: 'duck' },
+      { name: 'Fish', value: 'fish' },
+      { name: 'Fox', value: 'fox' },
+      { name: 'Frog', value: 'frog' }
+    ],
+    required: true
+  }],
 
-  async execute(message, arguments2, fsh) {
-    if (!arguments2[0]) {
-      let tu = await fetch(`https://api.fsh.plus/animal`)
-      tu = await tu.text()
-      var embed = new Discord.EmbedBuilder()
-        .setTitle(`Animal list`)
-        .setFooter({ text: `V${fsh.version}` })
-        .setTimestamp(new Date())
-        .setColor("#999999")
-        .setAuthor({
-          name: message.member.user.username,
-          iconURL: message.member.user.displayAvatarURL({ format: "png" })
-        })
-        .setDescription(tu.replaceAll("<br>","\n"));
-
-      message.channel.send({
-        embeds: [embed]
-      })
-      return;
-    }
-    let tu = await fetch(`https://api.fsh.plus/animal?animal=${arguments2[0]}`)
-    tu = await tu.json()
-    if (tu.error) {
-      message.reply("animal not found");
+  async execute(interaction, arguments, fsh) {
+    let inner = fsh.getInnerLocale(interaction);
+    let tu = await fetch(`https://api.fsh.plus/animal?animal=${arguments.animal}`);
+    tu = await tu.json();
+    if (tu.error||!tu.image) {
+      interaction.reply('animal not found', { flags: Discord.MessageFlags.Ephemeral });
       return;
     }
 
-    var embed = new Discord.EmbedBuilder()
-      .setTitle(`Animal ${arguments2[0]}`)
+    let embed = new Discord.EmbedBuilder()
+      .setTitle(`${inner.animal} ${inner[arguments.animal]}`)
       .setFooter({ text: `V${fsh.version}` })
       .setTimestamp(new Date())
-      .setColor("#999999")
+      .setColor('#888888')
       .setAuthor({
-        name: message.member.user.username,
-        iconURL: message.member.user.displayAvatarURL({ format: "png" })
+        name: interaction.member.user.username,
+        iconURL: interaction.member.user.displayAvatarURL({ format: "png" })
       })
       .setImage(tu.image);
 
-    message.channel.send({
+    interaction.reply({
       embeds: [embed]
-    })
+    });
   }
 };

@@ -88,6 +88,39 @@
         "15": "**YES**"
       }
     },
+    "animal": {
+      "name": "animal",
+      "info": "Get random image of an animal",
+      "params": {
+        "animal": {
+          "name": "animal",
+          "info": "Animal to see",
+          "choices": {
+            "Alpaca": "Alpaca",
+            "Bird": "Bird",
+            "Bunny": "Bunny",
+            "Cat": "Cat",
+            "Dog": "Dog",
+            "Duck": "Duck",
+            "Fish": "Fish",
+            "Fox": "Fox",
+            "Frog": "Frog"
+          }
+        }
+      },
+      "inner": {
+        "animal": "Animal",
+        "alpaca": "Alpaca",
+        "bird": "Bird",
+        "bunny": "Bunny",
+        "cat": "Cat",
+        "dog": "Dog",
+        "duck": "Duck",
+        "fish": "Fish",
+        "fox": "Fox",
+        "frog": "Frog"
+      }
+    },
     "coin": {
       "name": "coin",
       "info": "Flip a coin",

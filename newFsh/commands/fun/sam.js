@@ -7,11 +7,14 @@ module.exports = {
   category: "fun",
 
   async execute(message, arguments2, fsh) {
-    let data = await fetch('https://api.fsh.plus/sam?text='+arguments2.join(' '));
+    let letext = await fetch(`https://api.fsh.plus/filter?text=${arguments2.join(' ').replaceAll('`','ˋ').replaceAll('\n','\\n')}&char=*`);
+    letext = await letext.json();
+    letext = await letext.censor;
+    let data = await fetch('https://api.fsh.plus/sam?text='+letext);
     try {
       data = await data.json();
     } catch (err) {
-      message.reply('could not sam')
+      message.reply('could not sam');
     }
 
     var binaryString = atob(data.audio.split(',')[1]);
@@ -25,6 +28,6 @@ module.exports = {
 
     message.reply({
       files: [attachment]
-    })
+    });
   }
 };

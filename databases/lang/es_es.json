@@ -88,6 +88,39 @@
         "15": "**SÍ**"
       }
     },
+    "animal": {
+      "name": "animal",
+      "info": "Consigue una imagen aleatoria de un animal",
+      "params": {
+        "animal": {
+          "name": "animal",
+          "info": "Animal a ver",
+          "choices": {
+            "Alpaca": "Alpaca",
+            "Bird": "Pájaro",
+            "Bunny": "Conejo",
+            "Cat": "Gato",
+            "Dog": "Perro",
+            "Duck": "Pato",
+            "Fish": "Pez",
+            "Fox": "Zorro",
+            "Frog": "Rana"
+          }
+        }
+      },
+      "inner": {
+        "animal": "Animal",
+        "alpaca": "Alpaca",
+        "bird": "Pájaro",
+        "bunny": "Conejo",
+        "cat": "Gato",
+        "dog": "Perro",
+        "duck": "Pato",
+        "fish": "Pez",
+        "fox": "Zorro",
+        "frog": "Rana"
+      }
+    },
     "coin": {
       "name": "moneda",
       "info": "Tira una moneda",
