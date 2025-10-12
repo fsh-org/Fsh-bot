@@ -196,6 +196,26 @@
         "errexpresion": "Expresion invalida",
         "errshort": "No hay corto :("
       }
+    },
+    "qr": {
+      "name": "qr",
+      "info": "Crea un QR a partir de texto",
+      "params": {
+        "text": {
+          "name": "text",
+          "info": "Texto a convertir a QR"
+        }
+      }
+    },
+    "rmqr": {
+      "name": "rmqr",
+      "info": "Crea un rMQR a partir de texto",
+      "params": {
+        "text": {
+          "name": "text",
+          "info": "Texto a convertir a rMQR"
+        }
+      }
     }
   }
 }

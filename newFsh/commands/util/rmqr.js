@@ -1,27 +1,47 @@
 const Discord = require("discord.js");
 
 module.exports = {
-  name: ['rmqr','longqr'],
-  params: ['text', true],
-  info: "Creates a rmqr from text",
-  category: "utility",
+  name: 'rmqr',
+  slash: true,
+  params: [{
+    name: 'text',
+    type: 'string',
+    max: 150,
+    min: 1,
+    required: true
+  }],
+  category: 'utility',
 
-  async execute(message, arguments2, fsh) {
-    let letext = await fetch(`https://api.fsh.plus/filter?text=${arguments2.join(" ").replaceAll("`","ˋ").replaceAll('\n',' [new line] ')}&char=*`);
+  async execute(interaction, arguments, fsh) {
+    let letext = await fetch(`https://api.fsh.plus/filter?text=${encodeURIComponent(arguments.text)}&char=*`);
     letext = await letext.json();
-    letext = await letext.censor;
-    if (letext.length > 150) {
-      message.reply(`message must be less than 150 in length (${letext.length})`)
-      return;
+
+    let rmqr = await fetch('https://api.fsh.plus/rmqr?text='+letext.censor);
+    rmqr = await rmqr.json();
+
+    let binaryString = atob(rmqr.image.split(',')[1]);
+
+    let byteArray = new Uint8Array(binaryString.length);
+    for (var i = 0; i < binaryString.length; i++) {
+      byteArray[i] = binaryString.charCodeAt(i);
     }
 
-    let q = await fetch(`https://api.fsh.plus/rmqr?text=${letext}`)
-    q = await q.json();
+    const attach = new Discord.AttachmentBuilder(Buffer.from(byteArray), {name: 'rmqr.png'});
 
-    const attachment = new Discord.AttachmentBuilder(Buffer.from(q.image.split(',')[1], 'base64'), { name: 'rmqr.png' });
+    let embed = new Discord.EmbedBuilder()
+      .setTitle('rMQR')
+      .setFooter({ text: `V${fsh.version}` })
+      .setTimestamp(new Date())
+      .setColor('#888888')
+      .setAuthor({
+        name: interaction.member.user.username,
+        iconURL: interaction.member.user.displayAvatarURL({ format: "png" })
+      })
+      .setImage('attachment://rmqr.png');
 
-    message.reply({
-      files: [attachment]
-    })
+    interaction.reply({
+      files: [attach],
+      embeds: [embed]
+    });
   }
 };

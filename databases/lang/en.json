@@ -196,6 +196,26 @@
         "errexpresion": "Invalid expression",
         "errshort": "No short :("
       }
+    },
+    "qr": {
+      "name": "qr",
+      "info": "Creates a QR from text",
+      "params": {
+        "text": {
+          "name": "text",
+          "info": "Text to convert to QR"
+        }
+      }
+    },
+    "rmqr": {
+      "name": "rmqr",
+      "info": "Creates a rMQR from text",
+      "params": {
+        "text": {
+          "name": "text",
+          "info": "Text to convert to rMQR"
+        }
+      }
     }
   }
 }

@@ -19,6 +19,7 @@ module.exports = {
     ],
     required: true
   }],
+  category: 'fun',
 
   async execute(interaction, arguments, fsh) {
     let inner = fsh.getInnerLocale(interaction);

@@ -86,7 +86,10 @@ function RegisterSlash(fsh) {
       authorization: `Bot ${process.env['token']}`
     },
     body: JSON.stringify(json)
-  });
+  })
+    .then(res=>res.json())
+    .then(res=>console.log(JSON.stringify(res)))
+    .catch(err=>console.error(err));
   if (process.env['topgg']) {
     fetch('https://top.gg/api/v1/projects/@me/commands', {
       method: 'POST',
