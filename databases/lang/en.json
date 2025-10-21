@@ -180,6 +180,26 @@
         "desc": "Did someone say memes?"
       }
     },
+    "nasa": {
+      "name": "nasa",
+      "info": "Search for NASA media",
+      "params": {
+        "query": {
+          "name": "query",
+          "info": "Query to search"
+        }
+      }
+    },
+    "sam": {
+      "name": "sam",
+      "info": "Make text to speech using sam",
+      "params": {
+        "text": {
+          "name": "text",
+          "info": "Text to speech"
+        }
+      }
+    },
     "math": {
       "name": "math",
       "info": "Resolve a math expression",

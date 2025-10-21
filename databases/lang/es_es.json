@@ -180,6 +180,26 @@
         "desc": "¿Dijo alguien memes?"
       }
     },
+    "nasa": {
+      "name": "nasa",
+      "info": "Busca imagenes de NASA",
+      "params": {
+        "query": {
+          "name": "texto",
+          "info": "Texto a buscar"
+        }
+      }
+    },
+    "sam": {
+      "name": "sam",
+      "info": "Haz texto a voz usando sam",
+      "params": {
+        "text": {
+          "name": "texto",
+          "info": "Texto a voz"
+        }
+      }
+    },
     "math": {
       "name": "mate",
       "info": "Resuelve una expresion matematica",

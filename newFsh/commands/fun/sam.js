@@ -1,32 +1,38 @@
 const Discord = require("discord.js");
 
 module.exports = {
-  name: "sam",
-  params: ['text', true],
-  info: "Make text to voice using sam",
-  category: "fun",
+  name: 'sam',
+  slash: true,
+  params: [{
+    name: 'text',
+    type: 'string',
+    max: 2000,
+    min: 1,
+    required: true
+  }],
+  category: 'fun',
 
-  async execute(message, arguments2, fsh) {
-    let letext = await fetch(`https://api.fsh.plus/filter?text=${arguments2.join(' ').replaceAll('`','ˋ').replaceAll('\n','\\n')}&char=*`);
+  async execute(interaction, arguments, fsh) {
+    let letext = await fetch(`https://api.fsh.plus/filter?text=${encodeURIComponent(arguments.text)}&char=*`);
     letext = await letext.json();
-    letext = await letext.censor;
-    let data = await fetch('https://api.fsh.plus/sam?text='+letext);
+
+    let data = await fetch('https://api.fsh.plus/sam?text='+letext.censor);
     try {
       data = await data.json();
     } catch (err) {
-      message.reply('could not sam');
+      interaction.reply({ content: 'could not sam', flags: Discord.MessageFlags.Ephemeral });
     }
 
-    var binaryString = atob(data.audio.split(',')[1]);
+    let binaryString = atob(data.audio.split(',')[1]);
 
-    var byteArray = new Uint8Array(binaryString.length);
-    for (var i = 0; i < binaryString.length; i++) {
-        byteArray[i] = binaryString.charCodeAt(i);
+    let byteArray = new Uint8Array(binaryString.length);
+    for (let i = 0; i < binaryString.length; i++) {
+      byteArray[i] = binaryString.charCodeAt(i);
     }
 
     const attachment = new Discord.AttachmentBuilder(Buffer.from(byteArray), {name: 'sam.wav'});
 
-    message.reply({
+    interaction.reply({
       files: [attachment]
     });
   }
