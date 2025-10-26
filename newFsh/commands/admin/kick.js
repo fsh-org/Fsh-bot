@@ -1,5 +1,4 @@
 const Discord = require("discord.js");
-const { PermissionsBitField } = require("discord.js");
 
 module.exports = {
   name: "kick",
@@ -18,7 +17,7 @@ module.exports = {
     }
     user = fsh.client.users.cache.get(user) || 0;
     if (
-      !message.member.permissions.has(PermissionsBitField.Flags.KickMembers)
+      !message.member.permissions.has(Discord.PermissionsBitField.Flags.KickMembers)
     ) {
       message.channel.send("You don't have kick permissions");
     }

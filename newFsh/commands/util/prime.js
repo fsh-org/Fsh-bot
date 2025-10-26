@@ -1,10 +1,4 @@
-function listsRepeat(value, n) {
-  var array = [];
-  for (var i = 0; i < n; i++) {
-    array[i] = value;
-  }
-  return array;
-}
+const Discord = require("discord.js");
 
 module.exports = {
   name: "prime",

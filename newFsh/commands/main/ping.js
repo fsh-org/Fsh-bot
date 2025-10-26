@@ -1,4 +1,4 @@
-const { EmbedBuilder } = require("discord.js");
+const Discord = require("discord.js");
 
 module.exports = {
   name: "ping",
@@ -7,7 +7,7 @@ module.exports = {
 
   async execute(interaction, arguments, fsh) {
     let inner = fsh.getInnerLocale(interaction);
-    let ping = new EmbedBuilder()
+    let ping = new Discord.EmbedBuilder()
       .setTitle(inner.ping)
       .setFooter({ text: `V${fsh.version}` })
       .setTimestamp(new Date())

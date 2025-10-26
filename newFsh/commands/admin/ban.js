@@ -1,5 +1,4 @@
 const Discord = require("discord.js");
-const { PermissionsBitField } = require("discord.js");
 
 module.exports = {
   name: "ban",
@@ -11,7 +10,7 @@ module.exports = {
     // temp dev only //
     if (!fsh.devIds.includes(message.author.id)) return;
     // ------------- //
-    if (!message.member.permissions.has(PermissionsBitField.Flags.BanMembers)) {
+    if (!message.member.permissions.has(Discord.PermissionsBitField.Flags.BanMembers)) {
       message.channel.send("You don't have ban permissions");
       return;
     }

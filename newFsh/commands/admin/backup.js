@@ -1,5 +1,4 @@
 const Discord = require("discord.js");
-const { PermissionsBitField } = require("discord.js");
 const fs = require("fs");
 
 function createBackup(message) {
@@ -191,21 +190,21 @@ module.exports = {
 
     switch (arguments2[0]) {
       case 'create':
-        if (!message.member.permissions.has(PermissionsBitField.Flags.Administrator) && !fsh.devIds.includes(message.author.id)) {
+        if (!message.member.permissions.has(Discord.PermissionsBitField.Flags.Administrator) && !fsh.devIds.includes(message.author.id)) {
           message.channel.send("you don't have administrator permissions");
           return;
         }
         createBackup(message)
         break;
       case 'load':
-        if (!message.member.permissions.has(PermissionsBitField.Flags.Administrator) && !fsh.devIds.includes(message.author.id)) {
+        if (!message.member.permissions.has(Discord.PermissionsBitField.Flags.Administrator) && !fsh.devIds.includes(message.author.id)) {
           message.channel.send("you don't have administrator permissions");
           return;
         }
         loadBackup(message, message.guild.id, fsh)
         break;
       case 'loadother':
-        if (!message.member.permissions.has(PermissionsBitField.Flags.Administrator) && !fsh.devIds.includes(message.author.id)) {
+        if (!message.member.permissions.has(Discord.PermissionsBitField.Flags.Administrator) && !fsh.devIds.includes(message.author.id)) {
           message.channel.send("you don't have administrator permissions");
           return;
         }

@@ -1,5 +1,4 @@
 const Discord = require("discord.js");
-const { PermissionsBitField } = require("discord.js");
 
 module.exports = {
   name: "unban",
@@ -17,7 +16,7 @@ module.exports = {
       return;
     }
     user = fsh.client.users.cache.get(user) || 0;
-    if (!message.member.permissions.has(PermissionsBitField.Flags.BanMembers)) {
+    if (!message.member.permissions.has(Discord.PermissionsBitField.Flags.BanMembers)) {
       message.channel.send("You don't have ban permissions");
       return;
     }

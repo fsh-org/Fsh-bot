@@ -1,4 +1,4 @@
-const { EmbedBuilder } = require("discord.js");
+const Discord = require("discord.js");
 const os = require("node:os");
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -83,7 +83,7 @@ module.exports = {
     CPUsage = /*1 - 2 **/ ((cpu2.idle - cpu1.idle) / (cpu2.total - cpu1.total));
     CPUsage = Math.round(CPUsage * 100) / 100;
 
-    let info = new EmbedBuilder()
+    let info = new Discord.EmbedBuilder()
       .setTitle(inner.info)
       .setFooter({ text: `V${fsh.version}` })
       .setTimestamp(new Date())
