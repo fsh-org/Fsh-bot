@@ -6,6 +6,7 @@ module.exports = {
     limit: 10,
     role: ''
   },
+  fsh_channel: [],
   command_channel: [],
   leveling: {
     active: false,
