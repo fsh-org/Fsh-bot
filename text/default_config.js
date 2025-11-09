@@ -7,7 +7,6 @@ module.exports = {
     role: ''
   },
   fsh_channel: [],
-  command_channel: [],
   leveling: {
     active: false,
     notifications: {

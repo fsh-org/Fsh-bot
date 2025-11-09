@@ -1,7 +1,7 @@
-const { Events } = require("discord.js");
+const Discord = require("discord.js");
 
 module.exports = {
-  name: Events.InteractionCreate,
+  name: Discord.Events.InteractionCreate,
   execute(fsh, interaction) {
     //console.log(interaction)
     /* -- Is slash command -- */

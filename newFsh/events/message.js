@@ -1,9 +1,6 @@
-const { Events } = require("discord.js");
 const Discord = require("discord.js");
-const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
-
-const fs = require("fs");
-let path = require('path');
+const fs = require('node:fs');
+let path = require('node:path');
 
 const getAllJsFiles = function (dirPath, arrayOfFiles) {
   files = fs.readdirSync(dirPath);
@@ -23,7 +20,7 @@ const getAllJsFiles = function (dirPath, arrayOfFiles) {
 };
 
 module.exports = {
-  name: Events.MessageCreate,
+  name: Discord.Events.MessageCreate,
   async execute(fsh, resFunc, message) {
     const prefix = "fsh!"; // Bot prefix (incase we need to change)
     /* -- Let webhooks be able to fsh -- */
