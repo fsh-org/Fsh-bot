@@ -1,4 +1,5 @@
-const Discord = require("discord.js");
+const Discord = require('discord.js');
+const UserCheck = require('../../user-check.js');
 
 function intToHex(code){
   return `#${code.toString(16).padStart(6, '0')}`;
@@ -44,13 +45,7 @@ module.exports = {
       pres = pres + fsh.emojis[String(e)]
     })
 
-    let members = {};
-    members[user.id] = 0;
-    let susers = {};
-    susers[user.id] = member;
-
-    require('../admin/scan.js')
-      .UserCheck(user.id,members,susers);
+    let sus = UserCheck(user,member);
 
     let base = new Discord.ContainerBuilder()
       .setAccentColor(hexToInt(member.displayHexColor));
@@ -70,7 +65,7 @@ Display: ${user.globalName??user.username} (${member.nickname??'No nickname'})
 Username: ${user.username}${user.discriminator.length<3?'':`#${user.discriminator}`}
 Ping: <@${user.id}>
 Conditionals:${member.permissions.has(Discord.PermissionsBitField.Flags.Administrator)?' Admin':''}${user.verified?' Verified':''}${user.system?' System':''}${user.bot?' Bot':''}
-${member.isCommunicationDisabled()?`:warning: Timed out. Ends: <t:${Math.floor(member.communicationDisabledUntilTimestamp/1000)}:R>\n`:''}Suspiciousness: ${members[user.id]}`),
+${member.isCommunicationDisabled()?`:warning: Timed out. Ends: <t:${Math.floor(member.communicationDisabledUntilTimestamp/1000)}:R>\n`:''}Suspiciousness: ${sus}`),
         new Discord.TextDisplayBuilder().setContent(`${member?`> Joined server: <t:${user_join}:R> (<t:${user_join}:t> | <t:${user_join}:d>)`:'User not in server'}
 > Joined discord: <t:${user_create}:R> (<t:${user_create}:t> | <t:${user_create}:d>)`)
       ])

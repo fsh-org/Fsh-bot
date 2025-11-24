@@ -1,95 +1,70 @@
 const Discord = require("discord.js");
 
 const dc = require('../../../text/default_config.js')
-const lat = dc.version;
 
 module.exports = {
   name: "config",
-  info: "Setup the bots cofig for your server",
-  category: "hidden",
+  info: "Setup cofig for the server",
+  category: "admin",
 
   async execute(message, arguments2, fsh) {
-    // temp dev only //
-    if (!fsh.devIds.includes(message.author.id)) return;
-    // ------------- //
     if (!message.member.permissions.has(Discord.PermissionsBitField.Flags.Administrator)) {
       message.channel.send("You don't have the Administrator permission");
       return;
     }
 
-    let ver = fsh.server_config.get(message.guild.id).version;
+    let config = fsh.server_config.get(message.guild.id) ?? dc;
 
-    if (arguments2[0] === 'update') {
-      if (ver === lat) {message.reply("alredy on lastest config, you can reset using fsh!config reset");return;}
-      let con = fsh.server_config.get(message.guild.id) || {};
-      let ne = structuredClone(dc);
-      Object.keys(ne).forEach(key => {
-        if ((Object.keys(con)||[]).includes(key) && key != "version") {
-          ne[key] = con[key]
-        }
-      })
-      fsh.server_config.set(message.guild.id, ne)
-      message.reply("updated!")
-      return;
-    }
     if (arguments2[0] === 'reset') {
-      fsh.server_config.set(message.guild.id, dc)
-      message.reply("config reset!")
+      fsh.server_config.set(message.guild.id, dc);
+      message.reply('config reset!');
       return;
-    }
-
-    let con = fsh.server_config.get(message.guild.id) || {};
-
-    if (arguments2[0] === 'set') {
-      if (!arguments2[1]) {
+    } else if (arguments2[0] === 'set') {
+      let name = (arguments2[1]??'').toLowerCase();
+      let val = (arguments2[2]??'').toLowerCase();
+      if (name.length<1) {
         message.reply('you must include the name of a setting to change');
         return;
       }
-      if (arguments2[1] === 'version' || (!Object.keys(con).includes(arguments2[1]))) {
-        message.reply('could not find setting');
-        return;
-      }
-      switch (arguments2[1]) {
+      switch (name) {
         case 'rob':
-          con.rob = (!(con.rob ?? true));
-          message.reply('robbing '+(con.rob?'enabled':'disabled'))
-          fsh.server_config.set(message.guild.id, con)
+          config.rob = val?(val==='true'):(!config.rob);
+          message.reply('robbing '+(config.rob?'enabled':'disabled'));
+          fsh.server_config.set(message.guild.id, config);
           break;
         case 'token_warn':
-          con.token_warn = (!(con.token_warn ?? true));
-          message.reply('token warning '+(con.token_warn?'enabled':'disabled'))
-          fsh.server_config.set(message.guild.id, con)
+          config.token_warn = val?(val==='true'):(!config.token_warn);
+          message.reply('token warning '+(config.token_warn?'enabled':'disabled'));
+          fsh.server_config.set(message.guild.id, config);
           break;
         default:
-          message.reply('could not change setting')
+          message.reply('could not find setting');
       }
       return;
     }
 
-    function val(value) {
+    function bool(value) {
       if (!value) value = false;
-      return (value ? fsh.emojis.good : fsh.emojis.blocker);
+      return fsh.emojis[value?'good':'blocker'];
     }
 
     let embed = new Discord.EmbedBuilder()
       .setTitle(`${fsh.emojis.admin} Config`)
       .setTimestamp()
       .setFooter({ text: `V${fsh.version}` })
-      .setColor("#888888")
-      .setDescription(`${ver === lat ? '' : 'Your config is out of date, use `config update` to upgrade config\n'}**Options:**
-- ${val(con.rob)} Rob: Allow robbing on this server.
-- ${val(con.token_warn)} Token_Warn: Warn users if a file contains a token.`+/*
-- ${val(con.join_gate.active)} Join\\_Gate: Adds role to user on join if over the limit
-Limit: ${con.join_gate.limit} Role: ${con.join_gate.role ? `<@&${con.join_gate.role}>` : 'None'}
-- Command\\_Channel: Channels were fsh commands can be used
-${con.command_channel.length ? con.command_channel.map(s=>`<#${s}>`).join(' ') : 'Everywhere'}
-- ${val(con.leveling.active)} Leveling: Server leveling
+      .setColor('#888888')
+      .setDescription(`- ${bool(config.rob)} rob: Allow robbing on this server.
+- ${bool(config.token_warn)} token_warn: Warn users if a file contains a token.`+/*
+- ${bool(con.join_gate.active)} join_gate: Adds a role to a user when they join if over the limit.${con.join_gate.role?` (<@&${con.join_gate.role}>)`:''}
+join_gate_limit: ${con.join_gate.limit??10}
+- fsh_channel: Channels were people can fsh. (${con.fsh_channel.length?con.fsh_channel.map(s=>`<#${s}>`).join(' ') : 'Everywhere'})
+- ${bool(con.leveling.active)} Leveling: Server leveling
 Notifications: ${val(con.leveling.notifications.active)} Channel: ${con.leveling.notifications.channel ? `<#${con.leveling.notifications.channel}>` : 'None'}
 */`\n
-to update a setting do fsh!config set <name>`);
+to update a setting do fsh!config set <name> (value)`);
 
     message.channel.send({
       embeds: [embed]
-    })
+    });
   }
 };

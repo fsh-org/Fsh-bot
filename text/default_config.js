@@ -13,6 +13,5 @@ module.exports = {
       active: false,
       channel: ''
     }
-  },
-  version: 1
+  }
 };

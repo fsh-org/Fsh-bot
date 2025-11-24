@@ -4,10 +4,11 @@ const PORT = 3001;
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const path = require('path');
-const crypto = require('crypto')
+const path = require('node:path');
+const crypto = require('node:crypto');
 
 const { useQueue, useTimeline } = require('discord-player');
+const UserCheck = require('./user-check.js');
 
 function makeid(length) {
   return Math.floor(Math.random()*(36**length)).toString(36);
@@ -78,20 +79,13 @@ module.exports = {
           break;
         case 'user-check':
           try {
-            let que = req.query
-            let mem = que['id'];
-            let members = {};
-            members[mem] = 0;
-            let susers = {};
-            susers[mem] = fsh.client.guilds.cache.get(que['server']).members.cache.get(mem);
+            let member = fsh.client.guilds.cache.get(req.query['server'])
+              .members.cache.get(req.query['id']);
 
-            require('./commands/admin/scan.js')
-              .UserCheck(mem,members,susers);
-
-            res.status(200)
+            res.status(200);
             res.json({
-              rating: members[mem],
-              username: susers[mem].user.username
+              rating: UserCheck(member.user, member),
+              username: member.user.username
             });
           } catch (err) {
             res.status(500);
@@ -104,7 +98,7 @@ module.exports = {
             res.send('Invalid key');
             return;
           }
-          if (req.query['key'] != process.env['apiKey']) {
+          if (req.query['key'] !== process.env['apiKey']) {
             res.status(400);
             res.send('Invalid key');
             return;
