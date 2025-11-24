@@ -43,7 +43,7 @@ module.exports = {
     let pres = "";
     get_presences(member).forEach(e => {
       pres = pres + fsh.emojis[String(e)]
-    })
+    });
 
     let sus = UserCheck(user,member);
 
@@ -59,7 +59,7 @@ module.exports = {
 
     let user_section = new Discord.SectionBuilder()
       .addTextDisplayComponents([
-        new Discord.TextDisplayBuilder().setContent(`## ${user.globalName??user.username} ${pres}`),
+        new Discord.TextDisplayBuilder().setContent(`## ${user.globalName??user.username}${user.primaryGuild?.tag?` [${user.primaryGuild.tag}]`:''} ${pres}`),
         new Discord.TextDisplayBuilder().setContent(`-# ${user.id}
 Display: ${user.globalName??user.username} (${member.nickname??'No nickname'})
 Username: ${user.username}${user.discriminator.length<3?'':`#${user.discriminator}`}
@@ -72,23 +72,22 @@ ${member.isCommunicationDisabled()?`:warning: Timed out. Ends: <t:${Math.floor(m
       .setThumbnailAccessory(pfp);
 
     base.addSectionComponents([user_section]);
-/*
+
     base.addSeparatorComponents(new Discord.SeparatorBuilder());
 
     let roles = [];
-    let list = "";
+    let rolMax = 30;
+    let list = '';
     roles = Array.from(member.roles.cache).toSorted((a,b)=>b[1].rawPosition-a[1].rawPosition);
-    roles.slice(0,35).forEach(rol => {
+    roles.slice(0,rolMax).forEach(rol => {
       list = list + `<@&${rol[0]}> `;
-    })
-    if (roles.length != roles.slice(0,35).length) {
-      list = list + `[${roles.length - roles.slice(0,35).length} more]`
-    }
+    });
+    if (roles.length>rolMax) list = list + `[${roles.length-rolMax} more]`;
     let role = new Discord.TextDisplayBuilder()
-      .setContent(`${member.roles.cache.size} Roles. Highest: <@&${member.roles.highest.id}> (color: \`${intToHex(member.roles.highest.colors.primaryColor)}${member.roles.highest.colors.secondaryColor?' > '+intToHex(member.roles.highest.colors.secondaryColor):''}${member.roles.highest.colors.tertiaryColor?' > '+intToHex(member.roles.highest.colors.tertiaryColor):''}\`)
+      .setContent(`${member.roles.cache.size} Roles - Highest: <@&${member.roles.highest.id}> (color: \`${intToHex(member.roles.highest.colors.primaryColor)}${member.roles.highest.colors.secondaryColor?' > '+intToHex(member.roles.highest.colors.secondaryColor):''}${member.roles.highest.colors.tertiaryColor?' > '+intToHex(member.roles.highest.colors.tertiaryColor):''}\`)
 ${list}`);
 
-    base.addTextDisplayComponents([role]);*/
+    base.addTextDisplayComponents([role]);
 
     base.addSeparatorComponents(new Discord.SeparatorBuilder());
 
@@ -103,12 +102,28 @@ ${list}`);
           .setLabel('Avatar')
           .setURL(member.displayAvatarURL({dynamic: true}))
       ]);
+    if (user.avatarDecorationData) {
+      links.addComponents([
+        new Discord.ButtonBuilder()
+          .setStyle(Discord.ButtonStyle.Link)
+          .setLabel('Avatar Deco')
+          .setURL(user.avatarDecorationURL())
+      ]);
+    }
     if (fsh.usrbg.has(user.id) || member.banner) {
       links.addComponents([
         new Discord.ButtonBuilder()
           .setStyle(Discord.ButtonStyle.Link)
-          .setLabel(`Banner${fsh.usrbg.has(user.id)?' [usrbg]':''}`)
+          .setLabel('Banner')
           .setURL(fsh.usrbg.has(user.id)?fsh.usrbg.get(user.id):member.displayBannerURL({dynamic: true}))
+      ]);
+    }
+    if (user.collectibles&&user.collectibles.nameplate) {
+      links.addComponents([
+        new Discord.ButtonBuilder()
+          .setStyle(Discord.ButtonStyle.Link)
+          .setLabel('Nameplate')
+          .setURL(`https://cdn.discordapp.com/assets/collectibles/${user.collectibles.nameplate.asset}asset.webm`)
       ]);
     }
 

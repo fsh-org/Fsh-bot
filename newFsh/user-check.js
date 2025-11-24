@@ -46,7 +46,7 @@ function UserCheck(user, member) {
   // User newness
   let creation = new Date(user.createdAt).getTime();
   if ((creation+4*30*24*60*60*1000)>now) sus += 3; // Less than 4 months +3 sus
-  if ((creation+14*24*60*60*1000)>now) sus += 2; // Less than 14 days +2 sus + ^
+  if ((creation+14*24*60*60*1000)>now) sus += 3; // Less than 14 days +3 sus + ^
   // No pfp +1 sus
   try {
     if (String((member??user)?.displayAvatarURL()??'').includes('embed/')) sus += 1;
@@ -114,7 +114,12 @@ function UserCheck(user, member) {
       if (pres.includes('potato') || pres.includes('uwu')) sus -= 2;
     }
   }
-  return sus;
+  // Less sus
+  if (user.avatarDecorationData) sus -= 3;
+  if (user.collectibles) sus -= 3;
+  if (user.primaryGuild) sus -= 1;
+  // Return
+  return Math.max(sus, 0);
 }
 
 module.exports = UserCheck;
