@@ -25,14 +25,36 @@ function anyInclude(array, str) {
   return inc;
 }
 
+const map = {
+  '𝐀': 'a',
+  '𝐁': 'b',
+  '𝐃': 'd',
+  '𝐄': 'e',
+  '𝐈': 'i',
+  '𝐊': 'k',
+  '𝐋': 'l',
+  '𝐍': 'n',
+  '𝟎': 'o',
+  '𝐏': 'p',
+  '𝐑': 'r',
+  '𝐕': 'v'
+}
+function cleanupstring(str) {
+  str = String(str);
+  Object.entries(map).forEach(k=>{
+    str = str.replaceAll(k[0],k[1]);
+  });
+  return str;
+}
+
 function UserCheck(user, member) {
   let sus = 0;
   let now = Date.now();
   let id = user.id;
   let names = [
-    String(user.username).toLowerCase(),
-    String(user.globalName).toLowerCase()??'',
-    String(member?.nickname??'').toLowerCase()
+    cleanupstring(user.username).toLowerCase(),
+    cleanupstring(user.globalName).toLowerCase()??'',
+    cleanupstring(member?.nickname??'').toLowerCase()
   ].filter(n=>n.length);
   if ((lastRead+5*60*1000)<now) { // 5 mins
     badList = fs.readFileSync('text/bad.txt', 'utf8').split(',');
@@ -71,13 +93,15 @@ function UserCheck(user, member) {
   // Questionable symbols +2 sus (this may give false positives)
   if (anyInclude(names, 'ζ')) sus += 2;
   if (anyInclude(names, 'μ')) sus += 2;
-  // Impersonating bots +5
+  // Impersonating bots +6
+  let botimper = false;
   Object.keys(bots).forEach(b=>{
-    if (anyInclude(names, b)) {
+    if (!botimper&&anyInclude(names, b)) {
       if (user.bot&&bots[b]===id) return;
-      sus += 5;
+      botimper = true;
     }
-  })
+  });
+  if (botimper) sus += 6;
   // N word +8
   if (anyInclude(names, 'nigg')) sus += 8;
   // if name_num_num (spam) account +8
@@ -86,10 +110,14 @@ function UserCheck(user, member) {
     if (reg.test(n)) sus += 8;
   });
   // Scam account +8
-  if (anyInclude(names, '𝐋𝐈𝐍𝐊 𝐈𝐍 𝐁𝐈𝟎')) sus += 8;
-  if (anyInclude(names, '𝐀𝐈𝐑𝐃𝐑𝐎𝐏 𝐋𝐈𝐕𝐄')) sus += 8;
-  if (anyInclude(names, 'check bio')) sus += 8;
-  if (anyInclude(names, 'check my bio')) sus += 8;
+  if (anyInclude(names, 'airdrop live')) sus += 8;
+  if (anyInclude(names, 'bio')&&(anyInclude(names, 'check')||anyInclude(names, 'bio'))) sus += 8;
+  // Questionable +3
+  if (anyInclude(names, ' rape')) sus += 3;
+  // CP sellers +8
+  if ((anyInclude(names, 'mega')&&anyInclude(names, ' link'))||anyInclude(names, 'megalink')) sus += 8;
+  if ((anyInclude(names, 'cp')||anyInclude(names, 'teen'))&&(anyInclude(names, 'seller')||anyInclude(names, 'selling')||anyInclude(names, ' rape'))) sus += 8;
+  if (anyInclude(names, ' cp stuff')) sus += 8;
   // Link for possible ad +4
   adlinks.forEach(lnk=>{
     if (anyInclude(names, lnk)) sus += 4;
