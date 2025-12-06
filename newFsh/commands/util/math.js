@@ -2,13 +2,7 @@ const Discord = require("discord.js");
 const Mexp = require("math-expression-evaluator");
 
 function time_gud(time) {
-  function edr(er,tr) {
-    if (er == 0) {
-      return '';
-    } else {
-      return er+' '+tr+(er>1?'s':'')+' '
-    }
-  }
+  let edr = (er,tr)=>(er===0)?'':er+tr+' ';
   return `${edr(Math.floor(time / 31536000000),'millennium')}${edr(Math.floor(time / 31536000 % 1000),'year')}${edr(Math.floor(time % 31536000 / 604800),'week')}${edr(Math.floor(time / 86400) % 7,'day')}${edr(Math.floor(time / 3600) % 24,'hour')}${edr(Math.floor(time / 60) % 60,'minute')}${edr(time % 60,'second')}`
 }
 

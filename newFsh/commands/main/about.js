@@ -15,11 +15,11 @@ module.exports = {
       }
     }
 
-    var embed = new Discord.EmbedBuilder()
+    let embed = new Discord.EmbedBuilder()
       .setTitle(`${fsh.emojis.fsh} ${inner.about}`)
       .setFooter({ text: `V${fsh.version}` })
       .setTimestamp(new Date())
-      .setColor("#999999")
+      .setColor('#888888')
       .setDescription(`**${inner.links}:**
 [${fsh.emojis.website}](https://fsh.plus) [${fsh.emojis.github}](https://github.com/Fsh-org) [${fsh.emojis.discord}](https://discord.gg/SXcXZN4tkM) [ToS](https://fsh.plus/tos) [PP](https://fsh.plus/pp)
 ${inner.email}: help@fsh.plus
@@ -31,6 +31,6 @@ ${inner.created} ${userin("712342308565024818")} ${inner.and} ${userin("81669147
 
     interaction.reply({
       embeds: [embed]
-    })
+    });
   }
 };

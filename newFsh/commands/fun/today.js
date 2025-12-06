@@ -9,15 +9,15 @@ module.exports = {
     let data = await fetch(`https://today.zenquotes.io/api`);
     data = await data.json()
 
-    var embed = new Discord.EmbedBuilder()
+    let embed = new Discord.EmbedBuilder()
       .setTitle(`Today ${data.date.replace("_"," ")}`)
       .setFooter({ text: `V${fsh.version}` })
       .setTimestamp(new Date())
-      .setColor("#999999")
+      .setColor('#888888')
       .setDescription(data.data.Events.slice(0,4).map(e=>{return e.text}).join("\n\n").replaceAll("&#8211;","–"));
 
     message.channel.send({
       embeds: [embed]
-    })
+    });
   }
 };

@@ -1,6 +1,5 @@
                       > fsh!rob <user> - Tries to rob someone
                       > fsh!captcha - Shows captcha that you can solve
-                      > fsh!translate <language code> <text> - Translates text
 
       case "rob":
         if (
@@ -239,6 +238,3 @@
               });
             });
         });
-
-      case "translate":
-        break;

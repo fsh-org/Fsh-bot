@@ -1,5 +1,5 @@
 const Discord = require("discord.js");
-const os = require("node:os");
+const os = require('node:os');
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 function textToTitleCase(str) {
@@ -17,24 +17,8 @@ function formatBytes(bytes, sufix=true) {
 }
 
 function time_gud(time) {
-  return [
-    Math.floor(time / 60) > 59
-      ? Math.floor(time / 3600) > 23
-        ? false
-          ? null
-          : [
-              Math.floor(time / 86400),
-              "d ",
-              Math.floor(time / 3600) % 24,
-              "h ",
-            ].join("")
-        : String(Math.floor(time / 3600) % 24) + "h "
-      : "",
-    Math.floor(time / 60) % 60,
-    "m ",
-    time % 60,
-    "s",
-  ].join("");
+  let edr = (er,tr)=>(er===0)?'':er+tr+' ';
+  return `${edr(Math.floor(time / 31536000),'y')}${edr(Math.floor(time % 31536000 / 604800),'w')}${edr(Math.floor(time / 86400) % 7,'d')}${edr(Math.floor(time / 3600) % 24,'h')}${edr(Math.floor(time / 60) % 60,'m')}${edr(time % 60,'s')}`
 }
 
 function getCPUInfo() {
@@ -72,7 +56,7 @@ module.exports = {
         return fsh.client.users.cache.get(id).username;
       }
     }
-    let CM = fsh.TxtCmdsFiles.filter(e => {return "main, economy, fun, music, utility, admin".includes(require(e).category)});
+    let CM = fsh.TxtCmdsFiles.filter(e => {return 'main, economy, fun, music, utility, admin'.includes(require(e).category)});
     let lo = []
     let CU = CM.forEach(e => {Array.isArray(require(e).name) ? require(e).name.forEach(t=>lo.push('d')) : lo.push('d')})
 
@@ -87,8 +71,8 @@ module.exports = {
       .setTitle(inner.info)
       .setFooter({ text: `V${fsh.version}` })
       .setTimestamp(new Date())
-      .setColor("#999999")
-      .setDescription(`${inner.created} ${userin("712342308565024818")} ${inner.and} ${userin("816691475844694047")}`);
+      .setColor('#888888')
+      .setDescription(`${inner.created} ${userin('712342308565024818')} ${inner.and} ${userin('816691475844694047')}`);
 
     if (!arguments['versions']) {
       info.addFields({
@@ -109,23 +93,19 @@ module.exports = {
         inline: true,
       });
     }
-    let dete = [];
+    let dete = [inner.version_tip];
     if (arguments['versions']) {
-      let JSONdata = require("../../../package.json").dependencies;
-      Object.keys(JSONdata).forEach(async (key) => {
-        if (key != "discord.js") {
-          dete.push(`${textToTitleCase(key)}: \`${JSONdata[key]}\``);
-        }
+      let JSONdata = require('../../../package.json').dependencies;
+      Object.keys(JSONdata).forEach(key=>{
+        if (key==='discord.js') return;
+        dete.push(`${textToTitleCase(key)}: \`${JSONdata[key]}\``);
       });
-    } else {
-      let dep = require("../../../package.json").dependencies;
-      dete = [inner.version_tip];
     }
     info.addFields({
       name: inner.versions,
-      value: `${fsh.emojis.nodejs} NodeJS: \`${process.version.replace(/v/g, "")}\`
-${fsh.emojis.djs} Discord.js: \`${require("discord.js").version}\`
-${dete.join("\n").replaceAll("^", "")}`,
+      value: `${fsh.emojis.nodejs} NodeJS: \`${process.version.replace(/v/g, '')}\`
+${fsh.emojis.djs} Discord.js: \`${require('discord.js').version}\`
+${dete.join('\n').replaceAll('^', '')}`,
       inline: true,
     });
 

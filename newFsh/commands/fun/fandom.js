@@ -13,22 +13,20 @@ module.exports = {
     image = await image.json();
 
     try {
-      var embed = new Discord.EmbedBuilder()
+      let embed = new Discord.EmbedBuilder()
         .setTitle(`Wiki ${message.content.split(' ')[1].split(".fan")[0].split("://").slice(-1)[0]} "${message.content.split(' ')[1].split("wiki/")[1]}"`)
         .setFooter({ text: `V${fsh.version}` })
         .setTimestamp(new Date())
-        .setColor("#999999")
+        .setColor('#888888')
         .setDescription(data.length > 4050 ? data.slice(0,4050)+"\n\n**Page to big, go to link for full page**" : data);
 
-      if (image.image) {
-        embed.setThumbnail(image.image)
-      }
+      if (image.image) embed.setThumbnail(image.image);
 
       message.channel.send({
         embeds: [embed]
-      })
+      });
     } catch {
-      message.reply('error sending')
+      message.reply('error sending');
     }
   }
 };

@@ -236,6 +236,24 @@
           "info": "Text to convert to rMQR"
         }
       }
+    },
+    "translate": {
+      "name": "translate",
+      "info": "Translate text to another language",
+      "params": {
+        "text": {
+          "name": "text",
+          "info": "Text to translate"
+        },
+        "lang": {
+          "name": "language",
+          "info": "ISO code of language"
+        }
+      },
+      "inner": {
+        "translate": "Translation",
+        "error": "Could not translate"
+      }
     }
   }
 }

@@ -11,12 +11,12 @@ module.exports = {
       .setTitle(inner.ping)
       .setFooter({ text: `V${fsh.version}` })
       .setTimestamp(new Date())
-      .setColor("#999999")
+      .setColor('#888888')
       .setDescription(`${fsh.emojis.ping} ${inner.ping}: \`${fsh.client.ws.ping}ms\`
 ${fsh.emojis.lat} ${inner.latency}: \`${Date.now() - interaction.createdTimestamp}ms\``);
 
     interaction.reply({
       embeds: [ping]
-    })
+    });
   }
 };

@@ -14,19 +14,19 @@ module.exports = {
   category: "utility",
 
   async execute(message, arguments2, fsh) {
-    let data = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${arguments2[0]}`)
+    let data = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${arguments2[0]}`);
     data = await data.json();
     if (data.title) {
-      message.reply('the word was not found')
+      message.reply('the word was not found');
       return;
     }
-    data = data[0]
+    data = data[0];
 
-    var embed = new Discord.EmbedBuilder()
-      .setTitle(`Dictionary`)
+    let embed = new Discord.EmbedBuilder()
+      .setTitle('Dictionary')
       .setFooter({ text: `V${fsh.version}` })
       .setTimestamp(new Date())
-      .setColor("#999999")
+      .setColor('#888888')
       .setDescription(`# ${toTitle(data.word)} ${data.phonetic ? data.phonetic : data.phonetics.filter(e=>{return (e.text||'').length}).map(e=>{e.text})[0] || ''}
 License: [${data.license.name}](${data.license.url})
 Sources: ${data.sourceUrls.join(", ")}`);
@@ -39,11 +39,11 @@ Sources: ${data.sourceUrls.join(", ")}`);
 ${e.synonyms.length ? '**Synonyms:** '+e.synonyms.join(", ") : ''}
 ${e.antonyms.length ? '**Antonyms:** '+e.antonyms.join(", ") : ''}`,
         inline: true
-      })
-    })
+      });
+    });
 
     message.channel.send({
       embeds: [embed]
-    })
+    });
   }
 };

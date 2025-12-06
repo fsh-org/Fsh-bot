@@ -16,26 +16,26 @@ module.exports = {
       return;
     }
 
-    var embed = new Discord.EmbedBuilder()
-      .setTitle("Text QR creator")
+    let embed = new Discord.EmbedBuilder()
+      .setTitle('Text QR creator')
       .setFooter({ text: `V${fsh.version}` })
       .setTimestamp(new Date())
-      .setColor("#999999")
+      .setColor('#888888')
       .setAuthor({
         name: message.member.user.username,
         iconURL: message.member.user.displayAvatarURL({ format: "png" })
       });
 
       QRCode.toString(letext, {
-        type: "image"
+        type: 'image'
       }, async (err, QR) => {
         if (err) return console.warn('There was an error while creating the QR code')
         embed.setDescription(`Text QR created with text
 \`\`\`\n${QR}\`\`\``);
-      })
+      });
 
     message.channel.send({
       embeds: [embed]
-    })
+    });
   }
 };

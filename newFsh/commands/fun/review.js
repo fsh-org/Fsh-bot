@@ -19,37 +19,36 @@ module.exports = {
     let reviews = await fetch(`https://manti.vendicated.dev/api/reviewdb/users/${user.id}/reviews`);
     reviews = await reviews.json();
 
-    var embed = new Discord.EmbedBuilder()
+    let embed = new Discord.EmbedBuilder()
       .setTitle(`${toTitle(user.displayName)}'${user.displayName.endsWith("s") ? "":"s"} reviews (${reviews.reviewCount})`)
       .setFooter({
         text: `V${fsh.version}`
       })
       .setTimestamp(new Date())
-      .setColor("#999999")
+      .setColor('#888888')
       .setThumbnail(user.displayAvatarURL({
         format: "png"
       }));
     if (reviews.reviewCount < 1) {
-      embed.setDescription(`No reviews`)
+      embed.setDescription('No reviews');
     } else if (reviews.success) {
-      if (reviews.reviews[0].comment.includes("opted out")) {
-        embed.setDescription(`User has turned off reviews`)
+      if (reviews.reviews[0].comment.includes('opted out')) {
+        embed.setDescription('User has turned off reviews');
         message.channel.send({
           embeds: [embed]
-        })
+        });
         return;
       }
 
       let fields = [];
       let rews = reviews.reviews;
       if (arguments2[1] != "non" && arguments2[0] != "non") {
-      rews = rews
-        .filter(e => {return e.comment.length > 3 || e.comment == 'fsh'})
-        .filter(e => {return e.comment.length < 100});
-      ["craz","crazy","doodooballs","ass","cum","cock","sex","esex","rule34","xxx","e621","sigma","smoooooth","Roblox Story","My name is Walter Hartwell White","they (put|locked) me in a ","cheese drill"," love men","person (above|below) me is","fanum","poo","edged","btich","bitch","rizz","skibidi"].forEach(e => {
-        let ff = new RegExp(e, "ig");
-        rews = rews.filter(ee => {return !ee.comment.match(ff)});
-      })
+        rews = rews
+          .filter(e=>e.comment.length>3||e.comment==='fsh')
+          .filter(e=>e.comment.length<100);
+        ["craz","doodooballs","ass","cum","cock","sex","esex","xxx","sigma","smoooooth","Roblox Story","My name is Walter Hartwell White","they (put|locked) me in a ","cheese drill","person (above|below) me is","fanum","poo","edged","btich","bitch","rizz","skibidi"].forEach(bad=>{
+          rews = rews.filter(e=>!(new RegExp(bad,'ig')).test(e.comment));
+        });
       }
 
       embed.setDescription(`User reviews powered by [ReviewDB](<https://reviewdb.mantikafasi.dev>)${reviews.reviews.length > rews.length ? "\nSome reviews have been omitted, add non at the end to include.":""}`);
@@ -63,11 +62,11 @@ module.exports = {
       })
       embed.addFields(fields);
     } else {
-      embed.setDescription(`Could not get reviews`)
+      embed.setDescription('Could not get reviews');
     }
 
     message.channel.send({
       embeds: [embed]
-    })
+    });
   }
 };

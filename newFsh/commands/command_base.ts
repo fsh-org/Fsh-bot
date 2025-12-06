@@ -7,14 +7,14 @@ module.exports = {
   /* Name of command: fsh!command_name */
   name: "command_name", /* if multiple: ['name1', 'name2'] */
 
+  /* If its a message or slash command */
+  //slash: false,
+
   /* [param1, required1, param2, required2] */
   //params: ['param1', false],
 
   /* Shown on help menu (not necessary for slash) */
   info: "Info on command",
-
-  /* If its a message or slash command */
-  //slash: false,
 
   /* main, economy, fun, music, utility, admin: anything else will hide it */
   category: "hidden",

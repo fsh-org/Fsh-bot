@@ -1,14 +1,7 @@
 const Discord = require("discord.js");
 
-function edr(er,tr) {
-  if (er == 0) {
-    return '';
-  } else {
-    return er+tr+' '
-  }
-}
-
 function time_gud(time) {
+  let edr = (er,tr)=>(er===0)?'':er+tr+' ';
   return `${edr(Math.floor(time / 31536000),'y')}${edr(Math.floor(time % 31536000 / 604800),'w')}${edr(Math.floor(time / 86400) % 7,'d')}${edr(Math.floor(time / 3600) % 24,'h')}${edr(Math.floor(time / 60) % 60,'m')}${edr(time % 60,'s')}`
 }
 
@@ -19,9 +12,9 @@ module.exports = {
   category: "fun",
 
   async execute(message, arguments2, fsh) {
-    let ff = arguments2[1]
+    let ff = arguments2[1];
     if (!ff) {
-      ff = "";
+      ff = '';
     } else {
       switch (ff) {
         case 'taiko':
@@ -44,14 +37,15 @@ module.exports = {
     data = data[0];
 
     if (!data) {
-      message.reply('user not found')
+      message.reply('user not found');
+      return;
     }
 
-    var embed = new Discord.EmbedBuilder()
+    let embed = new Discord.EmbedBuilder()
       .setTitle(`${data.username} :flag_${data.country.toLowerCase()}: (${data.user_id})`)
       .setFooter({ text: `V${fsh.version}` })
       .setTimestamp(new Date())
-      .setColor("#999999")
+      .setColor('#888888')
       .setThumbnail('http://s.ppy.sh/a/'+data.user_id)
       .setURL('https://osu.ppy.sh/users/'+data.user_id)
       .setDescription(`Level: ${data.level || 1}
@@ -88,6 +82,6 @@ A x${data.count_rank_a || 0}`,
 
     message.channel.send({
       embeds: [embed]
-    })
+    });
   }
 };

@@ -30,17 +30,17 @@ module.exports = {
     data = await data.json();
     data = data.filter(e=>e.can_download).filter(e=>e.name.toLowerCase().includes(s)||e.description.toLowerCase().includes(s));
 
-    var embed = new Discord.EmbedBuilder()
+    let embed = new Discord.EmbedBuilder()
       .setTitle(`Ruleset search "${s}"`)
       .setFooter({ text: `V${fsh.version}` })
       .setTimestamp(new Date())
-      .setColor("#999999")
+      .setColor('#888888')
       .setDescription(`${data.length} results
 ${data.map(e=>`**${e.name}** | By: [${e.owner_detail?.user?.username || 'Deleted'}](https://rulesets.info/profile/${e.owner_detail.id || '0'}) | [${fsh.emojis.fileimport} (${formatBytes(e.status.file_size)})](${e.direct_download_link})
 ${cl(e.description)}`).join('\n')}`);
 
     message.channel.send({
       embeds: [embed]
-    })
+    });
   }
 };
