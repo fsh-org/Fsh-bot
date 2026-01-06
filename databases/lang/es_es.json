@@ -188,6 +188,9 @@
           "name": "texto",
           "info": "Texto a buscar"
         }
+      },
+      "inner": {
+        "non": "Sin resultados"
       }
     },
     "sam": {

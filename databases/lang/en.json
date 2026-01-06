@@ -188,6 +188,9 @@
           "name": "query",
           "info": "Query to search"
         }
+      },
+      "inner": {
+        "non": "No results"
       }
     },
     "sam": {

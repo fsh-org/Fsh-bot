@@ -13,9 +13,14 @@ module.exports = {
   category: 'fun',
 
   async execute(interaction, arguments, fsh) {
-    let data = await fetch(`https://images-api.nasa.gov/search?q=${encodeURIComponent(arguments.query)}&page=1&media_type=image&year_start=1920&year_end=2025`);
+    let inner = fsh.getInnerLocale(interaction);
+    let data = await fetch(`https://images-api.nasa.gov/search?q=${encodeURIComponent(arguments.query)}&page=1&media_type=image&year_start=1920&year_end=2100`);
     data = await data.json();
 
+    if (!(data&&data.collection.items.length)) {
+      interaction.reply(inner.non);
+      return;
+    }
     data = data.collection.items[0].href;
 
     let data2 = await fetch(data);
