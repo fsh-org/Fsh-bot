@@ -1,6 +1,6 @@
 const Discord = require("discord.js");
 
-const filters = 'ad,ascii,bi,blur,communism,deepfry,flip,flop,gay,greyscale,gun,invert,jail,image-mean,pixelate,sepia,uncover,wanted'.split(',');
+const filters = 'ad,ascii,bi,blur,communism,deepfry,flip,flop,fshify,gay,greyscale,gun,invert,jail,image-mean,pixelate,remove-alpha,sepia,uncover,wanted'.split(',');
 
 module.exports = {
   name: "image",
