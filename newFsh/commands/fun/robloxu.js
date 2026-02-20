@@ -58,7 +58,7 @@ module.exports = {
       .setURL(`https://www.roblox.com/users/${data.id}/profile`)
       .setTimestamp()
       .setFooter({ text: `V${fsh.version}` })
-      .setColor("#888888") 
+      .setColor("#888888")
       .setThumbnail(pfp || "https://placehold.co/400x400/ffffff/000000.png?font=open-sans&text=No%20PFP")
       .setDescription(`Id: ${data.id} | Verified: ${data.hasVerifiedBadge} | Banned: ${users.isBanned}
 Created: <t:${Math.floor(new Date(users.created).getTime()/1000)}:R>

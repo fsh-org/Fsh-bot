@@ -203,6 +203,24 @@
         }
       }
     },
+    "wikipedia": {
+      "name": "wikipedia",
+      "info": "Mira artículos de Wikipedia",
+      "params": {
+        "page": {
+          "name": "pagina",
+          "info": "El artículo a mirar"
+        },
+        "lang": {
+          "name": "idioma",
+          "info": "El idioma del artículo"
+        }
+      },
+      "inner": {
+        "full": "Léelo completo en",
+        "fail": "No se pudo encontrar la página"
+      }
+    },
     "math": {
       "name": "mate",
       "info": "Resuelve una expresion matematica",

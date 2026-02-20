@@ -1,4 +1,4 @@
-const Discord = require("discord.js");
+const Discord = require('discord.js');
 const os = require('node:os');
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -32,30 +32,24 @@ function getCPUInfo() {
   }
 
   return {
-    idle: idle, 
+    idle: idle,
     total: total
   };
 }
 
 module.exports = {
-  name: "info",
+  name: 'info',
   slash: true,
   params: [{
     name: 'versions',
     type: 'boolean',
     required: false
   }],
-  category: "main",
+  category: 'main',
 
   async execute(interaction, arguments, fsh) {
     let inner = fsh.getInnerLocale(interaction);
-    function userin(id) {
-      if (interaction.guild.members.cache.has(id)) {
-        return `<@${id}>`;
-      } else {
-        return fsh.client.users.cache.get(id).username;
-      }
-    }
+    let userin = (id)=>interaction.guild.members.cache.has(id)?`<@${id}>`:(fsh.client.users.cache.has(id)?fsh.client.users.cache.get(id).username:'unknown');
     let CM = fsh.TxtCmdsFiles.filter(e => {return 'main, economy, fun, music, utility, admin'.includes(require(e).category)});
     let lo = []
     let CU = CM.forEach(e => {Array.isArray(require(e).name) ? require(e).name.forEach(t=>lo.push('d')) : lo.push('d')})
@@ -95,6 +89,7 @@ module.exports = {
     }
     let dete = [inner.version_tip];
     if (arguments['versions']) {
+      dete = [];
       let JSONdata = require('../../../package.json').dependencies;
       Object.keys(JSONdata).forEach(key=>{
         if (key==='discord.js') return;

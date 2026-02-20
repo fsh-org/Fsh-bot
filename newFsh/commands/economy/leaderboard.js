@@ -1,20 +1,6 @@
 const Discord = require("discord.js");
 
-function userin(id, message, fsh) {
-  if (message.guild.members.cache.has(id)) {
-    return `<@${id}>`;
-  } else {
-    try {
-      return fsh.client.users.cache.get(id).username;
-    } catch (err) {
-      if (id == "1070328185482395690") {
-        return "a727"
-      } else {
-        return "user not with fsh"
-      }
-    }
-  }
-}
+let userin = (id, message, fsh)=>message.guild.members.cache.has(id)?`<@${id}>`:(fsh.client.users.cache.has(id)?fsh.client.users.cache.get(id).username:'unknown');
 
 function global(db, message, fsh) {
   let unsortedLevels = db.all()

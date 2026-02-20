@@ -1,11 +1,11 @@
-const Discord = require("discord.js");
+const Discord = require('discord.js');
 
 module.exports = {
-  name: "ping",
+  name: 'ping',
   slash: true,
-  category: "main",
+  category: 'main',
 
-  async execute(interaction, arguments, fsh) {
+  async execute(interaction, _, fsh) {
     let inner = fsh.getInnerLocale(interaction);
     let ping = new Discord.EmbedBuilder()
       .setTitle(inner.ping)

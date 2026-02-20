@@ -203,6 +203,24 @@
         }
       }
     },
+    "wikipedia": {
+      "name": "wikipedia",
+      "info": "View wikipedia articles",
+      "params": {
+        "page": {
+          "name": "page",
+          "info": "The article to view"
+        },
+        "lang": {
+          "name": "language",
+          "info": "The language of the article"
+        }
+      },
+      "inner": {
+        "full": "Read full on",
+        "fail": "Could not find page"
+      }
+    },
     "math": {
       "name": "math",
       "info": "Resolve a math expression",

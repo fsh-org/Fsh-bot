@@ -1,19 +1,13 @@
-const Discord = require("discord.js");
+const Discord = require('discord.js');
 
 module.exports = {
-  name: "about",
+  name: 'about',
   slash: true,
-  category: "main",
+  category: 'main',
 
-  async execute(interaction, arguments, fsh) {
+  async execute(interaction, _, fsh) {
     let inner = fsh.getInnerLocale(interaction);
-    function userin(id) {
-      if (interaction.guild.members.cache.has(id)) {
-        return `<@${id}>`;
-      } else {
-        return fsh.client.users.cache.get(id).username;
-      }
-    }
+    let userin = (id)=>interaction.guild.members.cache.has(id)?`<@${id}>`:(fsh.client.users.cache.has(id)?fsh.client.users.cache.get(id).username:'unknown');
 
     let embed = new Discord.EmbedBuilder()
       .setTitle(`${fsh.emojis.fsh} ${inner.about}`)
@@ -26,8 +20,8 @@ ${inner.email}: help@fsh.plus
 
 \`${fsh.getLocale(interaction).get('commands.info.name')}\` ${inner.tech}
 
-${inner.created} ${userin("712342308565024818")} ${inner.and} ${userin("816691475844694047")}`)
-      .setThumbnail("https://fsh.plus/fsh.gif");
+${inner.created} ${userin('712342308565024818')} ${inner.and} ${userin('816691475844694047')}`)
+      .setThumbnail('https://fsh.plus/fsh.gif');
 
     interaction.reply({
       embeds: [embed]
