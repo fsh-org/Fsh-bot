@@ -1,11 +1,11 @@
-const Discord = require("discord.js");
-const { useQueue, useTimeline } = require("discord-player");
+const Discord = require('discord.js');
+const { useQueue } = require('discord-player');
 
 module.exports = {
-  name: "filter",
+  name: 'filter',
   params: [],
-  info: "Adds a filter the song",
-  category: "hidden",
+  info: 'Adds a filter the song',
+  category: 'hidden',
 
   async execute(message, arguments2, fsh) {
     // temp dev only //

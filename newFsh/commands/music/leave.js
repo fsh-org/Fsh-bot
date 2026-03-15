@@ -1,11 +1,11 @@
-const Discord = require("discord.js");
-const { useQueue } = require("discord-player");
+const Discord = require('discord.js');
+const { useQueue } = require('discord-player');
 
 module.exports = {
-  name: ["leave", "stop"],
+  name: ['leave', 'stop'],
   params: [],
-  info: "Stop the music and make the bot leave",
-  category: "music",
+  info: 'Stop the music and make the bot leave',
+  category: 'music',
 
   async execute(message, arguments2, fsh) {
     if (fsh.music.checkVoice(message)) return;

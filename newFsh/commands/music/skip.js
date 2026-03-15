@@ -1,11 +1,11 @@
-const Discord = require("discord.js");
-const { useQueue } = require("discord-player");
+const Discord = require('discord.js');
+const { useQueue } = require('discord-player');
 
 module.exports = {
-  name: "skip",
+  name: 'skip',
   params: [],
-  info: "Skips the current song",
-  category: "music",
+  info: 'Skips the current song',
+  category: 'music',
 
   async execute(message, arguments2, fsh) {
     if (fsh.music.checkVoice(message)) return;

@@ -1,11 +1,11 @@
-const Discord = require("discord.js");
-const { useQueue } = require("discord-player");
+const Discord = require('discord.js');
+const { useQueue } = require('discord-player');
 
 module.exports = {
-  name: ["pause", "resume"],
+  name: ['pause', 'resume'],
   params: [],
-  info: "Pause or resume the current queue",
-  category: "music",
+  info: 'Pause or resume the current queue',
+  category: 'music',
 
   async execute(message, arguments2, fsh) {
     if (fsh.music.checkVoice(message)) return;

@@ -1,20 +1,19 @@
 const Discord = require('discord.js');
-const { Player } = require('discord-player');
+const { Player, GuildQueueEvent } = require('discord-player');
+const { DefaultExtractors } = require('@discord-player/extractor');
 const { YoutubeiExtractor } = require('discord-player-youtubei');
 const { Log } = require('youtubei.js');
 Log.setLevel(Log.Level.NONE);
 
 function prettyNumber(x) {
-  x = x.toString();
-  x = x.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-  return x;
+  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
 }
 
 async function createMusic(fsh) {
   // Useful functions
   fsh.music = {
-    setStatus: function(channel, text){
-      fetch('https://discord.com/api/v10/channels/'+channel+'/voice-status', {
+    setStatus: (channel, text)=>{
+      fetch(`https://discord.com/api/v10/channels/${channel}/voice-status`, {
         method: 'PUT',
         headers: {
           'content-type': 'application/json',
@@ -23,21 +22,21 @@ async function createMusic(fsh) {
         body: JSON.stringify({ status: text })
       })
     },
-    checkVoice: function(message){
+    checkVoice: (message)=>{
       if (!message.member.voice?.channel) {
         message.reply('connect to a voice channel');
         return true;
       };
       return false
     },
-    checkQueue: function(message, queue){
+    checkQueue: (message, queue)=>{
       if (!queue) {
         message.reply('no queue in this server');
         return true;
       };
       return false
     },
-    checkSameVoice: function(message, queue){
+    checkSameVoice: (message, queue)=>{
       if (queue) {
         if (queue.metadata.voice.id !== message.member.voice.channel.id) {
           message.reply('you are not in my voice channel');
@@ -55,46 +54,71 @@ async function createMusic(fsh) {
   });
 
   // Music extractors
-  await player.extractors.loadDefault((ext) => ext !== 'YouTubeExtractor');
+  await player.extractors.loadMulti(DefaultExtractors);
   await player.extractors.register(YoutubeiExtractor, {
-    overrideBridgeMode: "ytmusic",
+    overrideBridgeMode: 'ytmusic',
+    cookie: process.env.yt,
     streamOptions: {
-      useClient: 'iOS',
+      useClient: 'WEB',
       highWaterMark: 2 * 1_024 * 1_024
     }
   });
 
   // Events
-  player.events.on('playerStart', (queue, track) => {
-    fsh.music.setStatus(queue.metadata.voice.id, 'Playing: '+track.cleanTitle)
-    let embed = new Discord.EmbedBuilder()
-      .setTitle(`${fsh.emojis.music} Now Playing: ${track.raw.source} - ${track.cleanTitle}`)
-      .setDescription(`Views: ${prettyNumber(track.views)} Duration: ${track.duration}`)
-      .setFooter({ text: `V${fsh.version}` })
-      .setTimestamp(new Date())
-      .setColor("#888888")
-      .setURL(track.url)
-      .setImage(track.thumbnail)
-      .setAuthor({
-        name: track.author.replace(' - Topic','')
-      });
+  player.events.on(GuildQueueEvent.PlayerStart, (queue, track) => {
+    fsh.music.setStatus(queue.metadata.voice.id, track.cleanTitle)
+
+    let base = new Discord.ContainerBuilder()
+      .setAccentColor(parseInt('888888', '16'));
+
+    base.addTextDisplayComponents([
+      new Discord.TextDisplayBuilder().setContent(`# ${fsh.emojis.music} ${track.cleanTitle}
+By: ${track.author.replace(' - Topic', '')} | Views: ${prettyNumber(track.views)} | Duration: ${track.duration}`)
+    ]);
+
+    base.addMediaGalleryComponents([
+      new Discord.MediaGalleryBuilder().addItems([
+        new Discord.MediaGalleryItemBuilder()
+          .setURL(track.thumbnail)
+          .setDescription('Thumbnail of the video')
+      ])
+    ]);
+
+    base.addActionRowComponents([
+      new Discord.ActionRowBuilder()
+        .addComponents([
+          new Discord.ButtonBuilder()
+            .setStyle(Discord.ButtonStyle.Link)
+            .setLabel('View on '+track.raw.source)
+            .setURL(track.url)
+        ])
+    ]);
 
     queue.metadata.text.send({
-      embeds: [embed]
-    })
+      flags: Discord.MessageFlags.IsComponentsV2,
+      components: [base]
+    });
   });
-  player.events.on('audioTrackAdd', (queue, track) => {
+  player.events.on(GuildQueueEvent.AudioTrackAdd, (queue, track) => {
     if (queue.currentTrack === null) return;
     queue.metadata.text.send(`added ${track.cleanTitle} to queue (${queue.tracks.data.length})`);
   });
-  player.events.on('emptyChannel', (queue) => {
+  player.events.on(GuildQueueEvent.VolumeChange, (queue, old, volume) => {
+    queue.metadata.text.send(`volume set from ${old} to ${volume}`);
+  });
+  player.events.on(GuildQueueEvent.EmptyChannel, (queue) => {
     queue.metadata.text.send(`no one left on the voice channel`);
   });
-  player.events.on('emptyQueue', (queue) => {
+  player.events.on(GuildQueueEvent.EmptyQueue, (queue) => {
     queue.metadata.text.send('nothing left for me to play');
-    fsh.music.setStatus(queue.metadata.voice.id, 'Empty queue')
+    fsh.music.setStatus(queue.metadata.voice.id, 'Empty queue');
   });
-  player.events.on('error', (queue, error) => {
+  player.events.on(GuildQueueEvent.Error, (queue, error) => {
+    console.log(error);
+    queue.metadata.text.send('there was an error, leaving...');
+    queue.delete();
+  });
+  player.events.on(GuildQueueEvent.PlayerError, (queue, error) => {
     console.log(error);
     queue.metadata.text.send('there was an error, leaving...');
     queue.delete();
