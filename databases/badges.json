@@ -1,10 +1,14 @@
 {
   "dev": {
     "emoji": "fsh",
-    "name": "***dev***"
+    "name": "***Dev***"
   },
   "cake": {
     "emoji": "cake",
-    "name": "its a lie"
+    "name": "*It's a lie*"
+  },
+  "rck26": {
+    "emoji": "rock",
+    "name": "*Rck 2026*"
   }
 }
