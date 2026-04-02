@@ -10,6 +10,7 @@ module.exports = {
   category: "hidden",
 
   async execute(message, arguments2, fsh) {
+    if (!fsh.user_badges.has(message.member.id)) fsh.user_badges.set(message.member.id, []);
     if (fsh.user_badges.get(message.member.id).includes('rck26')) {
       message.reply('depleted');
     } else {
