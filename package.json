@@ -41,7 +41,7 @@
     "qrcode": "^1.5.4",
     "socket.io": "^4.8.3",
     "usrbg": "^0.1.2",
-    "youtube-dl-exec": "^3.1.6"
+    "youtube-dl-exec": "^3.1.7"
   },
   "devDependencies": {
     "nodemon": "^3.1.14"
