@@ -171,6 +171,7 @@ module.exports = {
   VIDEO_QUALITY_1080_60FPS: 'Video 1080p 60fps',
   VIP_REGIONS: 'VIP regions',
   VOICE_CHANNEL_EFFECTS: 'Voice channel effects',
+  VOICE_CHANNEL_HISTORY_DISABLED: 'Voice history disabled',
   VOICE_IN_THREADS: 'Voice in threads',
   WELCOME_SCREEN_ENABLED: 'Welcome screen'
 }
