@@ -36,10 +36,10 @@ module.exports = {
     /* -- No bots -- */
     if (message.author.bot) return;
     /* -- Check if token -- */
-    const fileTypes = ['text/plain', 'application/json'];
-    if ((fsh.server_config.get(message.guild.id)??{})?.token_warn||false) {
+    const serverConfig = fsh.server_config.get(message.guild.id)??{};
+    if (serverConfig?.token_warn||false) {
       const files = Array.from(message.attachments);
-      files.map(file=>fileTypes.includes(file[1].contentType)?file[1]:'').filter(file=>file.length);
+      files.map(file=>['text/plain','application/json'].includes(file[1].contentType)?file[1]:'').filter(file=>file.length);
       if (files.length) {
         files.forEach(async file=>{
           try {
@@ -53,6 +53,43 @@ module.exports = {
           }
         })
       }
+    }
+    /* -- Check if casino -- */
+    if (serverConfig?.prevent_casino?.active||false) {
+      const files = Array.from(message.attachments);
+      if (files.length===2&&
+        files[0][1].contentType === 'image/jpeg'&&files[1][1].contentType === 'image/jpeg'&&
+        files[0][1].name === 'image.jpg'&&files[1][1].name === 'image.jpg'&&
+        files[0][1].width >= 810&&files[0][1].width <= 840&&
+        files[0][1].height >= 1111&&files[0][1].height <= 1141&&
+        files[1][1].width >= 996&&files[1][1].width <= 1026&&
+        files[1][1].height >= 1259&&files[1][1].height <= 1289) {
+          try {
+            switch (serverConfig.prevent_casino.action) {
+              case 'timeout':
+                message.member.disableCommunicationUntil(Date.now()+(5*60*1000), 'Automated - Casino scam');
+                break;
+            }
+          } catch(err) {
+            // Ignore :3
+          }
+          if (serverConfig.prevent_casino.data_share) {
+            fetch('https://discord.com/api/webhooks/1523264886145028137/oYeA7X-NURNxlp0gZH8R7o_yD1s2lUQIJfuZgXByJEU7OzOF5aJWLYm0iC2UzP7N6tqL', {
+              method: 'POST',
+              headers: {
+                'content-type': 'application/json'
+              },
+              body: JSON.stringify({
+                content: `${message.author.id}
+> Reason: Scam (Casino)
+> Server: ${message.guild.name}
+> Action: ${serverConfig.prevent_casino.action}
+> Message: ${message.url}`
+              })
+            });
+          }
+          return;
+        }
     }
     /* -- If "fsh" add fsh -- */
     if (message.content &&
@@ -115,9 +152,7 @@ module.exports = {
     if (!(message.content.toLowerCase()??'').startsWith(prefix)) return;
     command = command.replace(prefix, '');
 
-    if (!fsh.user_fsh.has(message.author.id)) {
-      fsh.user_fsh.set(message.author.id, 0);
-    }
+    if (!fsh.user_fsh.has(message.author.id)) fsh.user_fsh.set(message.author.id, 0);
 
     /* -- Run command if it exists -- */
     if (!fsh.client.textcommands.filter(c=>!c.slash).has(command)) {

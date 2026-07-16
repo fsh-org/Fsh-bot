@@ -25,13 +25,14 @@
   "license": "CC-BY-NC-4.0",
   "dependencies": {
     "@discord-player/extractor": "^7.2.0",
-    "@snazzah/davey": "^0.1.11",
-    "body-parser": "^2.2.2",
+    "@snazzah/davey": "^0.1.12",
+    "body-parser": "^2.3.0",
+    "cookie-parser": "^1.4.7",
     "cors": "^2.8.6",
-    "discord-api-types": "^0.38.47",
+    "discord-api-types": "^0.38.50",
     "discord-player": "^7.2.0",
     "discord-player-youtubei": "^2.0.0",
-    "discord.js": "^14.26.4",
+    "discord.js": "^14.27.0",
     "easy-json-database": "^1.5.0",
     "express": "^5.2.1",
     "ffmpeg-static": "^5.3.0",
@@ -41,9 +42,14 @@
     "qrcode": "^1.5.4",
     "socket.io": "^4.8.3",
     "usrbg": "^0.1.2",
-    "youtube-dl-exec": "^3.1.7"
+    "youtube-dl-exec": "^3.1.9"
   },
   "devDependencies": {
     "nodemon": "^3.1.14"
+  },
+  "allowScripts": {
+    "esbuild@0.27.4": true,
+    "ffmpeg-static@5.3.0": true,
+    "youtube-dl-exec@3.1.9": true
   }
 }

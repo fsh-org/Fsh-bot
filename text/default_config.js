@@ -6,6 +6,11 @@ module.exports = {
     limit: 10,
     role: ''
   },
+  prevent_casino: {
+    active: false,
+    action: 'timeout',
+    data_share: true
+  },
   fsh_channel: [],
   leveling: {
     active: false,

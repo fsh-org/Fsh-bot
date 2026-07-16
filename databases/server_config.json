@@ -7,6 +7,11 @@
       "limit": 10,
       "role": ""
     },
+    "prevent_casino": {
+      "active": false,
+      "action": "timeout",
+      "data_share": true
+    },
     "fsh_channel": [],
     "leveling": {
       "active": false,
@@ -23,6 +28,11 @@
       "active": false,
       "limit": 10,
       "role": ""
+    },
+    "prevent_casino": {
+      "active": true,
+      "action": "timeout",
+      "data_share": true
     },
     "fsh_channel": [],
     "leveling": {
@@ -41,6 +51,11 @@
       "limit": 10,
       "role": ""
     },
+    "prevent_casino": {
+      "active": false,
+      "action": "timeout",
+      "data_share": true
+    },
     "fsh_channel": [],
     "leveling": {
       "active": false,
@@ -57,6 +72,11 @@
       "active": false,
       "limit": 10,
       "role": ""
+    },
+    "prevent_casino": {
+      "active": false,
+      "action": "timeout",
+      "data_share": true
     },
     "fsh_channel": [],
     "leveling": {
@@ -75,6 +95,11 @@
       "limit": 10,
       "role": ""
     },
+    "prevent_casino": {
+      "active": false,
+      "action": "timeout",
+      "data_share": true
+    },
     "fsh_channel": [],
     "leveling": {
       "active": false,
@@ -91,6 +116,11 @@
       "active": false,
       "limit": 10,
       "role": ""
+    },
+    "prevent_casino": {
+      "active": false,
+      "action": "timeout",
+      "data_share": true
     },
     "fsh_channel": [],
     "leveling": {
@@ -109,6 +139,11 @@
       "limit": 10,
       "role": ""
     },
+    "prevent_casino": {
+      "active": false,
+      "action": "timeout",
+      "data_share": true
+    },
     "fsh_channel": [],
     "leveling": {
       "active": false,
@@ -125,6 +160,11 @@
       "active": false,
       "limit": 10,
       "role": ""
+    },
+    "prevent_casino": {
+      "active": false,
+      "action": "timeout",
+      "data_share": true
     },
     "fsh_channel": [],
     "leveling": {
@@ -143,6 +183,11 @@
       "limit": 10,
       "role": ""
     },
+    "prevent_casino": {
+      "active": false,
+      "action": "timeout",
+      "data_share": true
+    },
     "fsh_channel": [],
     "leveling": {
       "active": false,
@@ -159,6 +204,11 @@
       "active": false,
       "limit": 10,
       "role": ""
+    },
+    "prevent_casino": {
+      "active": false,
+      "action": "timeout",
+      "data_share": true
     },
     "fsh_channel": [],
     "leveling": {
@@ -177,6 +227,11 @@
       "limit": 10,
       "role": ""
     },
+    "prevent_casino": {
+      "active": false,
+      "action": "timeout",
+      "data_share": true
+    },
     "fsh_channel": [],
     "leveling": {
       "active": false,
@@ -190,9 +245,14 @@
     "rob": true,
     "token_warn": true,
     "join_gate": {
-      "active": false,
+      "active": true,
       "limit": 10,
-      "role": ""
+      "role": "1166498149842558996"
+    },
+    "prevent_casino": {
+      "active": true,
+      "action": "timeout",
+      "data_share": true
     },
     "fsh_channel": [],
     "leveling": {
@@ -211,6 +271,11 @@
       "limit": 10,
       "role": ""
     },
+    "prevent_casino": {
+      "active": false,
+      "action": "timeout",
+      "data_share": true
+    },
     "fsh_channel": [],
     "leveling": {
       "active": false,
@@ -227,6 +292,11 @@
       "active": false,
       "limit": 10,
       "role": ""
+    },
+    "prevent_casino": {
+      "active": false,
+      "action": "timeout",
+      "data_share": true
     },
     "fsh_channel": [],
     "leveling": {
@@ -245,6 +315,11 @@
       "limit": 10,
       "role": ""
     },
+    "prevent_casino": {
+      "active": false,
+      "action": "timeout",
+      "data_share": true
+    },
     "fsh_channel": [],
     "leveling": {
       "active": false,
@@ -261,6 +336,11 @@
       "active": false,
       "limit": 10,
       "role": ""
+    },
+    "prevent_casino": {
+      "active": false,
+      "action": "timeout",
+      "data_share": true
     },
     "fsh_channel": [],
     "leveling": {
@@ -279,6 +359,11 @@
       "limit": 10,
       "role": ""
     },
+    "prevent_casino": {
+      "active": false,
+      "action": "timeout",
+      "data_share": true
+    },
     "fsh_channel": [],
     "leveling": {
       "active": false,
@@ -295,6 +380,11 @@
       "active": false,
       "limit": 10,
       "role": ""
+    },
+    "prevent_casino": {
+      "active": false,
+      "action": "timeout",
+      "data_share": true
     },
     "fsh_channel": [],
     "leveling": {
@@ -313,6 +403,11 @@
       "limit": 10,
       "role": ""
     },
+    "prevent_casino": {
+      "active": false,
+      "action": "timeout",
+      "data_share": true
+    },
     "fsh_channel": [],
     "leveling": {
       "active": false,
@@ -329,6 +424,11 @@
       "active": false,
       "limit": 10,
       "role": ""
+    },
+    "prevent_casino": {
+      "active": false,
+      "action": "timeout",
+      "data_share": true
     },
     "fsh_channel": [],
     "leveling": {
@@ -347,6 +447,11 @@
       "limit": 10,
       "role": ""
     },
+    "prevent_casino": {
+      "active": false,
+      "action": "timeout",
+      "data_share": true
+    },
     "fsh_channel": [],
     "leveling": {
       "active": false,
@@ -363,6 +468,11 @@
       "active": false,
       "limit": 10,
       "role": ""
+    },
+    "prevent_casino": {
+      "active": false,
+      "action": "timeout",
+      "data_share": true
     },
     "fsh_channel": [],
     "leveling": {
@@ -381,6 +491,11 @@
       "limit": 10,
       "role": ""
     },
+    "prevent_casino": {
+      "active": false,
+      "action": "timeout",
+      "data_share": true
+    },
     "fsh_channel": [],
     "leveling": {
       "active": false,
@@ -397,6 +512,11 @@
       "active": false,
       "limit": 10,
       "role": ""
+    },
+    "prevent_casino": {
+      "active": false,
+      "action": "timeout",
+      "data_share": true
     },
     "fsh_channel": [],
     "leveling": {
@@ -415,6 +535,11 @@
       "limit": 10,
       "role": ""
     },
+    "prevent_casino": {
+      "active": false,
+      "action": "timeout",
+      "data_share": true
+    },
     "fsh_channel": [],
     "leveling": {
       "active": false,
@@ -431,6 +556,11 @@
       "active": false,
       "limit": 10,
       "role": ""
+    },
+    "prevent_casino": {
+      "active": false,
+      "action": "timeout",
+      "data_share": true
     },
     "fsh_channel": [],
     "leveling": {
@@ -449,6 +579,11 @@
       "limit": 10,
       "role": ""
     },
+    "prevent_casino": {
+      "active": false,
+      "action": "timeout",
+      "data_share": true
+    },
     "fsh_channel": [],
     "leveling": {
       "active": false,
@@ -465,6 +600,11 @@
       "active": false,
       "limit": 10,
       "role": ""
+    },
+    "prevent_casino": {
+      "active": false,
+      "action": "timeout",
+      "data_share": true
     },
     "fsh_channel": [],
     "leveling": {
@@ -483,6 +623,11 @@
       "limit": 10,
       "role": ""
     },
+    "prevent_casino": {
+      "active": false,
+      "action": "timeout",
+      "data_share": true
+    },
     "fsh_channel": [],
     "leveling": {
       "active": false,
@@ -499,6 +644,11 @@
       "active": false,
       "limit": 10,
       "role": ""
+    },
+    "prevent_casino": {
+      "active": false,
+      "action": "timeout",
+      "data_share": true
     },
     "fsh_channel": [],
     "leveling": {
@@ -517,6 +667,11 @@
       "limit": 10,
       "role": ""
     },
+    "prevent_casino": {
+      "active": false,
+      "action": "timeout",
+      "data_share": true
+    },
     "fsh_channel": [],
     "leveling": {
       "active": false,
@@ -533,6 +688,11 @@
       "active": false,
       "limit": 10,
       "role": ""
+    },
+    "prevent_casino": {
+      "active": false,
+      "action": "timeout",
+      "data_share": true
     },
     "fsh_channel": [],
     "leveling": {
@@ -551,6 +711,11 @@
       "limit": 10,
       "role": ""
     },
+    "prevent_casino": {
+      "active": false,
+      "action": "timeout",
+      "data_share": true
+    },
     "fsh_channel": [],
     "leveling": {
       "active": false,
@@ -564,9 +729,14 @@
     "rob": true,
     "token_warn": true,
     "join_gate": {
-      "active": false,
+      "active": true,
       "limit": 10,
       "role": ""
+    },
+    "prevent_casino": {
+      "active": true,
+      "action": "timeout",
+      "data_share": true
     },
     "fsh_channel": [],
     "leveling": {
@@ -585,6 +755,11 @@
       "limit": 10,
       "role": ""
     },
+    "prevent_casino": {
+      "active": false,
+      "action": "timeout",
+      "data_share": true
+    },
     "fsh_channel": [],
     "leveling": {
       "active": false,
@@ -601,6 +776,11 @@
       "active": false,
       "limit": 10,
       "role": ""
+    },
+    "prevent_casino": {
+      "active": false,
+      "action": "timeout",
+      "data_share": true
     },
     "fsh_channel": [],
     "leveling": {
@@ -619,6 +799,11 @@
       "limit": 10,
       "role": ""
     },
+    "prevent_casino": {
+      "active": false,
+      "action": "timeout",
+      "data_share": true
+    },
     "fsh_channel": [],
     "leveling": {
       "active": false,
@@ -635,6 +820,11 @@
       "active": false,
       "limit": 10,
       "role": ""
+    },
+    "prevent_casino": {
+      "active": false,
+      "action": "timeout",
+      "data_share": true
     },
     "fsh_channel": [],
     "leveling": {
@@ -653,6 +843,11 @@
       "limit": 10,
       "role": ""
     },
+    "prevent_casino": {
+      "active": false,
+      "action": "timeout",
+      "data_share": true
+    },
     "fsh_channel": [],
     "leveling": {
       "active": false,
@@ -669,6 +864,11 @@
       "active": false,
       "limit": 10,
       "role": ""
+    },
+    "prevent_casino": {
+      "active": false,
+      "action": "timeout",
+      "data_share": true
     },
     "fsh_channel": [],
     "leveling": {
@@ -687,6 +887,11 @@
       "limit": 10,
       "role": ""
     },
+    "prevent_casino": {
+      "active": true,
+      "action": "timeout",
+      "data_share": true
+    },
     "fsh_channel": [],
     "leveling": {
       "active": false,
@@ -703,6 +908,11 @@
       "active": false,
       "limit": 10,
       "role": ""
+    },
+    "prevent_casino": {
+      "active": false,
+      "action": "timeout",
+      "data_share": true
     },
     "fsh_channel": [],
     "leveling": {
@@ -721,6 +931,11 @@
       "limit": 10,
       "role": ""
     },
+    "prevent_casino": {
+      "active": false,
+      "action": "timeout",
+      "data_share": true
+    },
     "fsh_channel": [],
     "leveling": {
       "active": false,
@@ -737,6 +952,11 @@
       "active": false,
       "limit": 10,
       "role": ""
+    },
+    "prevent_casino": {
+      "active": false,
+      "action": "timeout",
+      "data_share": true
     },
     "fsh_channel": [],
     "leveling": {
@@ -755,6 +975,11 @@
       "limit": 10,
       "role": ""
     },
+    "prevent_casino": {
+      "active": false,
+      "action": "timeout",
+      "data_share": true
+    },
     "fsh_channel": [],
     "leveling": {
       "active": false,
@@ -771,6 +996,11 @@
       "active": false,
       "limit": 10,
       "role": ""
+    },
+    "prevent_casino": {
+      "active": false,
+      "action": "timeout",
+      "data_share": true
     },
     "fsh_channel": [],
     "leveling": {
@@ -789,6 +1019,11 @@
       "limit": 10,
       "role": ""
     },
+    "prevent_casino": {
+      "active": false,
+      "action": "timeout",
+      "data_share": true
+    },
     "fsh_channel": [],
     "leveling": {
       "active": false,
@@ -805,6 +1040,11 @@
       "active": false,
       "limit": 10,
       "role": ""
+    },
+    "prevent_casino": {
+      "active": false,
+      "action": "timeout",
+      "data_share": true
     },
     "fsh_channel": [],
     "leveling": {
@@ -823,6 +1063,11 @@
       "limit": 10,
       "role": ""
     },
+    "prevent_casino": {
+      "active": false,
+      "action": "timeout",
+      "data_share": true
+    },
     "fsh_channel": [],
     "leveling": {
       "active": false,
@@ -839,6 +1084,11 @@
       "active": false,
       "limit": 10,
       "role": ""
+    },
+    "prevent_casino": {
+      "active": false,
+      "action": "timeout",
+      "data_share": true
     },
     "fsh_channel": [],
     "leveling": {
@@ -857,6 +1107,11 @@
       "limit": 10,
       "role": ""
     },
+    "prevent_casino": {
+      "active": false,
+      "action": "timeout",
+      "data_share": true
+    },
     "fsh_channel": [],
     "leveling": {
       "active": false,
@@ -873,6 +1128,11 @@
       "active": false,
       "limit": 10,
       "role": ""
+    },
+    "prevent_casino": {
+      "active": false,
+      "action": "timeout",
+      "data_share": true
     },
     "fsh_channel": [],
     "leveling": {
@@ -891,6 +1151,11 @@
       "limit": 10,
       "role": ""
     },
+    "prevent_casino": {
+      "active": false,
+      "action": "timeout",
+      "data_share": true
+    },
     "fsh_channel": [],
     "leveling": {
       "active": false,
@@ -907,6 +1172,11 @@
       "active": false,
       "limit": 10,
       "role": ""
+    },
+    "prevent_casino": {
+      "active": false,
+      "action": "timeout",
+      "data_share": true
     },
     "fsh_channel": [],
     "leveling": {
@@ -925,6 +1195,11 @@
       "limit": 10,
       "role": ""
     },
+    "prevent_casino": {
+      "active": false,
+      "action": "timeout",
+      "data_share": true
+    },
     "fsh_channel": [],
     "leveling": {
       "active": false,
@@ -941,6 +1216,11 @@
       "active": false,
       "limit": 10,
       "role": ""
+    },
+    "prevent_casino": {
+      "active": false,
+      "action": "timeout",
+      "data_share": true
     },
     "fsh_channel": [],
     "leveling": {
@@ -959,6 +1239,11 @@
       "limit": 10,
       "role": ""
     },
+    "prevent_casino": {
+      "active": false,
+      "action": "timeout",
+      "data_share": true
+    },
     "fsh_channel": [],
     "leveling": {
       "active": false,
@@ -975,6 +1260,11 @@
       "active": false,
       "limit": 10,
       "role": ""
+    },
+    "prevent_casino": {
+      "active": false,
+      "action": "timeout",
+      "data_share": true
     },
     "fsh_channel": [],
     "leveling": {
@@ -993,6 +1283,11 @@
       "limit": 10,
       "role": ""
     },
+    "prevent_casino": {
+      "active": false,
+      "action": "timeout",
+      "data_share": true
+    },
     "fsh_channel": [],
     "leveling": {
       "active": false,
@@ -1009,6 +1304,11 @@
       "active": false,
       "limit": 10,
       "role": ""
+    },
+    "prevent_casino": {
+      "active": false,
+      "action": "timeout",
+      "data_share": true
     },
     "fsh_channel": [],
     "leveling": {
@@ -1027,6 +1327,11 @@
       "limit": 10,
       "role": ""
     },
+    "prevent_casino": {
+      "active": false,
+      "action": "timeout",
+      "data_share": true
+    },
     "fsh_channel": [],
     "leveling": {
       "active": false,
@@ -1043,6 +1348,11 @@
       "active": false,
       "limit": 10,
       "role": ""
+    },
+    "prevent_casino": {
+      "active": false,
+      "action": "timeout",
+      "data_share": true
     },
     "fsh_channel": [],
     "leveling": {
@@ -1061,6 +1371,11 @@
       "limit": 10,
       "role": ""
     },
+    "prevent_casino": {
+      "active": false,
+      "action": "timeout",
+      "data_share": true
+    },
     "fsh_channel": [],
     "leveling": {
       "active": false,
@@ -1077,6 +1392,11 @@
       "active": false,
       "limit": 10,
       "role": ""
+    },
+    "prevent_casino": {
+      "active": false,
+      "action": "timeout",
+      "data_share": true
     },
     "fsh_channel": [],
     "leveling": {
@@ -1095,6 +1415,11 @@
       "limit": 10,
       "role": ""
     },
+    "prevent_casino": {
+      "active": false,
+      "action": "timeout",
+      "data_share": true
+    },
     "fsh_channel": [],
     "leveling": {
       "active": false,
@@ -1111,6 +1436,11 @@
       "active": false,
       "limit": 10,
       "role": ""
+    },
+    "prevent_casino": {
+      "active": false,
+      "action": "timeout",
+      "data_share": true
     },
     "fsh_channel": [],
     "leveling": {
@@ -1129,6 +1459,11 @@
       "limit": 10,
       "role": ""
     },
+    "prevent_casino": {
+      "active": false,
+      "action": "timeout",
+      "data_share": true
+    },
     "fsh_channel": [],
     "leveling": {
       "active": false,
@@ -1145,6 +1480,11 @@
       "active": false,
       "limit": 10,
       "role": ""
+    },
+    "prevent_casino": {
+      "active": false,
+      "action": "timeout",
+      "data_share": true
     },
     "fsh_channel": [],
     "leveling": {
@@ -1163,6 +1503,11 @@
       "limit": 10,
       "role": ""
     },
+    "prevent_casino": {
+      "active": false,
+      "action": "timeout",
+      "data_share": true
+    },
     "fsh_channel": [],
     "leveling": {
       "active": false,
@@ -1179,6 +1524,11 @@
       "active": false,
       "limit": 10,
       "role": ""
+    },
+    "prevent_casino": {
+      "active": false,
+      "action": "timeout",
+      "data_share": true
     },
     "fsh_channel": [],
     "leveling": {
@@ -1197,6 +1547,11 @@
       "limit": 10,
       "role": ""
     },
+    "prevent_casino": {
+      "active": false,
+      "action": "timeout",
+      "data_share": true
+    },
     "fsh_channel": [],
     "leveling": {
       "active": false,
@@ -1213,6 +1568,11 @@
       "active": false,
       "limit": 10,
       "role": ""
+    },
+    "prevent_casino": {
+      "active": false,
+      "action": "timeout",
+      "data_share": true
     },
     "fsh_channel": [],
     "leveling": {
@@ -1231,6 +1591,11 @@
       "limit": 10,
       "role": ""
     },
+    "prevent_casino": {
+      "active": false,
+      "action": "timeout",
+      "data_share": true
+    },
     "fsh_channel": [],
     "leveling": {
       "active": false,
@@ -1247,6 +1612,11 @@
       "active": false,
       "limit": 10,
       "role": ""
+    },
+    "prevent_casino": {
+      "active": false,
+      "action": "timeout",
+      "data_share": true
     },
     "fsh_channel": [],
     "leveling": {
@@ -1265,6 +1635,11 @@
       "limit": 10,
       "role": ""
     },
+    "prevent_casino": {
+      "active": false,
+      "action": "timeout",
+      "data_share": true
+    },
     "fsh_channel": [],
     "leveling": {
       "active": false,
@@ -1281,6 +1656,11 @@
       "active": false,
       "limit": 10,
       "role": ""
+    },
+    "prevent_casino": {
+      "active": false,
+      "action": "timeout",
+      "data_share": true
     },
     "fsh_channel": [],
     "leveling": {
@@ -1299,6 +1679,11 @@
       "limit": 10,
       "role": ""
     },
+    "prevent_casino": {
+      "active": false,
+      "action": "timeout",
+      "data_share": true
+    },
     "fsh_channel": [],
     "leveling": {
       "active": false,
@@ -1315,6 +1700,11 @@
       "active": false,
       "limit": 10,
       "role": ""
+    },
+    "prevent_casino": {
+      "active": false,
+      "action": "timeout",
+      "data_share": true
     },
     "fsh_channel": [],
     "leveling": {
@@ -1333,6 +1723,11 @@
       "limit": 10,
       "role": ""
     },
+    "prevent_casino": {
+      "active": false,
+      "action": "timeout",
+      "data_share": true
+    },
     "fsh_channel": [],
     "leveling": {
       "active": false,
@@ -1349,6 +1744,11 @@
       "active": false,
       "limit": 10,
       "role": ""
+    },
+    "prevent_casino": {
+      "active": false,
+      "action": "timeout",
+      "data_share": true
     },
     "fsh_channel": [],
     "leveling": {
@@ -1367,6 +1767,11 @@
       "limit": 10,
       "role": ""
     },
+    "prevent_casino": {
+      "active": false,
+      "action": "timeout",
+      "data_share": true
+    },
     "fsh_channel": [],
     "leveling": {
       "active": false,
@@ -1383,6 +1788,11 @@
       "active": false,
       "limit": 10,
       "role": ""
+    },
+    "prevent_casino": {
+      "active": true,
+      "action": "timeout",
+      "data_share": true
     },
     "fsh_channel": [],
     "leveling": {
@@ -1401,6 +1811,11 @@
       "limit": 10,
       "role": ""
     },
+    "prevent_casino": {
+      "active": false,
+      "action": "timeout",
+      "data_share": true
+    },
     "fsh_channel": [],
     "leveling": {
       "active": false,
@@ -1417,6 +1832,11 @@
       "active": false,
       "limit": 10,
       "role": ""
+    },
+    "prevent_casino": {
+      "active": false,
+      "action": "timeout",
+      "data_share": true
     },
     "fsh_channel": [],
     "leveling": {
@@ -1435,6 +1855,11 @@
       "limit": 10,
       "role": ""
     },
+    "prevent_casino": {
+      "active": false,
+      "action": "timeout",
+      "data_share": true
+    },
     "fsh_channel": [],
     "leveling": {
       "active": false,
@@ -1451,6 +1876,11 @@
       "active": false,
       "limit": 10,
       "role": ""
+    },
+    "prevent_casino": {
+      "active": false,
+      "action": "timeout",
+      "data_share": true
     },
     "fsh_channel": [],
     "leveling": {
@@ -1469,6 +1899,11 @@
       "limit": 10,
       "role": ""
     },
+    "prevent_casino": {
+      "active": false,
+      "action": "timeout",
+      "data_share": true
+    },
     "fsh_channel": [],
     "leveling": {
       "active": false,
@@ -1485,6 +1920,11 @@
       "active": false,
       "limit": 10,
       "role": ""
+    },
+    "prevent_casino": {
+      "active": false,
+      "action": "timeout",
+      "data_share": true
     },
     "fsh_channel": [],
     "leveling": {
@@ -1503,6 +1943,11 @@
       "limit": 10,
       "role": ""
     },
+    "prevent_casino": {
+      "active": true,
+      "action": "timeout",
+      "data_share": true
+    },
     "fsh_channel": [],
     "leveling": {
       "active": false,
@@ -1519,6 +1964,11 @@
       "active": false,
       "limit": 10,
       "role": ""
+    },
+    "prevent_casino": {
+      "active": false,
+      "action": "timeout",
+      "data_share": true
     },
     "fsh_channel": [],
     "leveling": {
@@ -1537,6 +1987,11 @@
       "limit": 10,
       "role": ""
     },
+    "prevent_casino": {
+      "active": false,
+      "action": "timeout",
+      "data_share": true
+    },
     "fsh_channel": [],
     "leveling": {
       "active": false,
@@ -1553,6 +2008,11 @@
       "active": false,
       "limit": 10,
       "role": ""
+    },
+    "prevent_casino": {
+      "active": false,
+      "action": "timeout",
+      "data_share": true
     },
     "fsh_channel": [],
     "leveling": {
@@ -1571,6 +2031,11 @@
       "limit": 10,
       "role": ""
     },
+    "prevent_casino": {
+      "active": false,
+      "action": "timeout",
+      "data_share": true
+    },
     "fsh_channel": [],
     "leveling": {
       "active": false,
@@ -1588,6 +2053,11 @@
       "limit": 10,
       "role": ""
     },
+    "prevent_casino": {
+      "active": false,
+      "action": "timeout",
+      "data_share": true
+    },
     "fsh_channel": [],
     "leveling": {
       "active": false,
@@ -1604,6 +2074,583 @@
       "active": false,
       "limit": 10,
       "role": ""
+    },
+    "prevent_casino": {
+      "active": false,
+      "action": "timeout",
+      "data_share": true
+    },
+    "fsh_channel": [],
+    "leveling": {
+      "active": false,
+      "notifications": {
+        "active": false,
+        "channel": ""
+      }
+    }
+  },
+  "1443334878409134142": {
+    "rob": true,
+    "token_warn": true,
+    "join_gate": {
+      "active": false,
+      "limit": 10,
+      "role": ""
+    },
+    "prevent_casino": {
+      "active": false,
+      "action": "timeout",
+      "data_share": true
+    },
+    "fsh_channel": [],
+    "leveling": {
+      "active": false,
+      "notifications": {
+        "active": false,
+        "channel": ""
+      }
+    }
+  },
+  "1281247793964519546": {
+    "rob": true,
+    "token_warn": true,
+    "join_gate": {
+      "active": false,
+      "limit": 10,
+      "role": ""
+    },
+    "prevent_casino": {
+      "active": false,
+      "action": "timeout",
+      "data_share": true
+    },
+    "fsh_channel": [],
+    "leveling": {
+      "active": false,
+      "notifications": {
+        "active": false,
+        "channel": ""
+      }
+    }
+  },
+  "1430956863167402036": {
+    "rob": true,
+    "token_warn": true,
+    "join_gate": {
+      "active": false,
+      "limit": 10,
+      "role": ""
+    },
+    "prevent_casino": {
+      "active": false,
+      "action": "timeout",
+      "data_share": true
+    },
+    "fsh_channel": [],
+    "leveling": {
+      "active": false,
+      "notifications": {
+        "active": false,
+        "channel": ""
+      }
+    }
+  },
+  "1453229493761216684": {
+    "rob": true,
+    "token_warn": true,
+    "join_gate": {
+      "active": false,
+      "limit": 10,
+      "role": ""
+    },
+    "prevent_casino": {
+      "active": false,
+      "action": "timeout",
+      "data_share": true
+    },
+    "fsh_channel": [],
+    "leveling": {
+      "active": false,
+      "notifications": {
+        "active": false,
+        "channel": ""
+      }
+    }
+  },
+  "873314537359687700": {
+    "rob": true,
+    "token_warn": true,
+    "join_gate": {
+      "active": false,
+      "limit": 10,
+      "role": ""
+    },
+    "prevent_casino": {
+      "active": false,
+      "action": "timeout",
+      "data_share": true
+    },
+    "fsh_channel": [],
+    "leveling": {
+      "active": false,
+      "notifications": {
+        "active": false,
+        "channel": ""
+      }
+    }
+  },
+  "1462732932945936600": {
+    "rob": true,
+    "token_warn": true,
+    "join_gate": {
+      "active": false,
+      "limit": 10,
+      "role": ""
+    },
+    "prevent_casino": {
+      "active": false,
+      "action": "timeout",
+      "data_share": true
+    },
+    "fsh_channel": [],
+    "leveling": {
+      "active": false,
+      "notifications": {
+        "active": false,
+        "channel": ""
+      }
+    }
+  },
+  "1307642516904083496": {
+    "rob": true,
+    "token_warn": true,
+    "join_gate": {
+      "active": false,
+      "limit": 10,
+      "role": ""
+    },
+    "prevent_casino": {
+      "active": false,
+      "action": "timeout",
+      "data_share": true
+    },
+    "fsh_channel": [],
+    "leveling": {
+      "active": false,
+      "notifications": {
+        "active": false,
+        "channel": ""
+      }
+    }
+  },
+  "1464268743386599608": {
+    "rob": true,
+    "token_warn": true,
+    "join_gate": {
+      "active": false,
+      "limit": 10,
+      "role": ""
+    },
+    "prevent_casino": {
+      "active": false,
+      "action": "timeout",
+      "data_share": true
+    },
+    "fsh_channel": [],
+    "leveling": {
+      "active": false,
+      "notifications": {
+        "active": false,
+        "channel": ""
+      }
+    }
+  },
+  "1464444490457678112": {
+    "rob": true,
+    "token_warn": true,
+    "join_gate": {
+      "active": false,
+      "limit": 10,
+      "role": ""
+    },
+    "prevent_casino": {
+      "active": false,
+      "action": "timeout",
+      "data_share": true
+    },
+    "fsh_channel": [],
+    "leveling": {
+      "active": false,
+      "notifications": {
+        "active": false,
+        "channel": ""
+      }
+    }
+  },
+  "1462964828145586359": {
+    "rob": true,
+    "token_warn": true,
+    "join_gate": {
+      "active": false,
+      "limit": 10,
+      "role": ""
+    },
+    "prevent_casino": {
+      "active": false,
+      "action": "timeout",
+      "data_share": true
+    },
+    "fsh_channel": [],
+    "leveling": {
+      "active": false,
+      "notifications": {
+        "active": false,
+        "channel": ""
+      }
+    }
+  },
+  "692455855899017286": {
+    "rob": true,
+    "token_warn": true,
+    "join_gate": {
+      "active": false,
+      "limit": 10,
+      "role": ""
+    },
+    "prevent_casino": {
+      "active": false,
+      "action": "timeout",
+      "data_share": true
+    },
+    "fsh_channel": [],
+    "leveling": {
+      "active": false,
+      "notifications": {
+        "active": false,
+        "channel": ""
+      }
+    }
+  },
+  "1466613004081696770": {
+    "rob": true,
+    "token_warn": true,
+    "join_gate": {
+      "active": false,
+      "limit": 10,
+      "role": ""
+    },
+    "prevent_casino": {
+      "active": false,
+      "action": "timeout",
+      "data_share": true
+    },
+    "fsh_channel": [],
+    "leveling": {
+      "active": false,
+      "notifications": {
+        "active": false,
+        "channel": ""
+      }
+    }
+  },
+  "1472282617016750252": {
+    "rob": true,
+    "token_warn": true,
+    "join_gate": {
+      "active": false,
+      "limit": 10,
+      "role": ""
+    },
+    "prevent_casino": {
+      "active": false,
+      "action": "timeout",
+      "data_share": true
+    },
+    "fsh_channel": [],
+    "leveling": {
+      "active": false,
+      "notifications": {
+        "active": false,
+        "channel": ""
+      }
+    }
+  },
+  "1459288553510146190": {
+    "rob": true,
+    "token_warn": true,
+    "join_gate": {
+      "active": false,
+      "limit": 10,
+      "role": ""
+    },
+    "prevent_casino": {
+      "active": false,
+      "action": "timeout",
+      "data_share": true
+    },
+    "fsh_channel": [],
+    "leveling": {
+      "active": false,
+      "notifications": {
+        "active": false,
+        "channel": ""
+      }
+    }
+  },
+  "1423004872973750316": {
+    "rob": true,
+    "token_warn": true,
+    "join_gate": {
+      "active": false,
+      "limit": 10,
+      "role": ""
+    },
+    "prevent_casino": {
+      "active": false,
+      "action": "timeout",
+      "data_share": true
+    },
+    "fsh_channel": [],
+    "leveling": {
+      "active": false,
+      "notifications": {
+        "active": false,
+        "channel": ""
+      }
+    }
+  },
+  "1474775479935303690": {
+    "rob": true,
+    "token_warn": true,
+    "join_gate": {
+      "active": false,
+      "limit": 10,
+      "role": ""
+    },
+    "prevent_casino": {
+      "active": false,
+      "action": "timeout",
+      "data_share": true
+    },
+    "fsh_channel": [],
+    "leveling": {
+      "active": false,
+      "notifications": {
+        "active": false,
+        "channel": ""
+      }
+    }
+  },
+  "1473228676135911427": {
+    "rob": true,
+    "token_warn": true,
+    "join_gate": {
+      "active": false,
+      "limit": 10,
+      "role": ""
+    },
+    "prevent_casino": {
+      "active": false,
+      "action": "timeout",
+      "data_share": true
+    },
+    "fsh_channel": [],
+    "leveling": {
+      "active": false,
+      "notifications": {
+        "active": false,
+        "channel": ""
+      }
+    }
+  },
+  "1482511847042056194": {
+    "rob": true,
+    "token_warn": true,
+    "join_gate": {
+      "active": false,
+      "limit": 10,
+      "role": ""
+    },
+    "prevent_casino": {
+      "active": false,
+      "action": "timeout",
+      "data_share": true
+    },
+    "fsh_channel": [],
+    "leveling": {
+      "active": false,
+      "notifications": {
+        "active": false,
+        "channel": ""
+      }
+    }
+  },
+  "1483199963788869795": {
+    "rob": true,
+    "token_warn": true,
+    "join_gate": {
+      "active": false,
+      "limit": 10,
+      "role": ""
+    },
+    "prevent_casino": {
+      "active": false,
+      "action": "timeout",
+      "data_share": true
+    },
+    "fsh_channel": [],
+    "leveling": {
+      "active": false,
+      "notifications": {
+        "active": false,
+        "channel": ""
+      }
+    }
+  },
+  "1477482403139289310": {
+    "rob": true,
+    "token_warn": true,
+    "join_gate": {
+      "active": false,
+      "limit": 10,
+      "role": ""
+    },
+    "prevent_casino": {
+      "active": false,
+      "action": "timeout",
+      "data_share": true
+    },
+    "fsh_channel": [],
+    "leveling": {
+      "active": false,
+      "notifications": {
+        "active": false,
+        "channel": ""
+      }
+    }
+  },
+  "1491069734115082300": {
+    "rob": true,
+    "token_warn": true,
+    "join_gate": {
+      "active": false,
+      "limit": 10,
+      "role": ""
+    },
+    "prevent_casino": {
+      "active": false,
+      "action": "timeout",
+      "data_share": true
+    },
+    "fsh_channel": [],
+    "leveling": {
+      "active": false,
+      "notifications": {
+        "active": false,
+        "channel": ""
+      }
+    }
+  },
+  "1477569488198045741": {
+    "rob": true,
+    "token_warn": true,
+    "join_gate": {
+      "active": false,
+      "limit": 10,
+      "role": ""
+    },
+    "prevent_casino": {
+      "active": false,
+      "action": "timeout",
+      "data_share": true
+    },
+    "fsh_channel": [],
+    "leveling": {
+      "active": false,
+      "notifications": {
+        "active": false,
+        "channel": ""
+      }
+    }
+  },
+  "1048617086081052682": {
+    "rob": true,
+    "token_warn": true,
+    "join_gate": {
+      "active": false,
+      "limit": 10,
+      "role": ""
+    },
+    "prevent_casino": {
+      "active": false,
+      "action": "timeout",
+      "data_share": true
+    },
+    "fsh_channel": [],
+    "leveling": {
+      "active": false,
+      "notifications": {
+        "active": false,
+        "channel": ""
+      }
+    }
+  },
+  "1506921084807544832": {
+    "rob": true,
+    "token_warn": true,
+    "join_gate": {
+      "active": false,
+      "limit": 10,
+      "role": ""
+    },
+    "prevent_casino": {
+      "active": false,
+      "action": "timeout",
+      "data_share": true
+    },
+    "fsh_channel": [],
+    "leveling": {
+      "active": false,
+      "notifications": {
+        "active": false,
+        "channel": ""
+      }
+    }
+  },
+  "1519768655838052443": {
+    "rob": true,
+    "token_warn": true,
+    "join_gate": {
+      "active": false,
+      "limit": 10,
+      "role": ""
+    },
+    "prevent_casino": {
+      "active": false,
+      "action": "timeout",
+      "data_share": true
+    },
+    "fsh_channel": [],
+    "leveling": {
+      "active": false,
+      "notifications": {
+        "active": false,
+        "channel": ""
+      }
+    }
+  },
+  "1500548436158845001": {
+    "rob": true,
+    "token_warn": true,
+    "join_gate": {
+      "active": false,
+      "limit": 10,
+      "role": ""
+    },
+    "prevent_casino": {
+      "active": false,
+      "action": "timeout",
+      "data_share": true
     },
     "fsh_channel": [],
     "leveling": {

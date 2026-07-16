@@ -120,6 +120,7 @@ module.exports = {
   PREVIEW_ENABLED: 'Preview',
   PRIVATE_THREADS: 'Private threads',
   PRODUCTS_AVAILABLE_FOR_PURCHASE: 'Products for purchase',
+  PRUNE_REQUIRES_ADMIN: 'Only admin can prune',
   PUBLIC: 'Public',
   PUBLIC_DISABLED: 'Public disabled',
   RAID_ALERTS_DISABLED: 'Raid alerts disabled',
