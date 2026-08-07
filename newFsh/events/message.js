@@ -57,39 +57,45 @@ module.exports = {
     /* -- Check if casino -- */
     if (serverConfig?.prevent_casino?.active||false) {
       const files = Array.from(message.attachments);
-      if (files.length===2&&
+      let two = (files.length===2&&
         files[0][1].contentType === 'image/jpeg'&&files[1][1].contentType === 'image/jpeg'&&
         files[0][1].name === 'image.jpg'&&files[1][1].name === 'image.jpg'&&
         files[0][1].width >= 810&&files[0][1].width <= 840&&
         files[0][1].height >= 1111&&files[0][1].height <= 1141&&
         files[1][1].width >= 996&&files[1][1].width <= 1026&&
-        files[1][1].height >= 1259&&files[1][1].height <= 1289) {
-          try {
-            switch (serverConfig.prevent_casino.action) {
-              case 'timeout':
-                message.member.disableCommunicationUntil(Date.now()+(5*60*1000), 'Automated - Casino scam');
-                break;
-            }
-          } catch(err) {
-            // Ignore :3
+        files[1][1].height >= 1259&&files[1][1].height <= 1289);
+      let one = (files.length===1&&
+        files[0][1].contentType === 'image/jpeg'&&
+        files[0][1].name === 'image.jpg'&&
+        files[0][1].width >= 1262&&files[0][1].width <= 1292&&
+        files[0][1].height >= 815&&files[0][1].height <= 845);
+      if (two||one) {
+        try {
+          switch (serverConfig.prevent_casino.action) {
+            case 'timeout':
+              message.member.disableCommunicationUntil(Date.now()+(5*60*1000), 'Automated - Casino scam');
+              break;
           }
-          if (serverConfig.prevent_casino.data_share) {
-            fetch('https://discord.com/api/webhooks/1523264886145028137/oYeA7X-NURNxlp0gZH8R7o_yD1s2lUQIJfuZgXByJEU7OzOF5aJWLYm0iC2UzP7N6tqL', {
-              method: 'POST',
-              headers: {
-                'content-type': 'application/json'
-              },
-              body: JSON.stringify({
-                content: `${message.author.id}
+        } catch(err) {
+          // Ignore :3
+        }
+        if (serverConfig.prevent_casino.data_share) {
+          fetch(process.env.scamwebhook, {
+            method: 'POST',
+            headers: {
+              'content-type': 'application/json'
+            },
+            body: JSON.stringify({
+              content: `${message.author.id}
 > Reason: Scam (Casino)
-> Server: ${message.guild.name}
+> Server: ${message.guild.id} (${message.guild.name})
 > Action: ${serverConfig.prevent_casino.action}
 > Message: ${message.url}`
-              })
-            });
-          }
-          return;
+            })
+          });
         }
+        return;
+      }
     }
     /* -- If "fsh" add fsh -- */
     if (message.content &&

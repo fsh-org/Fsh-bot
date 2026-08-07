@@ -56,6 +56,9 @@
   "embedded-online": "<:embeddedonline:1399426003218071562>",
   "embedded-idle": "<:embeddedidle:1399425995227795526>",
   "embedded-dnd": "<:embeddeddnd:1399425987162279967>",
+  "vr-online": "<:vronline:1528520162251378688>",
+  "vr-idle": "<:vridle:1528520161089425498>",
+  "vr-dnd": "<:vrdnd:1528520160045039736>",
 
   "good": "<:good:1446830262120878181>",
   "blocker": "<:bad:1446830241229312000>",
