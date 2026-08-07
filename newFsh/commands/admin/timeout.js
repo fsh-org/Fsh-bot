@@ -35,7 +35,7 @@ module.exports = {
       return;
     }
     try {
-      await message.guild.members.fetch(user.id).timeout(arguments2[1], {
+      (await message.guild.members.fetch(user.id)).disableCommunicationUntil(arguments2[1], {
         reason: arguments2.slice(2, arguments2.length).join(" "),
       });
       message.channel.send("ultra beta timeout message: success");

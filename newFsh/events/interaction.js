@@ -10,10 +10,12 @@ module.exports = {
       if (!cmd) {
         interaction.reply('could not find the command');
         console.log('[WARN] '+interaction.commandName+' Not bound to anything');
+        return;
       }
       if (!cmd.slash) {
         interaction.reply('this command is not a slash command');
         console.log('[WARN] '+interaction.commandName+' Was not slash but called as one');
+        return;
       }
       let args = {};
       interaction.options._hoistedOptions.map(a => args[a.name]=a.value);
