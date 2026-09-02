@@ -38,7 +38,7 @@ module.exports = {
     /* -- Check if token -- */
     const serverConfig = fsh.server_config.get(message.guild.id)??{};
     if (serverConfig?.token_warn||false) {
-      const files = Array.from(message.attachments);
+      let files = Array.from(message.attachments);
       files = files.map(file=>['text/plain','application/json'].includes(file[1].contentType)?file[1]:'').filter(file=>file.length);
       if (files.length) {
         files.forEach(async file=>{

@@ -29,27 +29,27 @@
     "body-parser": "^2.3.0",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.6",
-    "discord-api-types": "^0.38.50",
+    "discord-api-types": "^0.38.55",
     "discord-player": "^7.2.0",
     "discord-player-youtubei": "^2.0.0",
     "discord.js": "^14.27.0",
     "easy-json-database": "^1.5.0",
     "express": "^5.2.1",
     "ffmpeg-static": "^5.3.0",
-    "fshdb": "^0.5.0",
+    "fshdb": "^0.5.1",
     "math-expression-evaluator": "^2.0.7",
     "mediaplex": "^1.0.0",
     "qrcode": "^1.5.4",
     "socket.io": "^4.8.3",
     "usrbg": "^0.1.2",
-    "youtube-dl-exec": "^3.1.9"
+    "youtube-dl-exec": "^3.1.14"
   },
   "devDependencies": {
     "nodemon": "^3.1.14"
   },
   "allowScripts": {
-    "esbuild@0.27.4": true,
     "ffmpeg-static@5.3.0": true,
-    "youtube-dl-exec@3.1.9": true
+    "youtube-dl-exec@3.1.14": true,
+    "esbuild@0.27.2": true
   }
 }
