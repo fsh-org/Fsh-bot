@@ -3,14 +3,12 @@
 */
 
 /* -- Start code -- */
-const fs = require("fs");
 console.clear();
-console.log(fs.readFileSync("text/start.txt", "utf8"));
-console.log(`[1;34mDiscord.js:[0m ${require("discord.js").version}`);
+console.log(`[1;34mDiscord.js:[0m ${require('discord.js').version}`);
 
-if (!require("./package.json").dependencies["discord.js"].startsWith("^14"))
-  return new Error("␛[1;31mBot requires d.js@14.15.3␛[0m");
-require("./newFsh/index.js");
+if (!require('./package.json').dependencies['discord.js'].startsWith('^14'))
+  return new Error('␛[1;31mBot requires discord.js@14␛[0m');
+require('./newFsh/index.js');
 
 /*
           -- Cursor rest area --

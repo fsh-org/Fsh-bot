@@ -146,6 +146,8 @@ module.exports = {
   SUMMARIES_DISABLED_BY_USER: 'Summaries disabled',
   SUMMARIES_ENABLED_BY_USER: 'Summaries enabled',
   SUMMARIES_OPT_OUT_EXPERIENCE: 'Summaries enabled by default',
+  SWP_CHANNEL_SUMMARIES_DISABLED: 'Safety summaries disabled',
+  SWP_CHANNEL_MESSAGES_DISABLED: 'Safety messages disabled',
   STAFF_LEVEL_COLLABORATOR_REQUIRED: 'Collaborator or higer only (hallo)',
   STAFF_LEVEL_RESTRICTED_COLLABORATOR_REQUIRED: 'Restricted collaborator or higher only (hewwo)',
   STAGE_CHANNEL_VIEWERS_50: '50 Stage Viewers',
